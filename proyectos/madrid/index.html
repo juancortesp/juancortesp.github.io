@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presión turística y alquiler en Madrid · Case study · Juan Cortés</title>
+<meta name="description" content="Case study de análisis de datos: ¿encarecen los pisos turísticos el alquiler en Madrid? 100 barrios, 5 fuentes, regresión y clustering, con dashboard en Power BI.">
+<meta property="og:title" content="¿Encarecen los pisos turísticos el alquiler en Madrid? · Case study">
+<meta property="og:description" content="100 barrios, 5 fuentes, regresión (R² 0,70), K-means y un dashboard de Power BI.">
+<meta property="og:image" content="https://juancortesp.github.io/proyectos/madrid/img/portada.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--text:#0f172a;--muted:#475569;--soft:#64748b;--line:#e2e8f0;--line2:#cbd5e1;--bg:#fcfcfd;--bg2:#f7f6fb;--accent:#6d28d9;--accent-2:#5b21b6;--accent-bg:#f3eeff;--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:Inter,system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.narrow{max-width:760px}
+.mono{font-family:"JetBrains Mono",monospace}
+
+/* barra superior */
+.bar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:14px;color:var(--muted);min-height:44px}
+.back:hover{color:var(--accent)}
+.back img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:center 22%}
+.toc{display:flex;gap:2px;list-style:none}
+.toc a{display:block;padding:7px 11px;border-radius:9px;font-size:13px;font-weight:500;color:var(--muted);text-decoration:none}
+.toc a:hover{background:var(--bg2);color:var(--text)}
+.toc a.active{background:var(--accent-bg);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;font:600 14px Inter,sans-serif;border:1px solid var(--line2);background:#fff;color:var(--text);text-decoration:none;cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--text)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-2)}
+
+/* cabecera */
+.intro{padding:64px 0 40px;position:relative;overflow:hidden}
+.intro::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 60% at 10% 0%,#ede4ff,transparent 70%),radial-gradient(35% 50% at 95% 10%,#ffe4ef,transparent 70%);pointer-events:none}
+.intro .wrap{position:relative}
+.crumbs{font-size:13px;color:var(--soft);margin-bottom:16px}
+.crumbs a{color:var(--soft)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--accent-bg);color:var(--accent-2)}
+.badge.ok{background:#e7f6ee;color:#0f7a43}
+h1{font-size:clamp(34px,5.4vw,58px);font-weight:900;letter-spacing:-2px;line-height:1.05;max-width:900px}
+.lede{font-size:19px;color:var(--muted);margin-top:16px;max-width:720px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:32px}
+.facts div{background:#fff;padding:16px 18px}
+.facts dt{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--soft);font-weight:600}
+.facts dd{font-size:15px;font-weight:600;margin-top:2px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+.cover{margin-top:8px;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:40px 0 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.kpi .n{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--accent);white-space:nowrap}
+.kpi .l{font-size:13px;color:var(--soft);line-height:1.4}
+
+/* secciones */
+section.s{padding:72px 0;border-top:1px solid var(--line)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px}
+.kicker::before{content:"";width:18px;height:2px;background:var(--accent);border-radius:2px}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin:10px 0 14px}
+.prose p{font-size:17px;color:var(--muted);margin-bottom:14px}
+.prose b{color:var(--text)}
+.question{font-size:22px;font-weight:700;line-height:1.4;letter-spacing:-.3px;border-left:4px solid var(--accent);padding:6px 0 6px 20px;margin:20px 0}
+
+/* proceso */
+.process{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:st;margin-top:24px}
+.st{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 16px}
+.st::before{counter-increment:st;content:"0" counter(st);font:500 12px "JetBrains Mono",monospace;color:var(--accent);display:block;margin-bottom:6px}
+.st h3{font-size:15px;margin-bottom:6px}
+.st p{font-size:13.5px;color:var(--muted);line-height:1.5}
+.st .tool{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--bg2);border:1px solid var(--line);color:var(--muted)}
+
+/* hallazgos */
+.find{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:center;padding:36px 0;border-bottom:1px solid var(--line)}
+.find:last-child{border-bottom:none}
+.find.rev{grid-template-columns:1.1fr .9fr}
+.find.rev .txt{order:2}
+.find .num{font:500 12px "JetBrains Mono",monospace;color:var(--accent)}
+.find h3{font-size:24px;letter-spacing:-.6px;line-height:1.2;margin:6px 0 12px}
+.find p{font-size:16px;color:var(--muted);margin-bottom:12px}
+.find ul{padding-left:18px;color:var(--muted);font-size:15.5px}
+.find li{margin-bottom:6px}
+.find li b{color:var(--text)}
+.shot{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:#fff;cursor:zoom-in;padding:0;display:block;width:100%;transition:.2s}
+.shot:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(15,23,42,.12)}
+.shot img{width:100%;height:auto}
+.cap{font-size:13px;color:var(--soft);margin-top:8px;text-align:center}
+.callout{background:var(--accent-bg);border:1px solid #ddd0ff;border-radius:16px;padding:18px 20px;margin-top:6px}
+.callout b{color:var(--accent-2)}
+.callout p{margin:0;color:var(--text);font-size:15.5px}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);font-weight:600}
+td.r,th.r{text-align:right}
+td b{font-weight:700}
+
+/* conclusiones */
+.concl{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+.cc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.cc .ic{width:38px;height:38px;border-radius:11px;background:var(--accent-bg);display:grid;place-items:center;font-size:18px;margin-bottom:10px}
+.cc h3{font-size:17px;margin-bottom:6px}
+.cc p{font-size:15px;color:var(--muted)}
+.learn{list-style:none;display:grid;gap:10px;margin-top:16px}
+.learn li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--muted)}
+.learn li b{color:var(--text)}
+
+/* stack */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{font-size:13px;font-weight:500;padding:6px 12px;border-radius:10px;background:var(--bg2);border:1px solid var(--line)}
+
+/* pie */
+.next{background:linear-gradient(135deg,#1e1033,#3b1a73 60%,#6d28d9);color:#fff;border-radius:26px;padding:48px 32px;text-align:center;margin:72px 0 40px}
+.next h2{color:#fff}
+.next p{color:#ddd6fe;margin-bottom:22px}
+.next .cta{justify-content:center}
+.next .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.next .btn.primary{background:#fff;color:var(--accent-2);border-color:#fff}
+footer{padding:0 0 40px;color:var(--soft);font-size:14px}
+
+/* lightbox */
+dialog{border:none;padding:0;background:transparent;max-width:min(96vw,1600px);margin:auto}
+dialog::backdrop{background:rgba(15,10,30,.82)}
+dialog img{border-radius:12px;max-height:88vh;width:auto;margin:auto}
+dialog .close{position:fixed;top:16px;right:16px;width:44px;height:44px;border-radius:12px;border:none;background:#fff;font-size:22px;cursor:pointer}
+dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
+
+@media (max-width:960px){
+  .toc{display:none}
+  .facts,.kpis{grid-template-columns:1fr 1fr}
+  .process{grid-template-columns:1fr 1fr}
+  .find,.find.rev{grid-template-columns:1fr}.find.rev .txt{order:0}
+}
+@media (max-width:600px){
+  .process,.concl{grid-template-columns:1fr}
+  section.s{padding:56px 0}
+  table{font-size:13px}th,td{padding:8px 6px}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="back" href="../../#proyectos"><img src="../../assets/juan.jpg" alt="">← Volver al portfolio</a>
+    <ul class="toc" id="toc">
+      <li><a href="#pregunta">Pregunta</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#hallazgos">Hallazgos</a></li>
+      <li><a href="#conclusiones">Conclusiones</a></li>
+    </ul>
+    <a class="btn" href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Código ↗</a>
+  </div>
+</header>
+
+<main>
+<div class="intro">
+  <div class="wrap">
+    <p class="crumbs"><a href="../../">Inicio</a> / <a href="../../#proyectos">Proyectos</a> / Madrid</p>
+    <div class="tags"><span class="badge ok">Análisis de datos</span><span class="badge">Proyecto final · NEOLAND</span></div>
+    <h1>¿Encarecen los pisos turísticos el alquiler en Madrid?</h1>
+    <p class="lede">Crucé 5 fuentes públicas para analizar 100 barrios y separar el efecto de los pisos turísticos del de la ubicación y la renta. El resultado: un dashboard de Power BI para que cualquiera pueda explorar los datos.</p>
+    <dl class="facts">
+      <div><dt>Rol</dt><dd>Proyecto individual</dd></div>
+      <div><dt>Fecha</dt><dd>jul – oct 2026</dd></div>
+      <div><dt>Datos</dt><dd>5 fuentes · 21.978 anuncios</dd></div>
+      <div><dt>Herramientas</dt><dd>Python · Power BI</dd></div>
+    </dl>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Ver código y notebooks ↗</a>
+      <a class="btn" href="#hallazgos">Ir a los hallazgos ↓</a>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="n">100</div><div class="l">barrios analizados</div></div>
+      <div class="kpi"><div class="n">R² 0,70</div><div class="l">de las diferencias de precio explicadas por el modelo</div></div>
+      <div class="kpi"><div class="n">p = 0,033</div><div class="l">efecto de los pisos turísticos: significativo, pero pequeño</div></div>
+      <div class="kpi"><div class="n">3</div><div class="l">perfiles de barrio con K-means</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap"><button class="shot cover" data-cap="Portada del dashboard de Power BI"><img src="img/portada.jpg" alt="Portada del dashboard: Presión turística vs. precio del alquiler en Madrid" width="1280" height="720"></button></div>
+
+<section class="s" id="pregunta" style="margin-top:72px">
+  <div class="wrap narrow prose">
+    <span class="kicker">La pregunta</span>
+    <h2>Un debate con mucha opinión y pocos datos</h2>
+    <p>Se habla mucho de si los pisos turísticos tienen la culpa de que suban los alquileres. Pero los barrios con más Airbnb también suelen ser los más céntricos y los más demandados, así que comparar precios sin más no responde a la pregunta.</p>
+    <p class="question">¿Los barrios con más pisos turísticos tienen alquileres más caros, una vez descontados la renta, la distancia al centro y el crecimiento de población?</p>
+  </div>
+</section>
+
+<section class="s" id="proceso">
+  <div class="wrap">
+    <span class="kicker">Proceso</span>
+    <h2>De 5 fuentes sueltas a un dashboard</h2>
+    <div class="process">
+      <div class="st"><h3>Extracción e integración</h3><p>Idealista (web scraping), Inside Airbnb, INE, Ayuntamiento de Madrid y callejero GeoJSON en un único dataset.</p><span class="tool">Python · ETL</span></div>
+      <div class="st"><h3>Geoespacial</h3><p>Spatial join para asignar los 21.978 anuncios a su barrio y calcular la distancia al centro.</p><span class="tool">GeoPandas</span></div>
+      <div class="st"><h3>Calidad del dato</h3><p>Validación de merges, nulos, duplicados, outliers y rangos de plausibilidad.</p><span class="tool">pandas</span></div>
+      <div class="st"><h3>EDA y modelado</h3><p>Correlación de Spearman, multicolinealidad (VIF), regresión OLS con test RESET y clustering K-means.</p><span class="tool">statsmodels · scikit-learn</span></div>
+      <div class="st"><h3>BI y comunicación</h3><p>Dashboard de 8 páginas con modelo de datos y medidas DAX, pensado para un público no técnico.</p><span class="tool">Power BI · DAX</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="hallazgos">
+  <div class="wrap">
+    <span class="kicker">Hallazgos</span>
+    <h2>Lo que dicen los datos</h2>
+
+    <div class="find">
+      <div class="txt"><span class="num">01</span><h3>El alquiler aprieta en casi toda la ciudad</h3>
+        <ul><li>Alquiler medio de un piso de 70 m²: <b>1.483 €/mes</b>.</li><li>Un piso de 100 m² supera el 30 % de la renta en <b>91 de cada 100 barrios</b>.</li><li>En los barrios de renta baja el esfuerzo es del <b>47 %</b>, el doble que en los de renta alta (<b>23 %</b>).</li></ul></div>
+      <div><button class="shot" data-cap="Esfuerzo del alquiler sobre la renta, por barrio y nivel de renta"><img src="img/esfuerzo.jpg" alt="Dashboard: esfuerzo del alquiler por barrio y por nivel de renta" loading="lazy" width="1800" height="1032"></button><p class="cap">Esfuerzo del alquiler sobre la renta del hogar</p></div>
+    </div>
+
+    <div class="find rev">
+      <div class="txt"><span class="num">02</span><h3>Los pisos turísticos están muy concentrados</h3>
+        <ul><li>El <b>43 %</b> de los anuncios está en un solo distrito: Centro.</li><li>Media de Madrid: <b>1,8</b> pisos turísticos por cada 100 viviendas. En Sol: <b>26,7</b>.</li><li>Los 6 barrios más turísticos son todos del distrito Centro.</li></ul></div>
+      <div><button class="shot" data-cap="Concentración de anuncios de Airbnb en Madrid"><img src="img/concentracion.jpg" alt="Dashboard: concentración de anuncios de Airbnb por barrio" loading="lazy" width="1800" height="1032"></button><p class="cap">Densidad de anuncios turísticos por barrio</p></div>
+    </div>
+
+    <div class="find">
+      <div class="txt"><span class="num">03</span><h3>Lo que más pesa es la ubicación y la renta</h3>
+        <p>El modelo explica el <b>70 %</b> de las diferencias de precio entre barrios. Para un piso de 70 m²:</p>
+        <ul><li><b>−55 €/mes</b> por cada km más lejos del centro.</li><li><b>+14 €/mes</b> por cada 1.000 € más de renta por persona en el barrio.</li><li><b>+12 €/mes</b> por cada punto de crecimiento de población.</li></ul>
+        <div class="callout"><p><b>¿Y los pisos turísticos?</b> Su efecto es estadísticamente significativo (p = 0,033), pero pequeño: como mucho unos <b>31 €/mes</b> en un piso de 70 m², un <b>2,2 %</b> del alquiler medio.</p></div></div>
+      <div><button class="shot" data-cap="Variables que afectan al precio del alquiler"><img src="img/variables.jpg" alt="Dashboard: efecto de la distancia al centro y la renta sobre el precio" loading="lazy" width="1800" height="1032"></button><p class="cap">Distancia al centro y renta frente al precio por m²</p></div>
+    </div>
+
+    <div class="find rev">
+      <div class="txt"><span class="num">04</span><h3>Tres perfiles de barrio</h3>
+        <p>Con K-means (método del codo y coeficiente silhouette), los barrios se agrupan en <b>centro turístico</b>, <b>residencial caro</b> y <b>residencial asequible</b>.</p>
+        <p>El centro turístico tiene <b>7 veces más pisos turísticos</b> que el residencial caro, pero <b>casi el mismo precio</b>. Su problema es que sus vecinos ganan menos.</p></div>
+      <div><button class="shot" data-cap="Perfiles de barrio con K-means"><img src="img/perfiles.jpg" alt="Dashboard: mapa y gráfico de dispersión de los 3 perfiles de barrio" loading="lazy" width="1800" height="1032"></button><p class="cap">Cada punto es un barrio; el color es su perfil</p></div>
+    </div>
+
+    <div class="find">
+      <div class="txt"><span class="num">05</span><h3>¿Y si los pisos turísticos volvieran al alquiler?</h3>
+        <p>Simulé qué pasaría si los pisos turísticos volvieran a ser vivienda habitual:</p>
+        <table>
+          <thead><tr><th>Tipo de barrio</th><th class="r">Ahorro probable</th><th class="r">Ahorro máximo</th></tr></thead>
+          <tbody>
+            <tr><td>Centro turístico</td><td class="r">113 €/mes</td><td class="r"><b>240 €/mes</b></td></tr>
+            <tr><td>Residencial caro</td><td class="r">15 €/mes</td><td class="r">32 €/mes</td></tr>
+            <tr><td>Residencial asequible</td><td class="r">6 €/mes</td><td class="r">12 €/mes</td></tr>
+            <tr><td><b>Madrid</b></td><td class="r"><b>15 €/mes</b></td><td class="r"><b>31 €/mes</b></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:12px">El impacto se nota en el centro, pero en el resto de la ciudad apenas cambia el alquiler.</p></div>
+      <div><button class="shot" data-cap="Simulación: pisos turísticos que vuelven al alquiler"><img src="img/simulacion.jpg" alt="Dashboard: simulación con parámetro de pisos turísticos que vuelven al alquiler" loading="lazy" width="1800" height="1032"></button><p class="cap">Escenario interactivo con un parámetro «¿y si…?»</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="conclusiones">
+  <div class="wrap">
+    <span class="kicker">Conclusiones</span>
+    <h2>Qué significa para la toma de decisiones</h2>
+    <div class="concl">
+      <div class="cc"><div class="ic">📍</div><h3>El precio lo marcan la ubicación y la renta</h3><p>La distancia al centro y la renta del barrio explican la mayor parte de las diferencias de alquiler.</p></div>
+      <div class="cc"><div class="ic">🏠</div><h3>Los pisos turísticos suman, pero poco</h3><p>Su efecto existe, pero en la mayoría de barrios es de pocos euros al mes. Donde de verdad se nota es en el distrito Centro.</p></div>
+      <div class="cc"><div class="ic">🎯</div><h3>Medidas más eficaces si se focalizan</h3><p>Regular los pisos turísticos tendría impacto real en Centro; en el resto de la ciudad, el problema es el esfuerzo sobre la renta.</p></div>
+      <div class="cc"><div class="ic">💶</div><h3>El reto es la accesibilidad</h3><p>Con una media de 1.483 €/mes por 70 m², el alquiler supera el umbral del 30 % de la renta en casi toda la ciudad.</p></div>
+    </div>
+
+    <h3 style="font-size:20px;margin-top:44px">Lo que aprendí</h3>
+    <ul class="learn">
+      <li><b>Cruzar fuentes es la mayor parte del trabajo.</b> Validar cada merge evitó conclusiones sobre datos mal unidos.</li>
+      <li><b>Significativo no es lo mismo que importante.</b> Un efecto puede ser estadísticamente real y tener poco impacto en euros.</li>
+      <li><b>El dashboard es para quien decide.</b> Cada página responde a una sola pregunta con un titular.</li>
+    </ul>
+
+    <h3 style="font-size:20px;margin-top:44px">Stack</h3>
+    <div class="pills"><span class="pill">Python</span><span class="pill">pandas</span><span class="pill">NumPy</span><span class="pill">GeoPandas</span><span class="pill">statsmodels</span><span class="pill">scikit-learn</span><span class="pill">Web scraping</span><span class="pill">Jupyter</span><span class="pill">Power BI</span><span class="pill">DAX</span><span class="pill">Power Query</span><span class="pill">GitHub</span></div>
+
+    <div class="next">
+      <h2>¿Te cuento más?</h2>
+      <p>Revisa el código o escríbeme y te enseño el dashboard en directo.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:infojuancortesp@gmail.com">Escríbeme</a>
+        <a class="btn" href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Código en GitHub ↗</a>
+        <a class="btn" href="../../#proyectos">← Volver a proyectos</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© <span id="y"></span> Juan Cortés Paredes</div></footer>
+
+<dialog id="lb" aria-label="Imagen ampliada"><button class="close" aria-label="Cerrar">×</button><img src="" alt=""><p class="dcap"></p></dialog>
+
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+const lb=document.getElementById('lb'),li=lb.querySelector('img'),lc=lb.querySelector('.dcap');
+document.querySelectorAll('.shot').forEach(b=>b.addEventListener('click',()=>{const i=b.querySelector('img');li.src=i.src;li.alt=i.alt;lc.textContent=b.dataset.cap||'';lb.showModal()}));
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('close'))lb.close()});
+const links=[...document.querySelectorAll('#toc a')];
+const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>ob.observe(s));
+</script>
+</body>
+</html>
