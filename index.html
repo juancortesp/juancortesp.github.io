@@ -343,9 +343,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
         <button class="send" aria-label="Enviar pregunta">→</button>
       </form>
       <div class="sugg" id="sugg">
-        <button type="button">¿Qué sabes hacer con SQL?</button>
+        <button type="button">¿Qué tipo de puesto buscas?</button>
+        <button type="button">¿Tienes disponibilidad inmediata?</button>
+        <button type="button">¿Trabajarías en híbrido en Madrid?</button>
+        <button type="button">¿Qué te diferencia de otros perfiles junior?</button>
+        <button type="button">¿Cuál es tu mayor fortaleza?</button>
         <button type="button">Cuéntame tu mejor proyecto</button>
-        <button type="button">¿Por qué de marketing a datos?</button>
       </div>
     </div>
 
@@ -515,22 +518,27 @@ document.getElementById('postsGrid').innerHTML = POSTS.map(p=>`
 
 /* ============ CHAT «PREGÚNTAME» ============ */
 const KB=[
+ {k:['puesto','rol','que buscas','buscas','sector','marketing analytics','tipo de trabajo'],a:'Busco un puesto donde los datos sean el centro del trabajo. Tengo experiencia en marketing de performance, así que los roles de <b>marketing analytics o performance</b> son una opción que valoro mucho: conozco el negocio por dentro y sé qué preguntas hay que hacerle a los datos. También estoy abierto a puestos de <b>Data Analyst o BI</b> en otros sectores, con nuevos problemas de negocio.'},
+ {k:['disponibilidad','inmediata','incorporar','incorporacion','cuando puedes empezar','empezar'],a:'Sí, tengo <b>disponibilidad inmediata</b> para incorporarme.'},
+ {k:['hibrido','en madrid','a madrid','presencial','oficina','desplazarte','desplazar','remoto','teletrabajo'],a:'Sí. Vivo en Valladolid y estoy disponible para un <b>puesto híbrido en Madrid</b>. La distancia es corta: en tren de alta velocidad estoy en Madrid en alrededor de una hora, así que ir a la oficina varios días a la semana no es un problema.'},
+ {k:['donde vives','de donde eres','vives','ubicacion','ciudad','valladolid'],a:'Vivo en <b>Valladolid</b>. Si el puesto requiere ir a Madrid en formato híbrido, no tengo ningún problema en desplazarme.'},
+ {k:['diferencia','por que tu','contratarte','aportas','aportar','junior','destacas'],a:'Vengo del marketing de performance, donde el día a día es analizar muchos datos y decidir qué palanca mover para conseguir resultados. No llego a los datos solo desde la técnica: estoy acostumbrado a <b>convertir un análisis en una acción y medir su impacto</b>. <a href="#proyectos">Puedes ver mis proyectos aquí →</a>'},
+ {k:['fortaleza','punto fuerte','como eres','como trabajas','cualidad','virtud'],a:'Cuando me propongo algo, no paro hasta encontrar la mejor solución posible. Soy <b>exigente conmigo mismo</b> en todos los ámbitos y muy <b>organizado y estructurado</b>, algo que en análisis de datos se nota: procesos claros, datos validados y conclusiones que se pueden defender.'},
  {k:['sql','consulta','ventana','join','cte','mysql','base de datos'],a:'SQL es mi herramienta principal: JOINs, CTEs, subconsultas y funciones de ventana en MySQL. Empecé a usarlo en BI en Self Bank. <a href="#habilidades">Ver herramientas →</a>'},
- {k:['proyecto','madrid','airbnb','alquiler','mejor','turistic'],a:'Mi proyecto estrella: ¿encarecen los pisos turísticos el alquiler en Madrid? Analicé 100 barrios con 5 fuentes. La regresión explica el 70 % de las diferencias de precio (R² = 0,70). El efecto de los pisos turísticos es significativo (p = 0,033) pero pequeño, como mucho ~31 €/mes; pesan más la ubicación y la renta. <a href="proyectos/madrid/">Ver case study →</a>'},
- {k:['marketing','cambio','por que','porque','transicion','paid','ads','antes'],a:'Llevo años trabajando con datos de negocio: KPIs, dashboards, A/B tests y causa raíz. Me di cuenta de que lo que más me gustaba era el análisis, así que me formé en Data Analytics para dedicarme a ello por completo. <a href="#sobre-mi">Más sobre mí →</a>'},
- {k:['versus','winnder','orenes','apuestas','cpa','cpl','campaña','resultado'],a:'En Orenes Grupo analicé 5 marcas en España, México y Colombia. En VERSUS el CPA bajó un 37 % y el CPL un 29 %; en Winnder los registros subieron un 44 % y la cuenta pasó de pérdidas a break-even. <a href="#proyectos">Ver casos →</a>'},
- {k:['power bi','dashboard','dax','looker','tableau','visualiz','bi'],a:'Power BI con DAX, Power Query y modelado de datos, además de Looker Studio y Tableau. En el proyecto de Madrid hice un dashboard de 8 páginas. <a href="#proyectos">Verlo →</a>'},
+ {k:['proyecto','airbnb','alquiler','mejor','turistic','madrid'],a:'Mi proyecto estrella: ¿encarecen los pisos turísticos el alquiler en Madrid? Analicé 100 barrios con 5 fuentes. La regresión explica el 70 % de las diferencias de precio (R² = 0,70). El efecto de los pisos turísticos es significativo (p = 0,033) pero pequeño, como mucho ~31 €/mes; pesan más la ubicación y la renta. <a href="proyectos/madrid/">Ver case study →</a>'},
+ {k:['versus','winnder','orenes','apuestas','cpa','cpl','campana','resultado'],a:'En Orenes Grupo analicé 5 marcas en España, México y Colombia. En VERSUS el CPA bajó un 37 % y el CPL un 29 %; en Winnder los registros subieron un 44 % y la cuenta pasó de pérdidas a break-even. <a href="#proyectos">Ver casos →</a>'},
+ {k:['marketing a datos','cambio','transicion','paid','ads','antes'],a:'Llevo años trabajando con datos de negocio: KPIs, dashboards, A/B tests y causa raíz. Me di cuenta de que lo que más me gustaba era el análisis, así que me formé en Data Analytics para dedicarme a ello por completo. <a href="#sobre-mi">Más sobre mí →</a>'},
+ {k:['power bi','dashboard','dax','looker','tableau','visualiz'],a:'Power BI con DAX, Power Query y modelado de datos, además de Looker Studio y Tableau. En el proyecto de Madrid hice un dashboard de 8 páginas. <a href="#proyectos">Verlo →</a>'},
  {k:['python','pandas','numpy','limpi','eda','jupyter'],a:'Python con pandas y NumPy en Jupyter para limpiar y explorar datos. Escribí sobre cómo limpié una base de 2.000 clientes. <a href="#posts">Leer posts →</a>'},
  {k:['machine','ml','modelo','regresi','cluster','predic','estadistic'],a:'Uso estadística y machine learning cuando aportan: regresión, clustering K-means, árboles y series temporales. En Madrid usé regresión OLS y K-means.'},
- {k:['experiencia','trabaj','empresa','carrera','donde has'],a:'He trabajado con datos en Self Bank (BI), VORO Marketing, Orenes Grupo y Relevantium: reporting, dashboards, calidad del dato y análisis multimercado. <a href="#experiencia">Ver experiencia →</a>'},
+ {k:['experiencia','trabajado','empresa','carrera','donde has'],a:'He trabajado con datos en Self Bank (BI), VORO Marketing, Orenes Grupo y Relevantium: reporting, dashboards, calidad del dato y análisis multimercado. <a href="#experiencia">Ver experiencia →</a>'},
  {k:['estudi','formacion','bootcamp','neoland','master','grado','universidad'],a:'Bootcamp de Data Analytics en NEOLAND (2026), Máster en Marketing Digital en ESIC y Grado en Comercio en la Universidad de Valladolid. <a href="#educacion">Ver formación →</a>'},
- {k:['contacto','email','correo','hablar','contratar','entrevista'],a:'¡Hablemos! Escríbeme a <a href="mailto:infojuancortesp@gmail.com">infojuancortesp@gmail.com</a> o por <a href="https://www.linkedin.com/in/juan-cortes-paredes" target="_blank" rel="noopener">LinkedIn</a>.'},
- {k:['remoto','ubicacion','valladolid','hibrido','vives','donde vives','presencial'],a:'Vivo en Valladolid y busco puestos en remoto o híbrido.'},
+ {k:['contacto','email','correo','hablar','entrevista','escribirte'],a:'¡Hablemos! Escríbeme a <a href="mailto:infojuancortesp@gmail.com">infojuancortesp@gmail.com</a> o por <a href="https://www.linkedin.com/in/juan-cortes-paredes" target="_blank" rel="noopener">LinkedIn</a>.'},
  {k:['cv','curriculum'],a:'Aquí lo tienes: <a href="cv.html" target="_blank" rel="noopener">ver mi CV</a>.'},
  {k:['ingles','idioma'],a:'Español nativo e inglés avanzado (C1).'},
  {k:['hola','buenas','hey','buenos'],a:'¡Hola! Pregúntame por mis proyectos, mis herramientas o mi experiencia.'}
 ];
-const FALLBACK='Esa no la tengo preparada 😅 Prueba con SQL, mi mejor proyecto, Power BI o mi experiencia. O <a href="#contacto">escríbeme</a> y te respondo yo.';
+const FALLBACK='Esa no la tengo preparada 😅 Prueba con el puesto que busco, mi disponibilidad, mi mejor proyecto o SQL. O <a href="#contacto">escríbeme</a> y te respondo yo.';
 const log=document.getElementById('log'),q=document.getElementById('q');
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function answer(t){const n=norm(t);let best=null,score=0;KB.forEach(e=>{const s=e.k.filter(k=>n.includes(norm(k))).length;if(s>score){score=s;best=e}});return best?best.a:FALLBACK}
