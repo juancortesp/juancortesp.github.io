@@ -11,9 +11,8 @@
 <link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/coches/">
 <link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/coches/en/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style>
 <style>
 :root{--text:#0f172a;--muted:#475569;--soft:#64748b;--line:#e2e8f0;--line2:#cbd5e1;--bg:#fcfcfd;--bg2:#f7f6fb;--accent:#6d28d9;--accent-2:#5b21b6;--accent-bg:#f3eeff;--ok:#0f7a43;--ok-bg:#e7f6ee;--warn:#b45309;--warn-bg:#fef3c7;--bad:#b91c1c;--bad-bg:#fee2e2;--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -179,12 +178,17 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="Juan Cortés Paredes · Data Analyst">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:image:alt" content="Bargain or rip-off? What a used car should really cost">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Bargain or rip-off? What a used car should really cost", "description": "Free calculator that estimates the fair price of a used car in Spain and tells you whether a listing is a bargain, fairly priced or expensive. CatBoost model trained on 71,220 AutoScout24 listings; average error €2,118 (8.5%).", "image": "https://juancortesp.github.io/assets/coches-portada.jpg", "url": "https://juancortesp.github.io/proyectos/coches/en/", "inLanguage": "en", "datePublished": "2026-10", "dateModified": "2026-11-10", "author": {"@type": "Person", "name": "Juan Cortés Paredes", "url": "https://juancortesp.github.io/", "jobTitle": "Data Analyst"}, "about": ["Used cars", "Fair price", "Machine learning"], "isBasedOn": "https://github.com/juancortesp/chollo-o-timo", "mainEntityOfPage": "https://juancortesp.github.io/proyectos/coches/en/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Bargain or rip-off? Fair-price calculator for used cars in Spain", "description": "Free calculator that estimates the fair price of a used car in Spain and tells you whether a listing is a bargain, fairly priced or expensive. CatBoost model trained on 71,220 AutoScout24 listings; average error €2,118 (8.5%).", "url": "https://chollo-o-timo-coches.streamlit.app", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "inLanguage": "es", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Juan Cortés Paredes", "url": "https://juancortesp.github.io/", "jobTitle": "Data Analyst"}}</script>
 </head>
 <body>
 
 <header class="bar">
   <div class="wrap">
-    <a class="back" href="../../../en/#proyectos"><img src="../../../assets/juan.jpg" alt="">← Back to portfolio</a>
+    <a class="back" href="../../../en/#proyectos"><img src="../../../assets/juan-64.webp" alt="" width="32" height="32">← Back to portfolio</a>
     <ul class="toc" id="toc">
       <li><a href="#demo">Demo</a></li>
       <li><a href="#pregunta">Question</a></li>
@@ -233,7 +237,7 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
     <div class="demo">
       <div class="phone">
         <span class="lbl">Demo</span>
-        <video id="vid" src="../demo.mp4" poster="../demo-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="Demo video of the Bargain or rip-off? calculator"></video>
+        <video id="vid" src="../demo.mp4" poster="../demo-poster.webp" muted loop playsinline controls preload="none" aria-label="Demo video of the Bargain or rip-off? calculator"></video>
       </div>
       <div>
         <ol class="walk"><li><b>Enter the car:</b> make, model, fuel, gearbox, body type, province, year, mileage and power.</li><li><b>Add the asking price.</b> In the demo: a 2020 petrol SEAT León with 70,000 km and 130 hp, listed at €13,500.</li><li><b>The model estimates the fair price</b> and a normal range. Here: <b>€16,365</b>, with a range of €14,374 to €18,632.</li><li><b>You get a verdict:</b><div class="verdicts"><span class="v g">🟢 Bargain</span><span class="v y">🟡 Fair price</span><span class="v r">🔴 Expensive</span></div>This listing asks 18% less than its fair price, so it's a bargain.</li><li><b>It explains why</b> with SHAP values: which features push this particular car's price up or down.</li></ol>

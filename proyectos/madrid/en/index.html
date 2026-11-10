@@ -11,9 +11,8 @@
 <link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/madrid/">
 <link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/madrid/en/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style>
 <style>
 :root{--text:#0f172a;--muted:#475569;--soft:#64748b;--line:#e2e8f0;--line2:#cbd5e1;--bg:#fcfcfd;--bg2:#f7f6fb;--accent:#6d28d9;--accent-2:#5b21b6;--accent-bg:#f3eeff;--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -163,12 +162,16 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="Juan Cortés Paredes · Data Analyst">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:image:alt" content="Do tourist flats push up rents in Madrid?">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Do tourist flats push up rents in Madrid?", "description": "Analysis of 100 Madrid neighbourhoods with 5 public sources, OLS regression (R² 0.70), K-means and a Power BI dashboard. The effect of tourist flats is significant but small (≈€31/month).", "image": "https://juancortesp.github.io/proyectos/madrid/img/portada.jpg", "url": "https://juancortesp.github.io/proyectos/madrid/en/", "inLanguage": "en", "datePublished": "2026-10", "dateModified": "2026-11-10", "author": {"@type": "Person", "name": "Juan Cortés Paredes", "url": "https://juancortesp.github.io/", "jobTitle": "Data Analyst"}, "about": ["Rent in Madrid", "Tourist flats", "Airbnb", "Data analysis"], "isBasedOn": "https://github.com/juancortesp/presion-turistica-alquiler-madrid", "mainEntityOfPage": "https://juancortesp.github.io/proyectos/madrid/en/"}</script>
 </head>
 <body>
 
 <header class="bar">
   <div class="wrap">
-    <a class="back" href="../../../en/#proyectos"><img src="../../../assets/juan.jpg" alt="">← Back to portfolio</a>
+    <a class="back" href="../../../en/#proyectos"><img src="../../../assets/juan-64.webp" alt="" width="32" height="32">← Back to portfolio</a>
     <ul class="toc" id="toc">
       <li><a href="#pregunta">Question</a></li>
       <li><a href="#proceso">Process</a></li>
@@ -209,7 +212,7 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
   </div>
 </div>
 
-<div class="wrap"><button class="shot cover" data-cap="Power BI dashboard cover (in Spanish)"><img src="../img/portada.jpg" alt="Dashboard cover: tourist pressure vs rental price in Madrid" width="1280" height="720"></button></div>
+<div class="wrap"><button class="shot cover" data-cap="Power BI dashboard cover (in Spanish)"><img src="../img/portada.webp" fetchpriority="high" alt="Dashboard cover: tourist pressure vs rental price in Madrid" width="1280" height="720"></button></div>
 
 <section class="s" id="pregunta" style="margin-top:72px">
   <div class="wrap narrow prose">
@@ -242,13 +245,13 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
     <div class="find">
       <div class="txt"><span class="num">01</span><h3>Rent is a squeeze across almost the whole city</h3>
         <ul><li>Average rent for a 70 m² flat: <b>€1,483/month</b>.</li><li>A 100 m² flat exceeds 30% of household income in <b>91 out of 100 neighbourhoods</b>.</li><li>In low-income neighbourhoods rent takes <b>47%</b> of income, twice as much as in high-income ones (<b>23%</b>).</li></ul></div>
-      <div><button class="shot" data-cap="Rent burden as a share of income, by neighbourhood and income level"><img src="../img/esfuerzo.jpg" alt="Dashboard: rent burden by neighbourhood and income level" loading="lazy" width="1800" height="1032"></button><p class="cap">Rent burden as a share of household income</p></div>
+      <div><button class="shot" data-cap="Rent burden as a share of income, by neighbourhood and income level"><img src="../img/esfuerzo.webp" srcset="../img/esfuerzo-960.webp 960w, ../img/esfuerzo.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: rent burden by neighbourhood and income level" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Rent burden as a share of household income</p></div>
     </div>
 
     <div class="find rev">
       <div class="txt"><span class="num">02</span><h3>Tourist flats are highly concentrated</h3>
         <ul><li><b>43%</b> of listings are in a single district: Centro.</li><li>Madrid average: <b>1.8</b> tourist flats per 100 homes. In Sol: <b>26.7</b>.</li><li>The 6 most touristic neighbourhoods are all in the Centro district.</li></ul></div>
-      <div><button class="shot" data-cap="Concentration of Airbnb listings in Madrid"><img src="../img/concentracion.jpg" alt="Dashboard: concentration of Airbnb listings by neighbourhood" loading="lazy" width="1800" height="1032"></button><p class="cap">Density of tourist listings by neighbourhood</p></div>
+      <div><button class="shot" data-cap="Concentration of Airbnb listings in Madrid"><img src="../img/concentracion.webp" srcset="../img/concentracion-960.webp 960w, ../img/concentracion.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: concentration of Airbnb listings by neighbourhood" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Density of tourist listings by neighbourhood</p></div>
     </div>
 
     <div class="find">
@@ -256,14 +259,14 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
         <p>The model explains <b>70%</b> of price differences between neighbourhoods. For a 70 m² flat:</p>
         <ul><li><b>−€55/month</b> for every km further from the centre.</li><li><b>+€14/month</b> for every extra €1,000 of income per person in the neighbourhood.</li><li><b>+€12/month</b> for every point of population growth.</li></ul>
         <div class="callout"><p><b>And tourist flats?</b> Their effect is statistically significant (p = 0.033), but small: at most about <b>€31/month</b> for a 70 m² flat, <b>2.2%</b> of the average rent.</p></div></div>
-      <div><button class="shot" data-cap="Variables that affect rental prices"><img src="../img/variables.jpg" alt="Dashboard: effect of distance to the centre and income on price" loading="lazy" width="1800" height="1032"></button><p class="cap">Distance to the centre and income vs price per m²</p></div>
+      <div><button class="shot" data-cap="Variables that affect rental prices"><img src="../img/variables.webp" srcset="../img/variables-960.webp 960w, ../img/variables.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: effect of distance to the centre and income on price" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Distance to the centre and income vs price per m²</p></div>
     </div>
 
     <div class="find rev">
       <div class="txt"><span class="num">04</span><h3>Three neighbourhood profiles</h3>
         <p>With K-means (elbow method and silhouette score), neighbourhoods group into <b>tourist centre</b>, <b>expensive residential</b> and <b>affordable residential</b>.</p>
         <p>The tourist centre has <b>7 times more tourist flats</b> than expensive residential areas, but <b>almost the same price</b>. Its problem is that its residents earn less.</p></div>
-      <div><button class="shot" data-cap="Neighbourhood profiles with K-means"><img src="../img/perfiles.jpg" alt="Dashboard: map and scatter plot of the 3 neighbourhood profiles" loading="lazy" width="1800" height="1032"></button><p class="cap">Each dot is a neighbourhood; colour shows its profile</p></div>
+      <div><button class="shot" data-cap="Neighbourhood profiles with K-means"><img src="../img/perfiles.webp" srcset="../img/perfiles-960.webp 960w, ../img/perfiles.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: map and scatter plot of the 3 neighbourhood profiles" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Each dot is a neighbourhood; colour shows its profile</p></div>
     </div>
 
     <div class="find">
@@ -279,7 +282,7 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
           </tbody>
         </table>
         <p style="margin-top:12px">The impact is noticeable in the centre, but in the rest of the city rents barely change.</p></div>
-      <div><button class="shot" data-cap="Simulation: tourist flats returning to long-term rental"><img src="../img/simulacion.jpg" alt="Dashboard: simulation with a parameter for tourist flats returning to rental" loading="lazy" width="1800" height="1032"></button><p class="cap">Interactive "what if…?" scenario</p></div>
+      <div><button class="shot" data-cap="Simulation: tourist flats returning to long-term rental"><img src="../img/simulacion.webp" srcset="../img/simulacion-960.webp 960w, ../img/simulacion.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: simulation with a parameter for tourist flats returning to rental" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Interactive "what if…?" scenario</p></div>
     </div>
   </div>
 </section>

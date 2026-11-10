@@ -11,9 +11,8 @@
 <link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/madrid/">
 <link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/madrid/en/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style>
 <style>
 :root{--text:#0f172a;--muted:#475569;--soft:#64748b;--line:#e2e8f0;--line2:#cbd5e1;--bg:#fcfcfd;--bg2:#f7f6fb;--accent:#6d28d9;--accent-2:#5b21b6;--accent-bg:#f3eeff;--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -163,12 +162,16 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
 <meta property="og:locale" content="es_ES">
 <meta property="og:site_name" content="Juan Cortés Paredes · Data Analyst">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:image:alt" content="¿Encarecen los pisos turísticos el alquiler en Madrid?">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "¿Encarecen los pisos turísticos el alquiler en Madrid?", "description": "Análisis de 100 barrios de Madrid con 5 fuentes públicas, regresión OLS (R² 0,70), K-means y dashboard de Power BI. El efecto de los pisos turísticos es significativo pero pequeño (≈31 €/mes).", "image": "https://juancortesp.github.io/proyectos/madrid/img/portada.jpg", "url": "https://juancortesp.github.io/proyectos/madrid/", "inLanguage": "es", "datePublished": "2026-10", "dateModified": "2026-11-10", "author": {"@type": "Person", "name": "Juan Cortés Paredes", "url": "https://juancortesp.github.io/", "jobTitle": "Data Analyst"}, "about": ["Alquiler en Madrid", "Pisos turísticos", "Airbnb", "Análisis de datos"], "isBasedOn": "https://github.com/juancortesp/presion-turistica-alquiler-madrid", "mainEntityOfPage": "https://juancortesp.github.io/proyectos/madrid/"}</script>
 </head>
 <body>
 
 <header class="bar">
   <div class="wrap">
-    <a class="back" href="../../#proyectos"><img src="../../assets/juan.jpg" alt="">← Volver al portfolio</a>
+    <a class="back" href="../../#proyectos"><img src="../../assets/juan-64.webp" alt="" width="32" height="32">← Volver al portfolio</a>
     <ul class="toc" id="toc">
       <li><a href="#pregunta">Pregunta</a></li>
       <li><a href="#proceso">Proceso</a></li>
@@ -209,7 +212,7 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
   </div>
 </div>
 
-<div class="wrap"><button class="shot cover" data-cap="Portada del dashboard de Power BI"><img src="img/portada.jpg" alt="Portada del dashboard: Presión turística vs. precio del alquiler en Madrid" width="1280" height="720"></button></div>
+<div class="wrap"><button class="shot cover" data-cap="Portada del dashboard de Power BI"><img src="img/portada.webp" fetchpriority="high" alt="Portada del dashboard: Presión turística vs. precio del alquiler en Madrid" width="1280" height="720"></button></div>
 
 <section class="s" id="pregunta" style="margin-top:72px">
   <div class="wrap narrow prose">
@@ -242,13 +245,13 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
     <div class="find">
       <div class="txt"><span class="num">01</span><h3>El alquiler aprieta en casi toda la ciudad</h3>
         <ul><li>Alquiler medio de un piso de 70 m²: <b>1.483 €/mes</b>.</li><li>Un piso de 100 m² supera el 30 % de la renta en <b>91 de cada 100 barrios</b>.</li><li>En los barrios de renta baja el esfuerzo es del <b>47 %</b>, el doble que en los de renta alta (<b>23 %</b>).</li></ul></div>
-      <div><button class="shot" data-cap="Esfuerzo del alquiler sobre la renta, por barrio y nivel de renta"><img src="img/esfuerzo.jpg" alt="Dashboard: esfuerzo del alquiler por barrio y por nivel de renta" loading="lazy" width="1800" height="1032"></button><p class="cap">Esfuerzo del alquiler sobre la renta del hogar</p></div>
+      <div><button class="shot" data-cap="Esfuerzo del alquiler sobre la renta, por barrio y nivel de renta"><img src="img/esfuerzo.webp" srcset="img/esfuerzo-960.webp 960w, img/esfuerzo.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: esfuerzo del alquiler por barrio y por nivel de renta" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Esfuerzo del alquiler sobre la renta del hogar</p></div>
     </div>
 
     <div class="find rev">
       <div class="txt"><span class="num">02</span><h3>Los pisos turísticos están muy concentrados</h3>
         <ul><li>El <b>43 %</b> de los anuncios está en un solo distrito: Centro.</li><li>Media de Madrid: <b>1,8</b> pisos turísticos por cada 100 viviendas. En Sol: <b>26,7</b>.</li><li>Los 6 barrios más turísticos son todos del distrito Centro.</li></ul></div>
-      <div><button class="shot" data-cap="Concentración de anuncios de Airbnb en Madrid"><img src="img/concentracion.jpg" alt="Dashboard: concentración de anuncios de Airbnb por barrio" loading="lazy" width="1800" height="1032"></button><p class="cap">Densidad de anuncios turísticos por barrio</p></div>
+      <div><button class="shot" data-cap="Concentración de anuncios de Airbnb en Madrid"><img src="img/concentracion.webp" srcset="img/concentracion-960.webp 960w, img/concentracion.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: concentración de anuncios de Airbnb por barrio" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Densidad de anuncios turísticos por barrio</p></div>
     </div>
 
     <div class="find">
@@ -256,14 +259,14 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
         <p>El modelo explica el <b>70 %</b> de las diferencias de precio entre barrios. Para un piso de 70 m²:</p>
         <ul><li><b>−55 €/mes</b> por cada km más lejos del centro.</li><li><b>+14 €/mes</b> por cada 1.000 € más de renta por persona en el barrio.</li><li><b>+12 €/mes</b> por cada punto de crecimiento de población.</li></ul>
         <div class="callout"><p><b>¿Y los pisos turísticos?</b> Su efecto es estadísticamente significativo (p = 0,033), pero pequeño: como mucho unos <b>31 €/mes</b> en un piso de 70 m², un <b>2,2 %</b> del alquiler medio.</p></div></div>
-      <div><button class="shot" data-cap="Variables que afectan al precio del alquiler"><img src="img/variables.jpg" alt="Dashboard: efecto de la distancia al centro y la renta sobre el precio" loading="lazy" width="1800" height="1032"></button><p class="cap">Distancia al centro y renta frente al precio por m²</p></div>
+      <div><button class="shot" data-cap="Variables que afectan al precio del alquiler"><img src="img/variables.webp" srcset="img/variables-960.webp 960w, img/variables.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: efecto de la distancia al centro y la renta sobre el precio" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Distancia al centro y renta frente al precio por m²</p></div>
     </div>
 
     <div class="find rev">
       <div class="txt"><span class="num">04</span><h3>Tres perfiles de barrio</h3>
         <p>Con K-means (método del codo y coeficiente silhouette), los barrios se agrupan en <b>centro turístico</b>, <b>residencial caro</b> y <b>residencial asequible</b>.</p>
         <p>El centro turístico tiene <b>7 veces más pisos turísticos</b> que el residencial caro, pero <b>casi el mismo precio</b>. Su problema es que sus vecinos ganan menos.</p></div>
-      <div><button class="shot" data-cap="Perfiles de barrio con K-means"><img src="img/perfiles.jpg" alt="Dashboard: mapa y gráfico de dispersión de los 3 perfiles de barrio" loading="lazy" width="1800" height="1032"></button><p class="cap">Cada punto es un barrio; el color es su perfil</p></div>
+      <div><button class="shot" data-cap="Perfiles de barrio con K-means"><img src="img/perfiles.webp" srcset="img/perfiles-960.webp 960w, img/perfiles.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: mapa y gráfico de dispersión de los 3 perfiles de barrio" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Cada punto es un barrio; el color es su perfil</p></div>
     </div>
 
     <div class="find">
@@ -279,7 +282,7 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
           </tbody>
         </table>
         <p style="margin-top:12px">El impacto se nota en el centro, pero en el resto de la ciudad apenas cambia el alquiler.</p></div>
-      <div><button class="shot" data-cap="Simulación: pisos turísticos que vuelven al alquiler"><img src="img/simulacion.jpg" alt="Dashboard: simulación con parámetro de pisos turísticos que vuelven al alquiler" loading="lazy" width="1800" height="1032"></button><p class="cap">Escenario interactivo con un parámetro «¿y si…?»</p></div>
+      <div><button class="shot" data-cap="Simulación: pisos turísticos que vuelven al alquiler"><img src="img/simulacion.webp" srcset="img/simulacion-960.webp 960w, img/simulacion.webp 1800w" sizes="(max-width:960px) 92vw, 560px" alt="Dashboard: simulación con parámetro de pisos turísticos que vuelven al alquiler" loading="lazy" decoding="async" width="1800" height="1032"></button><p class="cap">Escenario interactivo con un parámetro «¿y si…?»</p></div>
     </div>
   </div>
 </section>

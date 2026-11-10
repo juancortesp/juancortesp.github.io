@@ -1,0 +1,18 @@
+# Juan Cortés Paredes · Data Analyst
+
+> Data Analyst based in Valladolid, Spain. 4+ years analysing business data (KPIs, reporting, dashboards, A/B testing) and a Data Analytics bootcamp (NEOLAND, 2026). Works with SQL, Python, Power BI and machine learning. Available immediately for remote roles or hybrid roles in Madrid. Spanish (native) and English (C1).
+
+This site is Juan's portfolio, in Spanish (default) and English.
+
+## Portfolio
+- [Portfolio (Spanish)](https://juancortesp.github.io/): profile, experience, projects, education, skills and FAQ
+- [Portfolio (English)](https://juancortesp.github.io/en/): same content in English
+- [CV (Spanish)](https://juancortesp.github.io/cv.html)
+
+## Case studies
+- [Do tourist flats push up rents in Madrid?](https://juancortesp.github.io/proyectos/madrid/en/): 100 neighbourhoods, 5 public sources, OLS regression (R² 0.70), K-means and a Power BI dashboard. Tourist flats have a significant but small effect (at most ≈€31/month); location and income matter most. Spanish version: https://juancortesp.github.io/proyectos/madrid/
+- [Bargain or rip-off? Fair-price calculator for used cars](https://juancortesp.github.io/proyectos/coches/en/): CatBoost model trained on 71,220 AutoScout24 listings; average error €2,118 (8.5%), 33% lower than comparing with cars of the same model and age. Live app: https://chollo-o-timo-coches.streamlit.app. Spanish version: https://juancortesp.github.io/proyectos/coches/
+
+## Contact
+- [LinkedIn](https://www.linkedin.com/in/juan-cortes-paredes/)
+- [GitHub](https://github.com/juancortesp)
