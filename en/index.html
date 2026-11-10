@@ -13,9 +13,8 @@
 <link rel="alternate" hreflang="en" href="https://juancortesp.github.io/en/">
 <link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style>
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -277,6 +276,18 @@ details.more[open] summary::after{transform:rotate(180deg)}
 .tool{font-size:14px;font-weight:500;padding:8px 13px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);transition:.15s}
 .tool:hover{border-color:var(--accent);color:var(--accent);background:#fff}
 
+
+/* preguntas frecuentes (mismo contenido que el chat, visible sin JS) */
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 20px;transition:.15s}
+.faq details[open]{box-shadow:var(--shadow)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;font-weight:600;font-size:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;font-weight:500;color:var(--accent);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 0 18px;color:var(--muted);font-size:15.5px;line-height:1.65}
+.faq .a b{color:var(--text)}.faq .a a{color:var(--accent);font-weight:600}
+
 /* contacto */
 .contact .box{position:relative;overflow:hidden;background:linear-gradient(135deg,#1e1033,#3b1a73 60%,#6d28d9);color:#fff;border-radius:28px;padding:72px 32px;text-align:center}
 .contact .box::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(60% 60% at 50% 50%,#000,transparent);-webkit-mask-image:radial-gradient(60% 60% at 50% 50%,#000,transparent);pointer-events:none}
@@ -319,6 +330,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 <meta property="og:site_name" content="Juan Cortés Paredes · Data Analyst">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Juan Cortés Paredes", "jobTitle": "Data Analyst", "url": "https://juancortesp.github.io/en/", "image": "https://juancortesp.github.io/assets/juan.jpg", "address": {"@type": "PostalAddress", "addressLocality": "Valladolid", "addressCountry": "ES"}, "knowsLanguage": ["es", "en"], "knowsAbout": ["SQL", "Python", "Power BI", "Data analysis", "Machine learning", "Business Intelligence"], "alumniOf": [{"@type": "CollegeOrUniversity", "name": "Universidad de Valladolid"}, {"@type": "EducationalOrganization", "name": "ESIC Business & Marketing School"}, {"@type": "EducationalOrganization", "name": "NEOLAND"}], "sameAs": ["https://www.linkedin.com/in/juan-cortes-paredes/", "https://github.com/juancortesp"]}</script>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What kind of role are you looking for?", "acceptedAnswer": {"@type": "Answer", "text": "I'm looking for a role where data is at the heart of the work: Data Analyst or BI Analyst. My background in performance marketing means I know how a business works from the inside and which questions to ask the data."}}, {"@type": "Question", "name": "Are you available right away?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, I'm available to start immediately."}}, {"@type": "Question", "name": "Would you work hybrid in Madrid?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. I live in Valladolid and I'm open to remote roles and to hybrid roles in Madrid. The high-speed train gets me to Madrid in about an hour, so going to the office several days a week is not a problem."}}, {"@type": "Question", "name": "What sets you apart from other junior profiles?", "acceptedAnswer": {"@type": "Answer", "text": "I come from performance marketing, where every day means analysing a lot of data and deciding which lever to pull to get results. I don't approach data only from the technical side: I'm used to turning an analysis into an action and measuring its impact. See my projects"}}, {"@type": "Question", "name": "What is your greatest strength?", "acceptedAnswer": {"@type": "Answer", "text": "When I set out to do something, I don't stop until I find the best possible solution. I'm demanding with myself and very organised and structured, which shows in data work: clear processes, validated data and conclusions you can defend."}}, {"@type": "Question", "name": "Tell me about your best project", "acceptedAnswer": {"@type": "Answer", "text": "My flagship project: do tourist flats push up rents in Madrid? I analysed 100 neighbourhoods using 5 sources. The regression explains 70% of price differences (R² = 0.70). The effect of tourist flats is significant (p = 0.033) but small, at most ~€31/month; location and income matter more. See case study"}}, {"@type": "Question", "name": "Where are you based?", "acceptedAnswer": {"@type": "Answer", "text": "I live in Valladolid, Spain. If the role is hybrid in Madrid, commuting is no problem."}}, {"@type": "Question", "name": "How good is your SQL?", "acceptedAnswer": {"@type": "Answer", "text": "SQL is my main tool: JOINs, CTEs, subqueries and window functions in MySQL. I started using it in BI at Self Bank. See tools"}}, {"@type": "Question", "name": "How is your English?", "acceptedAnswer": {"@type": "Answer", "text": "Native Spanish and advanced English (C1)."}}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -326,7 +339,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 <!-- NAV FIJA -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a href="#top" class="brand"><img src="../assets/juan.jpg" alt="">Juan Cortés</a>
+    <a href="#top" class="brand"><img src="../assets/juan-64.webp" alt="" width="32" height="32">Juan Cortés</a>
     <nav aria-label="Main">
       <ul id="navlist">
         <li><a href="#sobre-mi">About</a></li>
@@ -363,7 +376,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 
   <div class="in">
     <div class="avatar">
-      <img src="../assets/juan.jpg" alt="Juan Cortés Paredes" width="150" height="150">
+      <img src="../assets/juan-320.webp" alt="Juan Cortés Paredes" width="150" height="150" fetchpriority="high">
       <span class="chip"><i class="live" aria-hidden="true"></i>Available</span>
     </div>
     <p class="hi">Hi, I'm Juan 👋</p>
@@ -459,8 +472,40 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 <section class="s" id="proyectos">
   <div class="wrap">
     <div class="head reveal"><span class="kicker">Projects</span><h2>Projects and case studies</h2><p>End-to-end data analysis and real performance marketing cases with measured results.</p></div>
-    <div class="ftabs" role="group" aria-label="Filter projects" id="ftabs"></div>
-    <div class="pgrid2" id="pgrid" aria-live="polite"></div>
+    <div class="ftabs" role="group" aria-label="Filter projects" id="ftabs"><button type="button" aria-pressed="true" data-f="All">All<span class="c">4</span></button><button type="button" aria-pressed="false" data-f="Data analysis">Data analysis<span class="c">2</span></button><button type="button" aria-pressed="false" data-f="Performance marketing">Performance marketing<span class="c">2</span></button></div>
+    <div class="pgrid2" id="pgrid" aria-live="polite"><article class="pc feat"><a class="media" href="../proyectos/madrid/en/" style="background:#e5294f"><img src="../assets/madrid-portada.webp" alt="Cover of the Power BI dashboard for the Madrid project" loading="lazy"></a><div class="pb">
+    <div class="tagrow"><span class="badge ok">Data analysis</span><span class="badge">Capstone project · NEOLAND</span></div>
+    <h3>Do tourist flats push up rents in Madrid?</h3><p class="sum">100 neighbourhoods, 5 sources and a Power BI dashboard. The effect of tourist flats is significant but small (at most ~€31/month); location and income matter most.</p>
+    <div class="mets"><div class="met"><div class="n ">100</div><div class="l">neighbourhoods analysed</div></div><div class="met"><div class="n ">R² 0.70</div><div class="l">price variation explained</div></div><div class="met"><div class="n ">p = 0.033</div><div class="l">Airbnb effect: significant, but small</div></div></div>
+    
+    <div class="pills"><span class="pill">ETL · 5 sources</span><span class="pill">Web scraping</span><span class="pill">GeoPandas</span><span class="pill">OLS regression</span><span class="pill">K-means</span><span class="pill">Power BI · DAX</span></div>
+    <div class="links"><a class="btn primary" href="../proyectos/madrid/en/">See case study →</a><a class="btn " href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Code on GitHub ↗</a></div>
+  </div></article><article class="pc "><a class="media" href="../proyectos/coches/en/" style="background:#0f8a74"><img src="../assets/coches-portada.webp" alt="Cover of the Bargain or rip-off? project: fair-price calculator for used cars" loading="lazy"></a><div class="pb">
+    <div class="tagrow"><span class="badge ok">Data analysis</span><span class="badge">Machine learning · App</span></div>
+    <h3>Bargain or rip-off? A fair-price calculator for used cars</h3><p class="sum">71,220 AutoScout24 listings and a CatBoost model that estimates the fair price of a used car and tells you whether a listing is a bargain, fairly priced or expensive. Published as a web app (in Spanish).</p>
+    <div class="mets"><div class="met"><div class="n ">€2,118</div><div class="l">average model error on unseen cars (8.5%)</div></div><div class="met"><div class="n up">−33%</div><div class="l">error vs comparing with cars of the same model and age</div></div><div class="met"><div class="n ">R² 0.92</div><div class="l">price variation explained</div></div></div>
+    
+    <div class="pills"><span class="pill">Web scraping</span><span class="pill">EDA</span><span class="pill">Random Forest</span><span class="pill">CatBoost</span><span class="pill">Streamlit</span></div>
+    <div class="links"><a class="btn primary" href="../proyectos/coches/en/">See case study →</a><a class="btn " href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Try the calculator ↗</a><a class="btn " href="https://github.com/juancortesp/chollo-o-timo" target="_blank" rel="noopener">Code on GitHub ↗</a></div>
+  </div></article><article class="pc "><div class="media" style="background:linear-gradient(135deg,#0b1f24,#0f766e)"><span class="wordmark">VERSUS</span></div><div class="pb">
+    <div class="tagrow"><span class="badge ">Performance marketing</span><span class="badge">Orenes Grupo · 2024 → 2025</span></div>
+    <h3>From funnel leaks to −37% cost per acquisition</h3><p class="sum">Sports betting and casino. Funnel and keyword diagnosis, a dedicated landing page and separate budgets per vertical.</p>
+    <div class="mets"><div class="met"><div class="n up">−37%</div><div class="l">CPA</div></div><div class="met"><div class="n up">−29%</div><div class="l">CPL</div></div><div class="met"><div class="n up">+14%</div><div class="l">first deposits</div></div><div class="met"><div class="n up">+9%</div><div class="l">sign-ups</div></div></div>
+    <details class="more"><summary>See the analysis</summary><div class="steps">
+      <div class="step"><b>Diagnosis</b><ul><li>Unfiltered broad match: lots of irrelevant clicks in a high-CPC sector.</li><li>The website highlighted "Log in" and did not guide new users towards signing up.</li><li>Low impression share due to budget and ad quality.</li></ul></div>
+      <div class="step"><b>Actions</b><ul><li>Campaigns restructured with exact match and search-term cleanup.</li><li>Dedicated acquisition landing page: better Quality Score and lower CPA.</li><li>Budget split by vertical (betting and casino) to measure and optimise.</li></ul></div></div></details>
+    <div class="pills"><span class="pill">Funnel analysis</span><span class="pill">A/B testing</span><span class="pill">Google Ads</span><span class="pill">KPIs</span></div>
+    
+  </div></article><article class="pc "><div class="media" style="background:linear-gradient(135deg,#111827,#4d7c0f)"><span class="wordmark">WINNDER</span></div><div class="pb">
+    <div class="tagrow"><span class="badge ">Performance marketing</span><span class="badge">Orenes Grupo · 2024 → 2025</span></div>
+    <h3>From negative ROAS to break-even</h3><p class="sum">Video-game competition platform with an unprofitable CAC and lost brand searches ("Winnder" → "winner").</p>
+    <div class="mets"><div class="met"><div class="n up">+44%</div><div class="l">sign-ups</div></div><div class="met"><div class="n up">+23%</div><div class="l">first deposits</div></div><div class="met"><div class="n up">Break-even</div><div class="l">ROAS: from losses to break-even</div></div></div>
+    <details class="more"><summary>See the analysis</summary><div class="steps">
+      <div class="step"><b>Diagnosis</b><ul><li>Google autocorrected "Winnder" to "winner", losing brand searches.</li><li>Campaigns with no funnel structure or creative testing.</li><li>New business model in Spain, with unprofitable CAC and growth.</li></ul></div>
+      <div class="step"><b>Actions</b><ul><li>Creative testing: UGC instead of static images, finding the angles that worked best.</li><li>TikTok activation (paid and organic).</li><li>Brand campaigns in Performance Max to recover misspelled searches.</li></ul></div></div></details>
+    <div class="pills"><span class="pill">Creative testing</span><span class="pill">Search analysis</span><span class="pill">ROAS · CAC</span><span class="pill">Performance Max</span></div>
+    
+  </div></article></div>
     <div class="pmore"><button class="btn" id="pmore" type="button" hidden>See more projects</button></div>
     <div class="brands reveal" id="brands">
       <div><span class="kicker">Brands and clients</span></div>
@@ -509,8 +554,46 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 <section class="s alt" id="posts">
   <div class="wrap">
     <div class="head reveal"><span class="kicker">Posts</span><h2>I write about data</h2><p>What I learn and practise, shared on LinkedIn (in Spanish).</p></div>
-    <div class="posts" id="postsGrid"></div>
+    <div class="posts" id="postsGrid">
+  <a class="post reveal feat" href="https://es.linkedin.com/posts/juan-cortes-paredes_los-barrios-con-m%C3%A1s-pisos-tur%C3%ADsticos-tienen-activity-7518932341721927683-uBHv" target="_blank" rel="noopener">
+    <div class="meta"><span class="tag">Project</span><span>Oct 2026</span></div>
+    <h3>Do neighbourhoods with more tourist flats have higher rents?</h3><p>100 Madrid neighbourhoods, 4 cross-referenced sources and a regression that explains 70% of price differences. Short answer: yes, with nuances.</p><span class="more">Read on LinkedIn ↗</span>
+  </a>
+  <a class="post reveal " href="https://es.linkedin.com/posts/juan-cortes-paredes_sql-funciones-de-ventana-activity-7524021069800710144-oY0t" target="_blank" rel="noopener">
+    <div class="meta"><span class="tag">SQL</span><span>Nov 2026</span></div>
+    <h3>Window functions: the total without losing the detail</h3><p>GROUP BY collapses rows; OVER() keeps them. ROW_NUMBER, PARTITION BY and ORDER BY with a real case: each customer's largest order.</p><span class="more">Read on LinkedIn ↗</span>
+  </a>
+  <a class="post reveal " href="https://es.linkedin.com/posts/juan-cortes-paredes_limpiar-dataset-real-activity-7523367391041572864-ATzW" target="_blank" rel="noopener">
+    <div class="meta"><span class="tag">Python</span><span>Nov 2026</span></div>
+    <h3>Cleaning a real dataset: 2,000 customers and 33 columns</h3><p>Dates stored as text, 131 nulls, impossible ages and 4 outlier methods returning 251, 40, 4 and 60 cases. Choosing the method is analysis too.</p><span class="more">Read on LinkedIn ↗</span>
+  </a>
+  <a class="post reveal " href="https://es.linkedin.com/posts/juan-cortes-paredes_qu%C3%A9-es-el-eda-y-para-qu%C3%A9-sirve-detectar-activity-7521481772929286144-KS8p" target="_blank" rel="noopener">
+    <div class="meta"><span class="tag">EDA</span><span>Oct 2026</span></div>
+    <h3>What is EDA and what is it for?</h3><p>Spotting problems, understanding what you have and finding the right questions before modelling anything.</p><span class="more">Read on LinkedIn ↗</span>
+  </a>
+  <a class="post reveal " href="https://es.linkedin.com/posts/juan-cortes-paredes_se-habla-mucho-de-si-los-pisos-tur%C3%ADsticos-activity-7520757019595841536-p8T6" target="_blank" rel="noopener">
+    <div class="meta"><span class="tag">Project</span><span>Oct 2026</span></div>
+    <h3>Tourist flats and rent in Madrid: the summary</h3><p>Neighbourhoods with more tourist flats have higher rents, even after controlling for income and distance to the centre. But they are not the only factor.</p><span class="more">Read on LinkedIn ↗</span>
+  </a></div>
     <div class="allposts reveal"><a class="btn" href="https://www.linkedin.com/in/juan-cortes-paredes/recent-activity/all/" target="_blank" rel="noopener">See all on LinkedIn ↗</a></div>
+  </div>
+</section>
+
+<!-- FAQ (mismo contenido que el chat) -->
+<section class="s" id="faq">
+  <div class="wrap">
+    <div class="head reveal"><span class="kicker">FAQ</span><h2>Questions I often get</h2><p>The same answers the chat above gives.</p></div>
+    <div class="faq">
+      <details><summary>What kind of role are you looking for?</summary><div class="a">I'm looking for a role where data is at the heart of the work: <b>Data Analyst or BI Analyst</b>. My background in performance marketing means I know how a business works from the inside and which questions to ask the data.</div></details>
+      <details><summary>Are you available right away?</summary><div class="a">Yes, I'm <b>available to start immediately</b>.</div></details>
+      <details><summary>Would you work hybrid in Madrid?</summary><div class="a">Yes. I live in Valladolid and I'm open to <b>remote roles</b> and to <b>hybrid roles in Madrid</b>. The high-speed train gets me to Madrid in about an hour, so going to the office several days a week is not a problem.</div></details>
+      <details><summary>What sets you apart from other junior profiles?</summary><div class="a">I come from performance marketing, where every day means analysing a lot of data and deciding which lever to pull to get results. I don't approach data only from the technical side: I'm used to <b>turning an analysis into an action and measuring its impact</b>. <a href="#proyectos">See my projects →</a></div></details>
+      <details><summary>What is your greatest strength?</summary><div class="a">When I set out to do something, I don't stop until I find the best possible solution. I'm <b>demanding with myself</b> and very <b>organised and structured</b>, which shows in data work: clear processes, validated data and conclusions you can defend.</div></details>
+      <details><summary>Tell me about your best project</summary><div class="a">My flagship project: do tourist flats push up rents in Madrid? I analysed 100 neighbourhoods using 5 sources. The regression explains 70% of price differences (R² = 0.70). The effect of tourist flats is significant (p = 0.033) but small, at most ~€31/month; location and income matter more. <a href="../proyectos/madrid/en/">See case study →</a></div></details>
+      <details><summary>Where are you based?</summary><div class="a">I live in <b>Valladolid, Spain</b>. If the role is hybrid in Madrid, commuting is no problem.</div></details>
+      <details><summary>How good is your SQL?</summary><div class="a">SQL is my main tool: JOINs, CTEs, subqueries and window functions in MySQL. I started using it in BI at Self Bank. <a href="#habilidades">See tools →</a></div></details>
+      <details><summary>How is your English?</summary><div class="a">Native Spanish and advanced English (C1).</div></details>
+    </div>
   </div>
 </section>
 
@@ -597,14 +680,14 @@ log.addEventListener('click',e=>{if(e.target.closest('a[href^="#"]'))log.classLi
 /* ============ PROJECTS ============ */
 const PROJECTS = [
   {feat:true, cat:'Data analysis', badge:'Capstone project · NEOLAND',
-   media:{img:'../assets/madrid-portada.jpg', bg:'#e5294f', alt:'Cover of the Power BI dashboard for the Madrid project'},
+   media:{img:'../assets/madrid-portada.webp', bg:'#e5294f', alt:'Cover of the Power BI dashboard for the Madrid project'},
    t:'Do tourist flats push up rents in Madrid?',
    sum:'100 neighbourhoods, 5 sources and a Power BI dashboard. The effect of tourist flats is significant but small (at most ~€31/month); location and income matter most.',
    mets:[{n:'100',l:'neighbourhoods analysed'},{n:'R² 0.70',l:'price variation explained'},{n:'p = 0.033',l:'Airbnb effect: significant, but small'}],
    tags:['ETL · 5 sources','Web scraping','GeoPandas','OLS regression','K-means','Power BI · DAX'],
    links:[{t:'See case study →',u:'../proyectos/madrid/en/',primary:true},{t:'Code on GitHub ↗',u:'https://github.com/juancortesp/presion-turistica-alquiler-madrid',ext:true}]},
   {cat:'Data analysis', badge:'Machine learning · App',
-   media:{img:'../assets/coches-portada.jpg', bg:'#0f8a74', alt:'Cover of the Bargain or rip-off? project: fair-price calculator for used cars'},
+   media:{img:'../assets/coches-portada.webp', bg:'#0f8a74', alt:'Cover of the Bargain or rip-off? project: fair-price calculator for used cars'},
    t:'Bargain or rip-off? A fair-price calculator for used cars',
    sum:'71,220 AutoScout24 listings and a CatBoost model that estimates the fair price of a used car and tells you whether a listing is a bargain, fairly priced or expensive. Published as a web app (in Spanish).',
    mets:[{n:'€2,118',l:'average model error on unseen cars (8.5%)'},{n:'−33%',l:'error vs comparing with cars of the same model and age',up:true},{n:'R² 0.92',l:'price variation explained'}],
