@@ -173,6 +173,12 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
   .band{font-size:11.5px}
 }
 </style>
+<link rel="canonical" href="https://juancortesp.github.io/proyectos/coches/">
+<meta property="og:url" content="https://juancortesp.github.io/proyectos/coches/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Juan Cortés Paredes · Data Analyst">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
@@ -345,7 +351,7 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
       <p>Busca un anuncio real y comprueba si es un chollo, o escríbeme y te cuento el proyecto.</p>
       <div class="cta">
         <a class="btn primary" href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Abrir la calculadora ↗</a>
-        <a class="btn" href="mailto:infojuancortesp@gmail.com">Escríbeme</a>
+        <a class="btn" href="#" data-mail>Escríbeme</a>
         <a class="btn" href="../../#proyectos">← Volver a proyectos</a>
       </div>
     </div>
@@ -364,6 +370,11 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
 const links=[...document.querySelectorAll('#toc a')];
 const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
 document.querySelectorAll('section[id]').forEach(s=>ob.observe(s));
+</script>
+<script>/* email ensamblado en el navegador: no aparece en el HTML para los bots */
+const EM=['infojuancortesp','gmail.com'].join('@');
+document.querySelectorAll('[data-mail]').forEach(a=>a.href='mailto:'+EM);
+document.querySelectorAll('[data-mail-text]').forEach(s=>s.textContent=EM);
 </script>
 </body>
 </html>

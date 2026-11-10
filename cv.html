@@ -66,6 +66,12 @@
   .edu b{display:block;color:var(--text);font-size:8.6pt}
   .edu .w{font-size:7.4pt;color:var(--soft)}
 </style>
+<link rel="canonical" href="https://juancortesp.github.io/cv.html">
+<meta property="og:url" content="https://juancortesp.github.io/cv.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Juan Cortés Paredes · Data Analyst">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <div class="page">
@@ -75,7 +81,7 @@
     <section>
       <h3>Contacto</h3>
       <ul class="contact">
-        <li><b>Email</b><a href="mailto:infojuancortesp@gmail.com">infojuancortesp@gmail.com</a></li>
+        <li><b>Email</b><a href="#" data-mail><span data-mail-text>infojuancortesp [arroba] gmail.com</span></a></li>
         <li><b>Web</b><a href="https://juancortesp.github.io">juancortesp.github.io</a></li>
         <li><b>LinkedIn</b><a href="https://www.linkedin.com/in/juan-cortes-paredes">/in/juan-cortes-paredes</a></li>
         <li><b>GitHub</b><a href="https://github.com/juancortesp">github.com/juancortesp</a></li>
@@ -197,5 +203,10 @@
     </section>
   </main>
 </div>
+<script>/* email ensamblado en el navegador: no aparece en el HTML para los bots */
+const EM=['infojuancortesp','gmail.com'].join('@');
+document.querySelectorAll('[data-mail]').forEach(a=>a.href='mailto:'+EM);
+document.querySelectorAll('[data-mail-text]').forEach(s=>s.textContent=EM);
+</script>
 </body>
 </html>
