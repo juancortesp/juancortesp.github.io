@@ -157,6 +157,12 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
   table{font-size:13px}th,td{padding:8px 6px}
 }
 </style>
+<link rel="canonical" href="https://juancortesp.github.io/proyectos/madrid/">
+<meta property="og:url" content="https://juancortesp.github.io/proyectos/madrid/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Juan Cortés Paredes · Data Analyst">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
@@ -303,7 +309,7 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
       <h2>¿Te cuento más?</h2>
       <p>Revisa el código o escríbeme y te enseño el dashboard en directo.</p>
       <div class="cta">
-        <a class="btn primary" href="mailto:infojuancortesp@gmail.com">Escríbeme</a>
+        <a class="btn primary" href="#" data-mail>Escríbeme</a>
         <a class="btn" href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Código en GitHub ↗</a>
         <a class="btn" href="../../#proyectos">← Volver a proyectos</a>
       </div>
@@ -324,6 +330,11 @@ lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('c
 const links=[...document.querySelectorAll('#toc a')];
 const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
 document.querySelectorAll('section[id]').forEach(s=>ob.observe(s));
+</script>
+<script>/* email ensamblado en el navegador: no aparece en el HTML para los bots */
+const EM=['infojuancortesp','gmail.com'].join('@');
+document.querySelectorAll('[data-mail]').forEach(a=>a.href='mailto:'+EM);
+document.querySelectorAll('[data-mail-text]').forEach(s=>s.textContent=EM);
 </script>
 </body>
 </html>
