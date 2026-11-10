@@ -9,6 +9,9 @@
 <meta property="og:description" content="SQL, Python y Power BI para convertir datos en decisiones de negocio.">
 <meta property="og:image" content="https://juancortesp.github.io/assets/juan.jpg">
 <meta name="theme-color" content="#ffffff">
+<link rel="alternate" hreflang="es" href="https://juancortesp.github.io/">
+<link rel="alternate" hreflang="en" href="https://juancortesp.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +59,17 @@ img{display:block;max-width:100%}
 .spark{position:absolute;bottom:0;left:0;width:100%;height:220px;opacity:.55;pointer-events:none}
 .top{position:absolute;top:22px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 28px;z-index:2}
 .mark{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:15px;box-shadow:0 1px 3px rgba(15,23,42,.06);color:var(--accent)}
+.social{display:flex;align-items:center;gap:8px}
+.soc{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--text);box-shadow:0 1px 3px rgba(15,23,42,.06);transition:.15s;text-decoration:none}
+.soc:hover{border-color:var(--accent);color:var(--accent)}
+.soc svg{width:20px;height:20px}
+.lang-sw{display:inline-flex;align-items:center;height:44px;padding:4px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.lang-sw a{display:grid;place-items:center;min-width:36px;height:34px;padding:0 8px;border-radius:9px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
+.lang-sw a[aria-current="true"]{background:var(--accent-bg);color:var(--accent)}
+.lang-sw a:not([aria-current="true"]):hover{color:var(--text)}
+.nav .social .soc,.nav .lang-sw{box-shadow:none}
+.nav .soc{width:40px;height:40px}.nav .lang-sw{height:40px}.nav .lang-sw a{height:30px;min-width:32px}
+@media (max-width:760px){.nav .social .soc{display:none}}
 .in{position:relative;z-index:1;max-width:880px;width:100%;display:flex;flex-direction:column;align-items:center}
 .avatar{position:relative;margin-bottom:22px}
 .avatar img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center 22%;border:5px solid #fff;box-shadow:0 12px 32px rgba(76,29,149,.18)}
@@ -317,7 +331,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
-    <button class="btn menu" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="navlist">☰</button>
+    <div class="social">
+      <a class="soc" href="https://www.linkedin.com/in/juan-cortes-paredes/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+      <a class="soc" href="mailto:infojuancortesp@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+      <div class="lang-sw" role="group" aria-label="Idioma"><a href="./" lang="es" aria-current="true">ES</a><a href="en/" lang="en" hreflang="en">EN</a></div>
+      <button class="btn menu" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="navlist">☰</button>
+    </div>
   </div>
 </header>
 
@@ -328,6 +347,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 
   <div class="top">
     <div class="mark" aria-hidden="true">JC</div>
+    <div class="social">
+      <a class="soc" href="https://www.linkedin.com/in/juan-cortes-paredes/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+      <a class="soc" href="mailto:infojuancortesp@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+      <div class="lang-sw" role="group" aria-label="Idioma"><a href="./" lang="es" aria-current="true">ES</a><a href="en/" lang="en" hreflang="en">EN</a></div>
+    </div>
   </div>
 
   <div class="in">
