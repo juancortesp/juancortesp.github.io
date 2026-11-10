@@ -8,6 +8,8 @@
 <meta property="og:title" content="¿Encarecen los pisos turísticos el alquiler en Madrid? · Case study">
 <meta property="og:description" content="100 barrios, 5 fuentes, regresión (R² 0,70), K-means y un dashboard de Power BI.">
 <meta property="og:image" content="https://juancortesp.github.io/proyectos/madrid/img/portada.jpg">
+<link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/madrid/">
+<link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/madrid/en/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,6 +41,12 @@ a{color:inherit}
 .btn:hover{border-color:var(--text)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.primary:hover{background:var(--accent-2)}
+
+.right{display:flex;align-items:center;gap:8px}
+.lang-sw{display:inline-flex;align-items:center;height:40px;padding:3px;border-radius:11px;background:#fff;border:1px solid var(--line)}
+.lang-sw a{display:grid;place-items:center;min-width:34px;height:32px;padding:0 8px;border-radius:8px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
+.lang-sw a[aria-current="true"]{background:var(--accent-bg);color:var(--accent)}
+@media (max-width:440px){.bar .right .btn{display:none}}
 
 /* cabecera */
 .intro{padding:64px 0 40px;position:relative;overflow:hidden}
@@ -161,7 +169,10 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
       <li><a href="#hallazgos">Hallazgos</a></li>
       <li><a href="#conclusiones">Conclusiones</a></li>
     </ul>
-    <a class="btn" href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Código ↗</a>
+    <div class="right">
+      <div class="lang-sw" role="group" aria-label="Idioma"><a href="./" lang="es" aria-current="true">ES</a><a href="en/" lang="en" hreflang="en">EN</a></div>
+      <a class="btn" href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Código ↗</a>
+    </div>
   </div>
 </header>
 

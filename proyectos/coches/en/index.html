@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bargain or rip-off? Fair-price calculator for used cars · Case study · Juan Cortés</title>
+<meta name="description" content="Machine learning case study: 71,220 AutoScout24 listings and a CatBoost model that estimates the fair price of a used car in Spain. Average error of €2,118 (8.5%).">
+<meta property="og:title" content="Bargain or rip-off? A fair-price calculator for used cars · Case study">
+<meta property="og:description" content="Machine learning case study: 71,220 AutoScout24 listings and a CatBoost model that estimates the fair price of a used car in Spain. Average error of €2,118 (8.5%).">
+<meta property="og:image" content="https://juancortesp.github.io/assets/coches-portada.jpg">
+<link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/coches/">
+<link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/coches/en/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--text:#0f172a;--muted:#475569;--soft:#64748b;--line:#e2e8f0;--line2:#cbd5e1;--bg:#fcfcfd;--bg2:#f7f6fb;--accent:#6d28d9;--accent-2:#5b21b6;--accent-bg:#f3eeff;--ok:#0f7a43;--ok-bg:#e7f6ee;--warn:#b45309;--warn-bg:#fef3c7;--bad:#b91c1c;--bad-bg:#fee2e2;--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:Inter,system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.narrow{max-width:760px}
+.mono{font-family:"JetBrains Mono",monospace}
+.bar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:14px;color:var(--muted);min-height:44px}
+.back:hover{color:var(--accent)}
+.back img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:center 22%}
+.toc{display:flex;gap:2px;list-style:none}
+.toc a{display:block;padding:7px 11px;border-radius:9px;font-size:13px;font-weight:500;color:var(--muted);text-decoration:none}
+.toc a:hover{background:var(--bg2);color:var(--text)}
+.toc a.active{background:var(--accent-bg);color:var(--accent)}
+.right{display:flex;align-items:center;gap:8px}
+.lang-sw{display:inline-flex;align-items:center;height:40px;padding:3px;border-radius:11px;background:#fff;border:1px solid var(--line)}
+.lang-sw a{display:grid;place-items:center;min-width:34px;height:32px;padding:0 8px;border-radius:8px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
+.lang-sw a[aria-current="true"]{background:var(--accent-bg);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;font:600 14px Inter,sans-serif;border:1px solid var(--line2);background:#fff;color:var(--text);text-decoration:none;cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--text)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-2)}
+.intro{padding:64px 0 40px;position:relative;overflow:hidden}
+.intro::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 60% at 10% 0%,#ede4ff,transparent 70%),radial-gradient(35% 50% at 95% 10%,#dcfce7,transparent 70%);pointer-events:none}
+.intro .wrap{position:relative}
+.crumbs{font-size:13px;color:var(--soft);margin-bottom:16px}
+.crumbs a{color:var(--soft)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--accent-bg);color:var(--accent-2)}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+h1{font-size:clamp(34px,5.4vw,58px);font-weight:900;letter-spacing:-2px;line-height:1.05;max-width:900px}
+.lede{font-size:19px;color:var(--muted);margin-top:16px;max-width:720px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:32px}
+.facts div{background:#fff;padding:16px 18px}
+.facts dt{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--soft);font-weight:600}
+.facts dd{font-size:15px;font-weight:600;margin-top:2px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:40px 0 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.kpi .n{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--accent);white-space:nowrap}
+.kpi .n.up{color:var(--ok)}
+.kpi .l{font-size:13px;color:var(--soft);line-height:1.4}
+section.s{padding:72px 0;border-top:1px solid var(--line)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px}
+.kicker::before{content:"";width:18px;height:2px;background:var(--accent);border-radius:2px}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin:10px 0 14px}
+.prose p{font-size:17px;color:var(--muted);margin-bottom:14px}
+.prose b{color:var(--text)}
+.question{font-size:22px;font-weight:700;line-height:1.4;letter-spacing:-.3px;border-left:4px solid var(--accent);padding:6px 0 6px 20px;margin:20px 0}
+/* demo */
+.demo{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:44px;align-items:center;margin-top:28px}
+.phone{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px rgba(15,23,42,.14);background:#fff;aspect-ratio:1080/1350}
+.phone video{width:100%;height:100%;object-fit:cover}
+.phone .lbl{position:absolute;top:12px;left:12px;font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;background:rgba(15,23,42,.78);color:#fff;padding:4px 9px;border-radius:999px}
+.walk{list-style:none;counter-reset:w;display:grid;gap:14px}
+.walk li{position:relative;padding-left:46px;font-size:16px;color:var(--muted)}
+.walk li::before{counter-increment:w;content:counter(w);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:10px;background:var(--accent-bg);color:var(--accent);font-weight:800;display:grid;place-items:center;font-size:14px}
+.walk b{color:var(--text)}
+.verdicts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.v{font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px}
+.v.g{background:var(--ok-bg);color:var(--ok)}.v.y{background:var(--warn-bg);color:var(--warn)}.v.r{background:var(--bad-bg);color:var(--bad)}
+.note{margin-top:18px;font-size:14px;color:var(--soft);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+/* proceso */
+.process{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:st;margin-top:24px}
+.st{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 16px}
+.st::before{counter-increment:st;content:"0" counter(st);font:500 12px "JetBrains Mono",monospace;color:var(--accent);display:block;margin-bottom:6px}
+.st h3{font-size:15px;margin-bottom:6px}
+.st p{font-size:13.5px;color:var(--muted);line-height:1.5}
+.st .tool{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--bg2);border:1px solid var(--line);color:var(--muted)}
+/* hallazgos */
+.find{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:center;padding:36px 0;border-bottom:1px solid var(--line)}
+.find:last-child{border-bottom:none}
+.find.rev{grid-template-columns:1.1fr .9fr}
+.find.rev .txt{order:2}
+.find .num{font:500 12px "JetBrains Mono",monospace;color:var(--accent)}
+.find h3{font-size:24px;letter-spacing:-.6px;line-height:1.2;margin:6px 0 12px}
+.find p{font-size:16px;color:var(--muted);margin-bottom:12px}
+.find ul{padding-left:18px;color:var(--muted);font-size:15.5px}
+.find li{margin-bottom:6px}
+.find li b,.find p b{color:var(--text)}
+.callout{background:var(--accent-bg);border:1px solid #ddd0ff;border-radius:16px;padding:18px 20px;margin-top:6px}
+.callout b{color:var(--accent-2)}
+.callout p{margin:0;color:var(--text);font-size:15.5px}
+.chart{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px;box-shadow:var(--shadow)}
+.chart h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.chart .sub{font-size:12.5px;color:var(--soft);margin-bottom:16px}
+.hb{display:grid;grid-template-columns:118px 1fr 52px;align-items:center;gap:10px;margin-bottom:9px;font-size:13.5px}
+.hb .k{color:var(--muted);text-align:right}
+.hb .t{height:14px;background:var(--bg2);border-radius:6px;overflow:hidden}
+.hb .t i{display:block;height:100%;background:#c4b5fd;border-radius:6px}
+.hb.top .t i{background:var(--accent)}
+.hb .val{font:500 12.5px "JetBrains Mono",monospace;color:var(--text)}
+.cmp{display:grid;gap:14px}
+.cmp .row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;font-size:13.5px}
+.cmp .row .k{color:var(--muted)}
+.cmp .row.best .k{color:var(--text);font-weight:700}
+.cmp .t{height:28px;background:var(--bg2);border-radius:8px;overflow:hidden}
+.cmp .t i{display:flex;align-items:center;justify-content:flex-end;padding-right:10px;height:100%;background:#cbd5e1;border-radius:8px;font:600 12.5px "JetBrains Mono",monospace;color:var(--text)}
+.cmp .row.mid .t i{background:#c4b5fd}
+.cmp .row.best .t i{background:var(--accent);color:#fff}
+.band{position:relative;height:56px;margin:28px 6px 8px;border-radius:10px;display:grid;grid-template-columns:30% 40% 30%;overflow:hidden;font-size:13px;font-weight:700}
+.band div{display:grid;place-items:center}
+.band .g{background:var(--ok-bg);color:var(--ok)}.band .y{background:var(--warn-bg);color:var(--warn)}.band .r{background:var(--bad-bg);color:var(--bad)}
+.ticks{position:relative;height:22px;margin:0 6px;font:500 12px "JetBrains Mono",monospace;color:var(--soft)}
+.ticks span{position:absolute;transform:translateX(-50%);top:0}
+.marker{position:absolute;top:-24px;transform:translateX(-50%);font-size:12px;font-weight:700;color:var(--text);white-space:nowrap}
+.marker::after{content:"";display:block;width:2px;height:62px;background:var(--text);margin:2px auto 0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pbox{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--bg2)}
+.pbox .lab{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);font-weight:600}
+.pbox .n{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-top:2px}
+.pbox .n.up{color:var(--bad)}.pbox .n.dn{color:var(--ok)}
+.pbox p{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
+.arrow{display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--soft);margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);font-weight:600}
+td.r,th.r{text-align:right}
+tr.best td{font-weight:700;color:var(--accent-2)}
+.concl{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+.cc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.cc .ic{width:38px;height:38px;border-radius:11px;background:var(--accent-bg);display:grid;place-items:center;font-size:18px;margin-bottom:10px}
+.cc h3{font-size:17px;margin-bottom:6px}
+.cc p{font-size:15px;color:var(--muted)}
+.learn{list-style:none;display:grid;gap:10px;margin-top:16px}
+.learn li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--muted)}
+.learn li b{color:var(--text)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{font-size:13px;font-weight:500;padding:6px 12px;border-radius:10px;background:var(--bg2);border:1px solid var(--line)}
+.next{background:linear-gradient(135deg,#1e1033,#3b1a73 60%,#6d28d9);color:#fff;border-radius:26px;padding:48px 32px;text-align:center;margin:72px 0 40px}
+.next h2{color:#fff}
+.next p{color:#ddd6fe;margin-bottom:22px}
+.next .cta{justify-content:center}
+.next .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.next .btn.primary{background:#fff;color:var(--accent-2);border-color:#fff}
+footer{padding:0 0 40px;color:var(--soft);font-size:14px}
+@media (max-width:960px){
+  .toc{display:none}
+  .facts,.kpis{grid-template-columns:1fr 1fr}
+  .process{grid-template-columns:1fr 1fr}
+  .find,.find.rev,.demo{grid-template-columns:1fr}.find.rev .txt{order:0}
+  .phone{max-width:400px;margin:0 auto;width:100%}
+}
+@media (max-width:600px){
+  .process,.concl,.pair{grid-template-columns:1fr}
+  section.s{padding:56px 0}
+  .hb{grid-template-columns:96px 1fr 46px}
+  .cmp .row{grid-template-columns:1fr}
+  .bar .btn{display:none}
+  .band{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="back" href="../../../en/#proyectos"><img src="../../../assets/juan.jpg" alt="">← Back to portfolio</a>
+    <ul class="toc" id="toc">
+      <li><a href="#demo">Demo</a></li>
+      <li><a href="#pregunta">Question</a></li>
+      <li><a href="#proceso">Process</a></li>
+      <li><a href="#hallazgos">Findings</a></li>
+      <li><a href="#conclusiones">Conclusions</a></li>
+    </ul>
+    <div class="right">
+      <div class="lang-sw" role="group" aria-label="Language"><a href="../" lang="es" hreflang="es">ES</a><a href="./" lang="en" aria-current="true">EN</a></div>
+      <a class="btn" href="https://github.com/juancortesp/chollo-o-timo" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="intro">
+  <div class="wrap">
+    <p class="crumbs"><a href="../../../en/">Home</a> / <a href="../../../en/#proyectos">Projects</a> / Cars</p>
+    <div class="tags"><span class="badge ok">Data analysis</span><span class="badge">Machine learning · App</span></div>
+    <h1>Bargain or rip-off? What a used car should really cost</h1>
+    <p class="lede">I collected 71,220 AutoScout24 listings and trained a CatBoost model that estimates the fair price of a used car in Spain. I published it as a web calculator: enter the listing details and it tells you whether it's a bargain, fairly priced or expensive.</p>
+    <dl class="facts">
+      <div><dt>Role</dt><dd>Solo project</dd></div>
+      <div><dt>Date</dt><dd>Oct 2026</dd></div>
+      <div><dt>Data</dt><dd>71,220 listings · AutoScout24</dd></div>
+      <div><dt>Tools</dt><dd>Python · CatBoost · Streamlit</dd></div>
+    </dl>
+    <div class="cta">
+      <a class="btn primary" href="#demo">Watch the demo ↓</a>
+      <a class="btn" href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Open the calculator ↗</a>
+      <a class="btn" href="https://github.com/juancortesp/chollo-o-timo" target="_blank" rel="noopener">Code and notebooks ↗</a>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="n">71,220</div><div class="l">listings after cleaning</div></div>
+      <div class="kpi"><div class="n">€2,118</div><div class="l">average error on listings the model had never seen (8.5%)</div></div>
+      <div class="kpi"><div class="n">R² 0.92</div><div class="l">of price variation explained</div></div>
+      <div class="kpi"><div class="n up">−33%</div><div class="l">error vs comparing with cars of the same model and age</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="s" id="demo" style="margin-top:32px">
+  <div class="wrap">
+    <span class="kicker">Demo</span>
+    <h2>How the calculator works</h2>
+    <div class="demo">
+      <div class="phone">
+        <span class="lbl">Demo</span>
+        <video id="vid" src="../demo.mp4" poster="../demo-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="Demo video of the Bargain or rip-off? calculator"></video>
+      </div>
+      <div>
+        <ol class="walk"><li><b>Enter the car:</b> make, model, fuel, gearbox, body type, province, year, mileage and power.</li><li><b>Add the asking price.</b> In the demo: a 2020 petrol SEAT León with 70,000 km and 130 hp, listed at €13,500.</li><li><b>The model estimates the fair price</b> and a normal range. Here: <b>€16,365</b>, with a range of €14,374 to €18,632.</li><li><b>You get a verdict:</b><div class="verdicts"><span class="v g">🟢 Bargain</span><span class="v y">🟡 Fair price</span><span class="v r">🔴 Expensive</span></div>This listing asks 18% less than its fair price, so it's a bargain.</li><li><b>It explains why</b> with SHAP values: which features push this particular car's price up or down.</li></ol>
+        <div class="cta">
+          <a class="btn primary" href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Open the calculator ↗</a>
+        </div>
+        <p class="note">💡 The app is hosted on Streamlit Community Cloud, which puts it to sleep after a while without use. If it's slow to open, give it a few seconds to wake up; meanwhile, the video shows how it works. The app itself is in Spanish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="pregunta">
+  <div class="wrap narrow prose">
+    <span class="kicker">The question</span>
+    <h2>Buying a used car without knowing if the price is fair</h2>
+    <p>When you browse used-car listings, it's hard to tell whether a price is good. Every car differs in age, mileage, engine and trim, and eyeballing other listings is slow and misleading.</p><p class="question">Which variables drive the price of a used car in Spain, and can we estimate a fair price accurately enough to flag cheap or overpriced listings?</p>
+  </div>
+</section>
+
+<section class="s" id="proceso">
+  <div class="wrap">
+    <span class="kicker">Process</span>
+    <h2>From scraping to an app anyone can use</h2>
+    <div class="process"><div class="st"><h3>Data collection</h3><p>Custom scraping of public AutoScout24 Spain listings between 1 and 14 October 2026.</p><span class="tool">Python · web scraping</span></div><div class="st"><h3>Cleaning</h3><p>Standardised makes and models, removed impossible values and duplicates, including the same car listed at several branches of one dealer.</p><span class="tool">pandas</span></div><div class="st"><h3>Feature engineering</h3><p>Age, km per year, hybrid type (MHEV, HEV, PHEV) from the trim name, and province from the city.</p><span class="tool">pandas · regex</span></div><div class="st"><h3>EDA and testing</h3><p>Distributions, outliers and hypothesis tests with paired comparisons to avoid composition bias.</p><span class="tool">SciPy · seaborn</span></div><div class="st"><h3>Model and app</h3><p>Baseline, Random Forest and CatBoost on the same split. The best one is published in Streamlit with SHAP explanations.</p><span class="tool">CatBoost · Streamlit</span></div></div>
+  </div>
+</section>
+
+<section class="s" id="hallazgos">
+  <div class="wrap">
+    <span class="kicker">Findings</span>
+    <h2>What the data says</h2>
+
+    <div class="find">
+      <div class="txt"><span class="num">01</span><h3>CatBoost clearly beats the rule-of-thumb approach</h3><p>I compared three approaches on the same split (80% train, 20% test and 15% of train for validation), with imputation and encoding learned <b>on train only</b> to avoid data leakage.</p><ul><li>The <b>baseline</b> mimics what a buyer would do: look at the median price of cars of the same make, model and age.</li><li><b>CatBoost</b> handles categorical variables like make and model well, and cuts error by 33% vs the baseline.</li><li>On the test set, <b>14,244 listings it had never seen</b>, the average error is <b>€2,118 (8.5%)</b>.</li></ul></div>
+      <div class="chart"><h4>Mean absolute error (MAE) on validation</h4><p class="sub">Lower is better</p>
+        <div class="cmp">
+          <div class="row"><span class="k">Baseline (median)</span><span class="t"><i style="width:100%">€3,327</i></span></div>
+          <div class="row mid"><span class="k">Random Forest</span><span class="t"><i style="width:77%">€2,562</i></span></div>
+          <div class="row best"><span class="k">CatBoost</span><span class="t"><i style="width:67%">€2,228</i></span></div>
+        </div>
+        <table style="margin-top:18px"><thead><tr><th>Model</th><th class="r">MAE</th><th class="r">MAPE</th><th class="r">R²</th></tr></thead><tbody>
+          <tr><td>Baseline (median)</td><td class="r">€3,327</td><td class="r">13.1%</td><td class="r">0.85</td></tr>
+          <tr><td>Random Forest</td><td class="r">€2,562</td><td class="r">9.7%</td><td class="r">0.89</td></tr>
+          <tr class="best"><td>CatBoost</td><td class="r">€2,228</td><td class="r">8.7%</td><td class="r">0.93</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <div class="find rev">
+      <div class="txt"><span class="num">02</span><h3>Power is what matters most for price</h3><p>Power is the model's most important variable, ahead of age and mileage: it sums up the car's class.</p><ul><li><b>Make and model</b> together account for almost 28%.</li><li><b>Depreciation is not linear:</b> a car loses a lot of value in its first years, then the drop slows down.</li><li><b>Automatic gearboxes</b> go with higher prices, partly because automatics tend to be newer and more powerful cars.</li></ul></div>
+      <div class="chart"><h4>Importance of each variable in the model</h4><p class="sub">CatBoost · % of total</p>
+          <div class="hb top"><span class="k">Power</span><span class="t"><i style="width:100.0%"></i></span><span class="val">34.0%</span></div>
+          <div class="hb"><span class="k">Make</span><span class="t"><i style="width:51.8%"></i></span><span class="val">17.6%</span></div>
+          <div class="hb"><span class="k">Age</span><span class="t"><i style="width:35.9%"></i></span><span class="val">12.2%</span></div>
+          <div class="hb"><span class="k">Mileage</span><span class="t"><i style="width:31.5%"></i></span><span class="val">10.7%</span></div>
+          <div class="hb"><span class="k">Model</span><span class="t"><i style="width:30.3%"></i></span><span class="val">10.3%</span></div>
+          <div class="hb"><span class="k">Body type</span><span class="t"><i style="width:15.0%"></i></span><span class="val">5.1%</span></div>
+          <div class="hb"><span class="k">Fuel</span><span class="t"><i style="width:12.4%"></i></span><span class="val">4.2%</span></div>
+          <div class="hb"><span class="k">Gearbox</span><span class="t"><i style="width:6.5%"></i></span><span class="val">2.2%</span></div>
+          <div class="hb"><span class="k">Province</span><span class="t"><i style="width:4.1%"></i></span><span class="val">1.4%</span></div>
+      </div>
+    </div>
+
+    <div class="find">
+      <div class="txt"><span class="num">03</span><h3>Diesel looks more expensive, but it isn't</h3><p>In raw terms, diesel cars have higher prices than petrol cars. But it's a <b>Simpson's paradox</b>: diesel cars tend to be bigger.</p><p>Comparing the <b>same model and age</b> across 162 pairs, diesel comes out <b>1.6% cheaper</b> (p = 0.024), and up to <b>5.3%</b> cheaper at 9-10 years old.</p><div class="callout"><p><b>The lesson:</b> before drawing conclusions from an average, check whether the groups you're comparing are actually comparable.</p></div></div>
+      <div class="chart"><h4>Diesel vs petrol</h4><p class="sub">Price difference</p>
+        <div class="pair">
+          <div class="pbox"><div class="lab">Raw comparison</div><div class="n up">Pricier</div><p>Mixes big cars (diesel) with small cars (petrol).</p></div>
+          <div class="pbox"><div class="lab">Same model and age</div><div class="n dn">−1.6%</div><p>162 comparable pairs · p = 0.024</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="find rev">
+      <div class="txt"><span class="num">04</span><h3>A rule based on the model's real errors</h3><p>To decide whether a listing is a bargain or expensive, I didn't make up a threshold. I looked at how the model's errors are distributed on the test set:</p><ul><li><b>80%</b> of listings ask between <b>−12%</b> and <b>+14%</b> of the fair price.</li><li>Below that range: <b>bargain</b>; above it: <b>expensive</b>.</li><li>If it's a bargain, the app warns you: a very low price may hide an accident, faults or outstanding debts.</li></ul></div>
+      <div class="chart"><h4>How the verdict is decided</h4><p class="sub">Asking price vs estimated fair price</p>
+        <div style="position:relative">
+          <div class="band"><div class="g">🟢 Bargain</div><div class="y">🟡 Fair</div><div class="r">🔴 Expensive</div></div>
+        </div>
+        <div class="ticks"><span style="left:30%">−12%</span><span style="left:50%">fair</span><span style="left:70%">+14%</span></div>
+        <p class="sub" style="margin:14px 0 0">The range comes from the 10th and 90th percentiles of the model's test error.</p>
+      </div>
+    </div>
+
+    <div class="find">
+      <div class="txt"><span class="num">05</span><h3>The province barely changes the price</h3><p>Once you know the car, knowing where it's sold <b>doesn't improve the prediction</b>: province accounts for only 1.4% of the model.</p><p>To check this without bias, I compared each listing with the national median for the same model and age. Most provinces are within <b>±1%</b>; the Canary Islands are <b>3% cheaper</b>, and the +3% or +6% extremes come down to a handful of dealers.</p></div>
+      <div class="chart"><h4>Relative price by province</h4><p class="sub">Vs the national median for the same model and age</p>
+        <div class="pair">
+          <div class="pbox"><div class="lab">Most provinces</div><div class="n">±1%</div><p>Differences within the noise.</p></div>
+          <div class="pbox"><div class="lab">Canary Islands</div><div class="n dn">−3%</div><p>The only clear regional difference.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="conclusiones">
+  <div class="wrap">
+    <span class="kicker">Conclusions</span>
+    <h2>What it means for car buyers</h2>
+    <div class="concl"><div class="cc"><div class="ic">🎯</div><h3>A fair price within 8.5%</h3><p>Enough to separate clearly cheap or overpriced listings from normal ones, which is what a buyer needs.</p></div><div class="cc"><div class="ic">⚙️</div><h3>Look at power, age and mileage</h3><p>They're the variables that move price the most. Province, hardly at all.</p></div><div class="cc"><div class="ic">⛽</div><h3>Don't trust raw averages</h3><p>Diesel looks pricier, but for the same model and age it's slightly cheaper.</p></div><div class="cc"><div class="ic">🔍</div><h3>Always check a bargain</h3><p>A price far below fair may be an opportunity… or hide something. The app warns you.</p></div></div>
+
+    <h3 style="font-size:20px;margin-top:44px">Limitations</h3>
+    <ul class="learn"><li><b>These are asking prices, not sale prices.</b> The final price is usually somewhat lower after negotiation.</li><li><b>It's a snapshot of October 2026</b> from a single portal, with that site's seller profile.</li><li><b>There's no seller type</b> (dealer or private), so its effect couldn't be studied.</li><li><b>These are associations and predictions,</b> not proven causation.</li></ul>
+
+    <h3 style="font-size:20px;margin-top:44px">What I learned</h3>
+    <ul class="learn"><li><b>Duplicates can inflate a model.</b> The same car at several branches could end up in both train and test; removing it prevents overly optimistic results.</li><li><b>A good baseline gives context.</b> "8.5% error" says little on its own; "33% less than eyeballing" says a lot.</li><li><b>A model is more useful when people can use it.</b> Publishing it as an app, with a clear verdict and an explanation, makes it understandable to anyone.</li></ul>
+
+    <h3 style="font-size:20px;margin-top:44px">Stack</h3>
+    <div class="pills"><span class="pill">Python</span><span class="pill">pandas</span><span class="pill">NumPy</span><span class="pill">Web scraping</span><span class="pill">scikit-learn</span><span class="pill">Random Forest</span><span class="pill">CatBoost</span><span class="pill">SHAP</span><span class="pill">seaborn</span><span class="pill">matplotlib</span><span class="pill">Streamlit</span><span class="pill">GitHub</span></div>
+
+    <div class="next">
+      <h2>Want to try it?</h2>
+      <p>Find a real listing and check whether it's a bargain, or email me and I'll walk you through the project.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Open the calculator ↗</a>
+        <a class="btn" href="mailto:infojuancortesp@gmail.com">Email me</a>
+        <a class="btn" href="../../../en/#proyectos">← Back to projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© <span id="y"></span> Juan Cortés Paredes</div></footer>
+
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+const v=document.getElementById('vid');
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  new IntersectionObserver(([e])=>{if(e.isIntersecting){v.play().catch(()=>{})}else{v.pause()}},{threshold:.4}).observe(v);
+}
+const links=[...document.querySelectorAll('#toc a')];
+const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>ob.observe(s));
+</script>
+</body>
+</html>
