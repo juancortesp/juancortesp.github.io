@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan Cortés Paredes · Data Analyst</title>
+<meta name="description" content="Juan Cortés Paredes, Data Analyst based in Valladolid, Spain. SQL, Python and Power BI to turn data into business decisions.">
+<meta property="og:title" content="Juan Cortés Paredes · Data Analyst">
+<meta property="og:description" content="SQL, Python and Power BI to turn data into business decisions.">
+<meta property="og:image" content="https://juancortesp.github.io/assets/juan.jpg">
+<meta name="theme-color" content="#ffffff">
+<link rel="alternate" hreflang="es" href="https://juancortesp.github.io/">
+<link rel="alternate" hreflang="en" href="https://juancortesp.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --text:#0f172a; --muted:#475569; --soft:#64748b; --line:#e2e8f0; --line2:#cbd5e1;
+  --bg:#fcfcfd; --bg2:#f7f6fb; --card:rgba(255,255,255,.75);
+  --accent:#6d28d9; --accent-2:#5b21b6; --accent-bg:#f3eeff; --accent-soft:#ede4ff;
+  --radius:18px; --max:1080px; --shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.mono{font-family:"JetBrains Mono",monospace}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;left:-999px;top:12px;z-index:200}.skip:focus{left:12px;background:var(--text);color:#fff;padding:8px 14px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+/* ============ NAV (aparece al hacer scroll) ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .25s ease}
+.nav.show{transform:none}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:center 22%}
+.nav ul{display:flex;gap:2px;list-style:none}
+.nav ul a{display:block;padding:8px 12px;border-radius:10px;font-size:14px;font-weight:500;color:var(--muted);text-decoration:none}
+.nav ul a:hover{background:var(--bg2);color:var(--text)}
+.nav ul a.active{background:var(--accent-bg);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;font:600 14px Inter,sans-serif;border:1px solid var(--line2);background:#fff;color:var(--text);text-decoration:none;cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--text)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-2)}
+.menu{display:none}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 48px;overflow:hidden;text-align:center}
+.bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 12% 8%,#e9ddff 0%,transparent 70%),radial-gradient(35% 45% at 90% 18%,#ffe4ef 0%,transparent 70%),radial-gradient(45% 50% at 50% 100%,#dfe9ff 0%,transparent 70%)}
+.grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(15,23,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.04) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(60% 55% at 50% 45%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(60% 55% at 50% 45%,#000 30%,transparent 80%)}
+.spark{position:absolute;bottom:0;left:0;width:100%;height:220px;opacity:.55;pointer-events:none}
+.top{position:absolute;top:22px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 28px;z-index:2}
+.mark{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:15px;box-shadow:0 1px 3px rgba(15,23,42,.06);color:var(--accent)}
+.social{display:flex;align-items:center;gap:8px}
+.soc{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--text);box-shadow:0 1px 3px rgba(15,23,42,.06);transition:.15s;text-decoration:none}
+.soc:hover{border-color:var(--accent);color:var(--accent)}
+.soc svg{width:20px;height:20px}
+.lang-sw{display:inline-flex;align-items:center;height:44px;padding:4px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.lang-sw a{display:grid;place-items:center;min-width:36px;height:34px;padding:0 8px;border-radius:9px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
+.lang-sw a[aria-current="true"]{background:var(--accent-bg);color:var(--accent)}
+.lang-sw a:not([aria-current="true"]):hover{color:var(--text)}
+.nav .social .soc,.nav .lang-sw{box-shadow:none}
+.nav .soc{width:40px;height:40px}.nav .lang-sw{height:40px}.nav .lang-sw a{height:30px;min-width:32px}
+@media (max-width:760px){.nav .social .soc{display:none}}
+.in{position:relative;z-index:1;max-width:880px;width:100%;display:flex;flex-direction:column;align-items:center}
+.avatar{position:relative;margin-bottom:22px}
+.avatar img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center 22%;border:5px solid #fff;box-shadow:0 12px 32px rgba(76,29,149,.18)}
+.avatar .chip{position:absolute;left:50%;transform:translateX(-50%);bottom:-12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;box-shadow:0 4px 12px rgba(15,23,42,.08);white-space:nowrap}
+.avatar .chip{display:inline-flex;align-items:center;gap:6px}
+.live{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2)}
+.hi{font-size:22px;font-weight:500;color:var(--muted);margin:14px 0 4px}
+h1{font-size:clamp(54px,9.5vw,108px);font-weight:900;letter-spacing:-4px;line-height:.98}
+h1 span{background:linear-gradient(90deg,#6d28d9,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:18px;color:var(--muted);margin-top:16px;line-height:1.6;max-width:620px}
+.sub b{color:var(--text);font-weight:600}
+
+/* chat */
+.chat{width:100%;max-width:640px;margin-top:30px}
+.log{display:flex;flex-direction:column;gap:10px;text-align:left;max-height:0;overflow:hidden;transition:max-height .35s ease}
+.log.open{max-height:380px;overflow:auto;padding:4px 2px;margin-bottom:12px}
+.msg{padding:11px 15px;border-radius:16px;font-size:15px;line-height:1.55;max-width:88%;animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}}
+.me{align-self:flex-end;background:var(--text);color:#fff;border-bottom-right-radius:4px}
+.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.bot a{color:var(--accent);font-weight:600}
+.typing{display:inline-flex;gap:4px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--soft);animation:blink 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:.25}}
+.ask{display:flex;align-items:center;gap:8px;background:var(--card);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:18px;padding:8px 8px 8px 20px;box-shadow:0 8px 30px rgba(15,23,42,.08)}
+.ask:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(109,40,217,.14),0 8px 30px rgba(15,23,42,.08)}
+.ask input{flex:1;border:none;background:none;font:400 16px Inter,sans-serif;color:var(--text);outline:none;min-height:40px}
+.ask input::placeholder{color:#94a3b8}
+.send{width:44px;height:44px;border-radius:12px;border:none;background:var(--text);color:#fff;cursor:pointer;font-size:18px;transition:.15s}
+.send:hover{background:var(--accent)}
+.sugg{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.sugg button{font:500 13px Inter,sans-serif;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;min-height:34px}
+.sugg button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* índice */
+.index{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;width:100%;margin-top:34px}
+.ix{display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--card);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:16px;padding:18px 8px 16px;text-decoration:none;font-size:14px;font-weight:600;color:var(--text);transition:.15s}
+.ix svg{width:22px;height:22px;stroke:var(--accent)}
+.ix:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 24px rgba(76,29,149,.10);background:#fff}
+.scrollhint{margin-top:30px;font-size:13px;color:var(--soft);display:flex;flex-direction:column;align-items:center;gap:6px}
+.mouse{width:20px;height:32px;border:2px solid var(--line2);border-radius:12px;position:relative}
+.mouse::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:6px;margin-left:-1.5px;border-radius:2px;background:#94a3b8;animation:wheel 1.6s infinite}
+@keyframes wheel{60%{transform:translateY(8px);opacity:0}}
+
+/* ============ SECCIONES ============ */
+section.s{padding:96px 0}
+section.alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.head{margin-bottom:40px;max-width:680px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px}
+.kicker::before{content:"";width:18px;height:2px;background:var(--accent);border-radius:2px}
+h2{font-size:clamp(30px,4vw,42px);font-weight:800;letter-spacing:-1.2px;line-height:1.12;margin:10px 0 10px}
+.head p{color:var(--muted);font-size:17px}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* sobre mí */
+.about{max-width:760px}
+.about p{font-size:18px;color:var(--muted);margin-bottom:16px;line-height:1.7}
+.about p b{color:var(--text);font-weight:600}
+.facts{display:grid;gap:12px}
+.fact{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.fact .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--accent-bg);display:grid;place-items:center}
+.fact .ic svg{width:20px;height:20px;stroke:var(--accent)}
+.fact b{display:block;font-size:15px}
+.fact span{font-size:14px;color:var(--soft)}
+
+/* experiencia */
+.tl{position:relative;display:grid;gap:16px}
+.job{display:grid;grid-template-columns:190px 1fr;gap:28px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;transition:.15s}
+.job:hover{box-shadow:var(--shadow)}
+.job .when{font-size:13px;color:var(--soft)}
+.job .org{font-weight:700;margin-top:4px}
+.job .place{font-size:13px;color:var(--soft)}
+.job h3{font-size:19px;letter-spacing:-.3px;margin-bottom:4px}
+.job .role{font-size:14px;color:var(--accent);font-weight:600;margin-bottom:10px}
+.job ul{padding-left:18px;color:var(--muted);font-size:15px}
+.job li{margin-bottom:5px}
+.job li b{color:var(--text);font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.pill{font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);color:var(--muted)}
+.res{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent-2);background:var(--accent-bg);padding:6px 12px;border-radius:10px}
+
+/* proyecto */
+.proj{display:grid;grid-template-columns:1.05fr 1fr;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.proj .vis{position:relative;background:linear-gradient(135deg,#f3eeff,#e9e3ff 60%,#fde7f1);min-height:420px;display:flex;align-items:center;justify-content:center;padding:28px}
+.proj .vis .ph{width:100%;aspect-ratio:16/10;border-radius:14px;background:#fff;border:1px dashed #c4b5fd;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#7c3aed;font-size:14px;font-weight:600;text-align:center;padding:20px}
+.proj .vis .ph small{font-weight:400;color:var(--soft)}
+.proj .body{padding:36px 36px 32px;display:flex;flex-direction:column;gap:14px}
+.tagrow{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--accent-bg);color:var(--accent-2)}
+.badge.ok{background:#e7f6ee;color:#0f7a43}
+.proj h3{font-size:28px;letter-spacing:-.8px;line-height:1.15}
+.proj .q{font-size:16px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.stat .n{font-size:21px;font-weight:800;letter-spacing:-.6px;color:var(--accent);white-space:nowrap}
+.stat .l{font-size:12px;color:var(--soft);line-height:1.35}
+.proj .find{font-size:15px;color:var(--muted)}
+.proj .find b{color:var(--text)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+
+
+/* filtros proyectos */
+.ftabs{display:inline-flex;gap:4px;padding:4px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;margin-bottom:24px;flex-wrap:wrap}
+.ftabs button{font:600 14px Inter,sans-serif;padding:9px 16px;border-radius:10px;border:none;background:none;color:var(--muted);cursor:pointer;min-height:40px}
+.ftabs button[aria-pressed="true"]{background:#fff;color:var(--accent);box-shadow:0 1px 3px rgba(15,23,42,.1)}
+.ftabs .c{opacity:.6;font-weight:500;margin-left:4px}
+.pgrid{display:grid;gap:20px}
+.pgrid .mk-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+[data-cat].hide{display:none!important}
+.case{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:.15s}
+.case:hover{box-shadow:var(--shadow)}
+.case .brand{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.case .logo{font-weight:900;font-size:26px;letter-spacing:-1px}
+.case h3{font-size:20px;letter-spacing:-.4px;line-height:1.25}
+.case .q{font-size:15px;color:var(--muted)}
+.deltas{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.delta{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--bg2)}
+.delta .n{font-size:24px;font-weight:800;letter-spacing:-.6px;color:#0f7a43}
+.delta .l{font-size:12px;color:var(--soft);line-height:1.35}
+.delta .n small{font-size:13px;font-weight:600;margin-left:2px}
+details.more{border-top:1px solid var(--line);padding-top:12px}
+details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:14px;list-style:none;display:flex;align-items:center;gap:6px;min-height:32px}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"↓";transition:.2s}
+details.more[open] summary::after{transform:rotate(180deg)}
+.steps{display:grid;gap:14px;margin-top:12px}
+.step b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--text);margin-bottom:4px}
+.step ul{padding-left:18px;color:var(--muted);font-size:14px}
+.step li{margin-bottom:4px}
+.clients{margin-top:12px;font-size:14px;color:var(--soft)}
+.clients b{color:var(--text);font-weight:600}
+.brands{background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:24px 28px;display:grid;gap:14px}
+.blist{display:grid;grid-template-columns:1fr 2fr;gap:24px}
+.blist b{font-size:14px}
+.blist p{font-size:15px;color:var(--muted);margin-top:4px;line-height:1.7}
+@media (max-width:860px){.pgrid .mk-row,.blist{grid-template-columns:1fr}}
+
+.proj .vis.cover{padding:0;background:#e5294f;min-height:0;overflow:hidden}
+.proj .vis.cover img{width:100%;height:100%;object-fit:contain;object-position:center;transition:transform .4s ease}
+.proj .vis.cover:hover img{transform:scale(1.03)}
+
+/* ===== proyectos escalables ===== */
+.pgrid2{display:grid;grid-template-columns:1fr;gap:20px}
+/* una fila por proyecto: imagen a la izquierda, texto a la derecha */
+.pgrid2 .pc{display:grid;grid-template-columns:1.05fr 1fr}
+.pgrid2 .pc .media{aspect-ratio:auto;min-height:100%}
+.pgrid2 .pc .media img{object-fit:contain}
+.pc{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:.15s}
+.pc:hover{box-shadow:var(--shadow);border-color:#d8ccfb}
+.pc .media{position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;text-decoration:none}
+.pc .media img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.pc:hover .media img{transform:scale(1.03)}
+.pc .media .wordmark{font-weight:900;font-size:clamp(34px,5vw,52px);letter-spacing:-2px;color:#fff}
+.pc .pb{padding:24px 26px 26px;display:flex;flex-direction:column;gap:12px;flex:1}
+.pc .tagrow{display:flex;gap:8px;flex-wrap:wrap}
+.pc h3{font-size:21px;letter-spacing:-.5px;line-height:1.25}
+.pc .sum{font-size:15px;color:var(--muted)}
+.pc .mets{display:grid;grid-template-columns:repeat(auto-fit,minmax(82px,1fr));gap:8px}
+.pc .met{border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:10px 12px}
+.pc .met .n{font-size:20px;font-weight:800;letter-spacing:-.5px;color:var(--accent);white-space:nowrap}
+.pc .met .n.up{color:#0f7a43}
+.pc .met .l{font-size:12px;color:var(--soft);line-height:1.3}
+.pc .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.pc.feat{grid-column:1/-1;display:grid;grid-template-columns:1.05fr 1fr}
+.pc.feat .media{aspect-ratio:auto;min-height:100%}
+.pc.feat .media img{object-fit:contain}
+.pc.feat h3{font-size:27px}
+.pmore{text-align:center;margin-top:22px}
+.pmore button[hidden]{display:none}
+#brands{margin-top:22px}
+@media (max-width:860px){.pgrid2{grid-template-columns:1fr}.pgrid2 .pc,.pc.feat{grid-template-columns:1fr}.pgrid2 .pc .media,.pc.feat .media{aspect-ratio:16/9}}
+
+/* posts */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.post{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-decoration:none;color:var(--text);transition:.15s}
+.post:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#c4b5fd}
+.post .meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--soft)}
+.post .tag{font-weight:600;color:var(--accent);background:var(--accent-bg);padding:3px 9px;border-radius:999px}
+.post h3{font-size:17px;line-height:1.35;letter-spacing:-.2px}
+.post p{font-size:14px;color:var(--muted);flex:1}
+.post .more{font-size:14px;font-weight:600;color:var(--accent)}
+.post.feat{grid-column:span 2;background:linear-gradient(135deg,#fff,#faf7ff)}
+.post.feat h3{font-size:22px}
+.allposts{margin-top:22px;text-align:center}
+
+/* educación */
+.edu{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ecard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.ecard .when{font-size:13px;color:var(--soft)}
+.ecard h3{font-size:18px;margin:6px 0 2px;letter-spacing:-.2px}
+.ecard .org{font-size:15px;color:var(--accent);font-weight:600}
+.ecard p{font-size:14px;color:var(--muted);margin-top:10px}
+.ecard.main{grid-column:span 3;display:grid;grid-template-columns:1fr 1.3fr;gap:28px;border-color:#c4b5fd}
+.langs{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.lang{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14px}
+.lang b{margin-right:6px}
+
+/* habilidades */
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.sk{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.sk h3{display:flex;align-items:center;gap:10px;font-size:17px;margin-bottom:16px}
+.sk h3 .ic{width:36px;height:36px;border-radius:10px;background:var(--accent-bg);display:grid;place-items:center}
+.sk h3 svg{width:18px;height:18px;stroke:var(--accent)}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tool{font-size:14px;font-weight:500;padding:8px 13px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);transition:.15s}
+.tool:hover{border-color:var(--accent);color:var(--accent);background:#fff}
+
+/* contacto */
+.contact .box{position:relative;overflow:hidden;background:linear-gradient(135deg,#1e1033,#3b1a73 60%,#6d28d9);color:#fff;border-radius:28px;padding:72px 32px;text-align:center}
+.contact .box::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(60% 60% at 50% 50%,#000,transparent);-webkit-mask-image:radial-gradient(60% 60% at 50% 50%,#000,transparent);pointer-events:none}
+.contact h2{color:#fff;font-size:clamp(34px,5vw,54px)}
+.contact p{color:#ddd6fe;max-width:520px;margin:10px auto 28px;font-size:17px}
+.contact .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.contact .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.contact .btn:hover{border-color:#fff}
+.contact .btn.primary{background:#fff;color:var(--accent-2);border-color:#fff}
+.clinks{position:relative;z-index:1;display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-top:28px;font-size:15px;color:#ddd6fe}
+.clinks a{text-decoration:none}.clinks a:hover{color:#fff;text-decoration:underline}
+footer{padding:30px 0 40px;color:var(--soft);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:960px){
+  .proj,.ecard.main{grid-template-columns:1fr}
+  .posts{grid-template-columns:1fr 1fr}.post.feat{grid-column:span 2}
+  .edu{grid-template-columns:1fr 1fr}.ecard.main{grid-column:span 2}
+  .proj .vis{min-height:260px}
+}
+@media (max-width:760px){
+  .index{grid-template-columns:repeat(3,1fr)}
+  h1{letter-spacing:-2px}
+  .job{grid-template-columns:1fr;gap:10px;padding:22px}
+  .posts,.edu,.skills,.stats{grid-template-columns:1fr}
+  .post.feat,.ecard.main{grid-column:auto}
+  .proj .body{padding:24px}
+  .nav ul{display:none;position:absolute;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:10px 16px;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+  .nav ul.open{display:flex}
+  .menu{display:inline-flex}
+  .nav .btn.primary{display:none}
+  section.s{padding:72px 0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- NAV FIJA -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand"><img src="../assets/juan.jpg" alt="">Juan Cortés</a>
+    <nav aria-label="Main">
+      <ul id="navlist">
+        <li><a href="#sobre-mi">About</a></li>
+        <li><a href="#experiencia">Experience</a></li>
+        <li><a href="#proyectos">Projects</a></li>
+        <li><a href="#educacion">Education</a></li>
+        <li><a href="#habilidades">Skills</a></li>
+        <li><a href="#posts">Posts</a></li>
+        <li><a href="#contacto">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="social">
+      <a class="soc" href="https://www.linkedin.com/in/juan-cortes-paredes/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+      <a class="soc" href="mailto:infojuancortesp@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+      <div class="lang-sw" role="group" aria-label="Language"><a href="../" lang="es" hreflang="es">ES</a><a href="./" lang="en" aria-current="true">EN</a></div>
+      <button class="btn menu" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="bg"></div><div class="grid"></div>
+  <svg class="spark" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#6d28d9" stroke-width="2" stroke-opacity=".3" points="0,190 120,180 240,186 360,160 480,168 600,140 720,150 840,118 960,126 1080,96 1200,104 1320,70 1440,60"/><polyline fill="none" stroke="#ec4899" stroke-width="2" stroke-opacity=".18" points="0,205 120,200 240,196 360,190 480,184 600,176 720,178 840,160 960,158 1080,142 1200,136 1320,120 1440,112"/></svg>
+
+  <div class="top">
+    <div class="mark" aria-hidden="true">JC</div>
+    <div class="social">
+      <a class="soc" href="https://www.linkedin.com/in/juan-cortes-paredes/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+      <a class="soc" href="mailto:infojuancortesp@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+      <div class="lang-sw" role="group" aria-label="Language"><a href="../" lang="es" hreflang="es">ES</a><a href="./" lang="en" aria-current="true">EN</a></div>
+    </div>
+  </div>
+
+  <div class="in">
+    <div class="avatar">
+      <img src="../assets/juan.jpg" alt="Juan Cortés Paredes" width="150" height="150">
+      <span class="chip"><i class="live" aria-hidden="true"></i>Available</span>
+    </div>
+    <p class="hi">Hi, I'm Juan 👋</p>
+    <h1>Data <span>Analyst</span></h1>
+    <p class="sub">Data Analyst with <b>4+ years of experience in digital marketing</b>, specialised in KPIs, reporting and strategic analysis. Proficient in <b>SQL, Python and Power BI</b> to turn data into actionable business decisions.</p>
+
+    <div class="chat">
+      <div class="log" id="log" aria-live="polite"></div>
+      <form class="ask" id="askForm" autocomplete="off">
+        <label for="q" class="sr">Ask me anything</label>
+        <input id="q" placeholder="Ask me anything…">
+        <button class="send" aria-label="Send question">→</button>
+      </form>
+      <div class="sugg" id="sugg">
+        <button type="button">What kind of role are you looking for?</button>
+        <button type="button">Are you available right away?</button>
+        <button type="button">Would you work hybrid in Madrid?</button>
+        <button type="button">What sets you apart from other junior profiles?</button>
+        <button type="button">What is your greatest strength?</button>
+        <button type="button">Tell me about your best project</button>
+      </div>
+    </div>
+
+    <nav class="index" aria-label="Index">
+      <a class="ix" href="#sobre-mi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>About</a>
+      <a class="ix" href="#experiencia"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Experience</a>
+      <a class="ix" href="#proyectos"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Projects</a>
+      <a class="ix" href="#educacion"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5"/></svg>Education</a>
+      <a class="ix" href="#habilidades"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Skills</a>
+      <a class="ix" href="#contacto"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Contact</a>
+    </nav>
+
+    <div class="scrollhint"><span class="mouse"></span>or keep scrolling</div>
+  </div>
+</section>
+
+<main id="main">
+
+<!-- SOBRE MÍ -->
+<section class="s" id="sobre-mi">
+  <div class="wrap">
+    <div class="about reveal">
+      <span class="kicker">About me</span>
+      <h2>From digital and performance marketing to data analysis</h2>
+      <p>I'm a <b>Data Analyst</b> based in Valladolid, Spain. I come from digital and performance marketing, where I spent years <b>defining KPIs, building dashboards and analysing business performance</b> and where it could improve.</p>
+      <p>I started in Business Intelligence at <b>Self Bank</b>, working with SQL and Power BI. I then spent several years evaluating investment performance across different markets, sectors and clients.</p>
+      <p>In the end, both worlds share the same core: <b>turning a business problem into a measurable question</b>. I enjoy it when that question becomes a well-written query, a model you can explain and a chart anyone can understand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section class="s alt" id="experiencia">
+  <div class="wrap">
+    <div class="head reveal"><span class="kicker">Experience</span><h2>Working with data</h2><p>Analysis, reporting and BI across several sectors and markets.</p></div>
+    <div class="tl">
+      <article class="job reveal">
+        <div><div class="when mono">Jun 2026 — present</div><div class="org">NEOLAND</div><div class="place">Madrid</div></div>
+        <div><h3>Data Analyst</h3><div class="role">End-to-end analysis project</div>
+          <ul><li>ETL of 5 public sources, geospatial analysis, regression and clustering on Madrid's rental market.</li><li>8-page Power BI dashboard and recommendations for a non-technical audience.</li></ul>
+          <div class="pills"><span class="pill">Python</span><span class="pill">GeoPandas</span><span class="pill">statsmodels</span><span class="pill">Power BI</span></div></div>
+      </article>
+      <article class="job reveal">
+        <div><div class="when mono">Aug 2025 — Jun 2026</div><div class="org">Relevantium</div><div class="place">Madrid</div></div>
+        <div><h3>Campaign analytics and reporting</h3><div class="role">Paid Media Manager</div>
+          <ul><li>Consolidated data from several platforms into <b>a single report per client</b> in Looker Studio.</li><li>Data quality: detecting discrepancies, duplicate conversions and tagging errors (GTM, GA4).</li><li>KPI definition and analysis of trends, anomalies and root causes.</li></ul>
+          <div class="res">KPI system running in 3 sectors: healthcare, retail and catering</div></div>
+      </article>
+      <article class="job reveal">
+        <div><div class="when mono">Jul 2024 — Aug 2025</div><div class="org">Orenes Grupo</div><div class="place">Madrid</div></div>
+        <div><h3>Multi-market performance analysis</h3><div class="role">PPC Specialist</div>
+          <ul><li>Analysis of 5 brands in Spain, Mexico and Colombia by channel, audience and device.</li><li>Cleaning and standardising data across currencies, time zones and naming conventions.</li><li>Conversion funnel analysis and A/B testing; reports for senior management.</li></ul>
+          <div class="res">−37% cost per acquisition · −29% cost per lead</div>
+          <p class="clients"><b>Brands:</b> VERSUS, YAASS CASINO, WINNDER, ZAMBA.CO and VERSUSbet México. <a href="#proyectos" style="color:var(--accent);font-weight:600">See case studies →</a></p></div>
+      </article>
+      <article class="job reveal">
+        <div><div class="when mono">Nov 2021 — Jul 2024</div><div class="org">VORO Marketing</div><div class="place">Valladolid</div></div>
+        <div><h3>Client reporting and dashboards</h3><div class="role">SEM · PPC Assistant</div>
+          <ul><li>Looker Studio dashboards combining GA4 and ad platforms into one view per client.</li><li>Website audits and performance analysis in SEO, SEM and paid media for local businesses.</li><li>Database segmentation and A/B test design.</li><li>SME trainer with the Valladolid Chamber of Commerce.</li></ul>
+          <div class="res">+15% open rate through segmentation and A/B testing</div></div>
+      </article>
+      <article class="job reveal">
+        <div><div class="when mono">Jun 2018 — Sep 2018</div><div class="org">Self Bank</div><div class="place">Madrid</div></div>
+        <div><h3>Business Intelligence</h3><div class="role">Internship</div>
+          <ul><li>SQL (MySQL) data extraction for requests from other departments.</li><li>Power BI dashboards used by several departments.</li></ul>
+          <div class="pills"><span class="pill">SQL</span><span class="pill">MySQL</span><span class="pill">Power BI</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section class="s" id="proyectos">
+  <div class="wrap">
+    <div class="head reveal"><span class="kicker">Projects</span><h2>Projects and case studies</h2><p>End-to-end data analysis and real performance marketing cases with measured results.</p></div>
+    <div class="ftabs" role="group" aria-label="Filter projects" id="ftabs"></div>
+    <div class="pgrid2" id="pgrid" aria-live="polite"></div>
+    <div class="pmore"><button class="btn" id="pmore" type="button" hidden>See more projects</button></div>
+    <div class="brands reveal" id="brands">
+      <div><span class="kicker">Brands and clients</span></div>
+      <div class="blist">
+        <div><b>Brands (Orenes Grupo)</b><p>VERSUS · YAASS CASINO · WINNDER · ZAMBA.CO · VERSUSbet México</p></div>
+        <div><b>Clients</b><p>Más Automoción · Solo Mercedes · SBM Abogados · University of Valladolid · TodoÓpticas · KWS · Melco Ascensores · Autoescuela Circular · Clínica Galindo · Item Psicología</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCACIÓN -->
+<section class="s alt" id="educacion">
+  <div class="wrap">
+    <div class="head reveal"><span class="kicker">Education</span><h2>Education</h2></div>
+    <div class="edu">
+      <div class="ecard main reveal">
+        <div><div class="when mono">Jul 2026 — Oct 2026</div><h3>Data Analytics Bootcamp</h3><div class="org">NEOLAND</div><p>Intensive, hands-on training from raw data to model and dashboard, finished with my own capstone project.</p></div>
+        <div class="pills" style="align-content:flex-start;margin-top:0"><span class="pill">Advanced SQL</span><span class="pill">Python and pandas</span><span class="pill">EDA</span><span class="pill">Inferential statistics</span><span class="pill">Linear and logistic regression</span><span class="pill">Trees, Random Forest and XGBoost</span><span class="pill">K-means and PCA</span><span class="pill">Time series</span><span class="pill">PySpark</span><span class="pill">Power BI and DAX</span></div>
+      </div>
+      <div class="ecard reveal"><div class="when mono">2021 — 2022</div><h3>Master's in Digital Marketing</h3><div class="org">ESIC Business & Marketing School</div></div>
+      <div class="ecard reveal"><div class="when mono">2015 — 2019</div><h3>Bachelor's in Commerce</h3><div class="org">University of Valladolid</div></div>
+      <div class="ecard reveal"><div class="when mono">Languages</div><h3>Spanish and English</h3><div class="org">Spanish native · English advanced (C1)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section class="s" id="habilidades">
+  <div class="wrap">
+    <div class="head reveal"><span class="kicker">Technical skills</span><h2>Tools I work with</h2></div>
+    <div class="skills">
+      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>Data and programming</h3>
+        <div class="tools"><span class="tool">Advanced SQL (JOINs, CTEs)</span><span class="tool">Python</span><span class="tool">pandas</span><span class="tool">NumPy</span><span class="tool">Jupyter Notebooks</span><span class="tool">Advanced Excel</span><span class="tool">Git / GitHub</span><span class="tool">Data warehouse</span></div></div>
+      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7"/><rect x="12" y="6" width="3" height="11"/><rect x="17" y="13" width="3" height="4"/></svg></span>Visualisation and BI</h3>
+        <div class="tools"><span class="tool">Power BI</span><span class="tool">DAX</span><span class="tool">Power Query</span><span class="tool">Data modelling</span><span class="tool">Looker Studio</span><span class="tool">Tableau</span><span class="tool">Hotjar</span></div></div>
+      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>Digital analytics</h3>
+        <div class="tools"><span class="tool">Google Analytics 4</span><span class="tool">Google Tag Manager</span><span class="tool">A/B testing</span></div></div>
+      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>Analysis</h3>
+        <div class="tools"><span class="tool">Data cleaning</span><span class="tool">EDA</span><span class="tool">ETL</span><span class="tool">Web scraping</span><span class="tool">KPIs and metrics</span><span class="tool">Statistics</span><span class="tool">Machine learning</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- POSTS -->
+<section class="s alt" id="posts">
+  <div class="wrap">
+    <div class="head reveal"><span class="kicker">Posts</span><h2>I write about data</h2><p>What I learn and practise, shared on LinkedIn (in Spanish).</p></div>
+    <div class="posts" id="postsGrid"></div>
+    <div class="allposts reveal"><a class="btn" href="https://www.linkedin.com/in/juan-cortes-paredes/recent-activity/all/" target="_blank" rel="noopener">See all on LinkedIn ↗</a></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="s contact" id="contacto">
+  <div class="wrap">
+    <div class="box reveal">
+      <h2>Let's talk</h2>
+      <p>I'm looking for a Data Analyst or BI Analyst role. If you have a data problem, I'm interested.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:infojuancortesp@gmail.com">Email me</a>
+        <button class="btn" id="copy" type="button">Copy email</button>
+      </div>
+      <div class="clinks">
+        <a href="mailto:infojuancortesp@gmail.com">infojuancortesp@gmail.com</a>
+        <a href="https://www.linkedin.com/in/juan-cortes-paredes" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/juancortesp" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© <span id="y"></span> Juan Cortés Paredes</span><span>Handmade with HTML, CSS and JavaScript.</span></div></footer>
+
+<script>
+/* ============ POSTS (to add one, copy a line) ============ */
+const POSTS = [
+  {feat:true, tag:'Project', date:'Oct 2026', t:'Do neighbourhoods with more tourist flats have higher rents?', d:'100 Madrid neighbourhoods, 4 cross-referenced sources and a regression that explains 70% of price differences. Short answer: yes, with nuances.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_los-barrios-con-m%C3%A1s-pisos-tur%C3%ADsticos-tienen-activity-7518932341721927683-uBHv'},
+  {tag:'SQL', date:'Nov 2026', t:'Window functions: the total without losing the detail', d:'GROUP BY collapses rows; OVER() keeps them. ROW_NUMBER, PARTITION BY and ORDER BY with a real case: each customer\'s largest order.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_sql-funciones-de-ventana-activity-7524021069800710144-oY0t'},
+  {tag:'Python', date:'Nov 2026', t:'Cleaning a real dataset: 2,000 customers and 33 columns', d:'Dates stored as text, 131 nulls, impossible ages and 4 outlier methods returning 251, 40, 4 and 60 cases. Choosing the method is analysis too.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_limpiar-dataset-real-activity-7523367391041572864-ATzW'},
+  {tag:'EDA', date:'Oct 2026', t:'What is EDA and what is it for?', d:'Spotting problems, understanding what you have and finding the right questions before modelling anything.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_qu%C3%A9-es-el-eda-y-para-qu%C3%A9-sirve-detectar-activity-7521481772929286144-KS8p'},
+  {tag:'Project', date:'Oct 2026', t:'Tourist flats and rent in Madrid: the summary', d:'Neighbourhoods with more tourist flats have higher rents, even after controlling for income and distance to the centre. But they are not the only factor.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_se-habla-mucho-de-si-los-pisos-tur%C3%ADsticos-activity-7520757019595841536-p8T6'}
+];
+document.getElementById('postsGrid').innerHTML = POSTS.map(p=>`
+  <a class="post reveal ${p.feat?'feat':''}" href="${p.url}" target="_blank" rel="noopener">
+    <div class="meta"><span class="tag">${p.tag}</span><span>${p.date}</span></div>
+    <h3>${p.t}</h3><p>${p.d}</p><span class="more">Read on LinkedIn ↗</span>
+  </a>`).join('');
+
+/* ============ "ASK ME" CHAT ============ */
+const KB=[
+ {k:['role','position','looking for','job','sector','marketing analytics','kind of'],a:'I\'m looking for a role where data is at the heart of the work: <b>Data Analyst or BI Analyst</b>. My background in performance marketing means I know how a business works from the inside and which questions to ask the data.'},
+ {k:['available','availability','right away','start','notice','join'],a:'Yes, I\'m <b>available to start immediately</b>.'},
+ {k:['hybrid','madrid','on-site','onsite','office','commute','relocat','remote'],a:'Yes. I live in Valladolid and I\'m open to <b>remote roles</b> and to <b>hybrid roles in Madrid</b>. The high-speed train gets me to Madrid in about an hour, so going to the office several days a week is not a problem.'},
+ {k:['where do you live','where are you','based','location','city','valladolid'],a:'I live in <b>Valladolid, Spain</b>. If the role is hybrid in Madrid, commuting is no problem.'},
+ {k:['apart','why you','hire','bring','junior','stand out','different'],a:'I come from performance marketing, where every day means analysing a lot of data and deciding which lever to pull to get results. I don\'t approach data only from the technical side: I\'m used to <b>turning an analysis into an action and measuring its impact</b>. <a href="#proyectos">See my projects →</a>'},
+ {k:['strength','strong point','what are you like','how do you work','quality'],a:'When I set out to do something, I don\'t stop until I find the best possible solution. I\'m <b>demanding with myself</b> and very <b>organised and structured</b>, which shows in data work: clear processes, validated data and conclusions you can defend.'},
+ {k:['sql','query','window','join','cte','mysql','database'],a:'SQL is my main tool: JOINs, CTEs, subqueries and window functions in MySQL. I started using it in BI at Self Bank. <a href="#habilidades">See tools →</a>'},
+ {k:['project','airbnb','rent','best','tourist','madrid'],a:'My flagship project: do tourist flats push up rents in Madrid? I analysed 100 neighbourhoods using 5 sources. The regression explains 70% of price differences (R² = 0.70). The effect of tourist flats is significant (p = 0.033) but small, at most ~€31/month; location and income matter more. <a href="../proyectos/madrid/">See case study (Spanish) →</a>'},
+ {k:['car','cars','bargain','scam','calculator','catboost','streamlit','machine learning','model'],a:'"Bargain or rip-off?" is a fair-price calculator for used cars. I trained a CatBoost model on 71,220 listings: its average error is €2,118 (8.5%), 33% lower than comparing with cars of the same model and age. <a href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Try it →</a>'},
+ {k:['versus','winnder','orenes','betting','cpa','cpl','campaign','result'],a:'At Orenes Grupo I analysed 5 brands in Spain, Mexico and Colombia. At VERSUS, CPA dropped 37% and CPL 29%; at Winnder, sign-ups rose 44% and the account went from losses to break-even. <a href="#proyectos">See case studies →</a>'},
+ {k:['marketing to data','change','transition','switch','paid','ads','before'],a:'I\'ve worked with business data for years: KPIs, dashboards, A/B tests and root-cause analysis. I realised analysis was what I enjoyed most, so I trained in Data Analytics to focus on it full time. <a href="#sobre-mi">More about me →</a>'},
+ {k:['power bi','dashboard','dax','looker','tableau','visuali'],a:'Power BI with DAX, Power Query and data modelling, plus Looker Studio and Tableau. In the Madrid project I built an 8-page dashboard. <a href="#proyectos">See it →</a>'},
+ {k:['python','pandas','numpy','clean','eda','jupyter'],a:'Python with pandas and NumPy in Jupyter to clean and explore data. I wrote about cleaning a 2,000-customer dataset. <a href="#posts">Read posts →</a>'},
+ {k:['machine','ml','regressi','cluster','predict','statistic'],a:'I use statistics and machine learning when they add value: regression, K-means clustering, trees and time series. In the Madrid project I used OLS regression and K-means.'},
+ {k:['experience','worked','company','companies','career','where have'],a:'I\'ve worked with data at Self Bank (BI), VORO Marketing, Orenes Grupo and Relevantium: reporting, dashboards, data quality and multi-market analysis. <a href="#experiencia">See experience →</a>'},
+ {k:['study','studies','education','bootcamp','neoland','master','degree','university'],a:'Data Analytics Bootcamp at NEOLAND (2026), Master\'s in Digital Marketing at ESIC and a Bachelor\'s in Commerce at the University of Valladolid. <a href="#educacion">See education →</a>'},
+ {k:['contact','email','mail','talk','interview','reach'],a:'Let\'s talk! Email me at <a href="mailto:infojuancortesp@gmail.com">infojuancortesp@gmail.com</a> or reach me on <a href="https://www.linkedin.com/in/juan-cortes-paredes" target="_blank" rel="noopener">LinkedIn</a>.'},
+ {k:['cv','resume','résumé'],a:'Here it is: <a href="../cv.html" target="_blank" rel="noopener">see my CV</a>.'},
+ {k:['english','language','spanish'],a:'Native Spanish and advanced English (C1).'},
+ {k:['hello','hi','hey','good morning'],a:'Hi! Ask me about my projects, my tools or my experience.'}
+];
+const FALLBACK='I don\'t have that one ready 😅 Try asking about the role I\'m looking for, my availability, my best project or SQL. Or <a href="#contacto">email me</a> and I\'ll answer myself.';
+const log=document.getElementById('log'),q=document.getElementById('q');
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function answer(t){const n=norm(t);let best=null,score=0;KB.forEach(e=>{const s=e.k.filter(k=>n.includes(norm(k))).length;if(s>score){score=s;best=e}});return best?best.a:FALLBACK}
+function ask(t){
+  if(!t.trim())return;log.classList.add('open');
+  const me=document.createElement('div');me.className='msg me';me.textContent=t;log.appendChild(me);
+  const b=document.createElement('div');b.className='msg bot';b.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';log.appendChild(b);
+  log.scrollTop=log.scrollHeight;
+  setTimeout(()=>{b.innerHTML=answer(t);log.scrollTop=log.scrollHeight},650);
+}
+document.getElementById('askForm').addEventListener('submit',e=>{e.preventDefault();ask(q.value);q.value=''});
+document.querySelectorAll('#sugg button').forEach(b=>b.addEventListener('click',()=>ask(b.textContent)));
+log.addEventListener('click',e=>{if(e.target.closest('a[href^="#"]'))log.classList.remove('open')});
+
+/* ============ PROJECTS ============ */
+const PROJECTS = [
+  {feat:true, cat:'Data analysis', badge:'Capstone project · NEOLAND',
+   media:{img:'../assets/madrid-portada.jpg', bg:'#e5294f', alt:'Cover of the Power BI dashboard for the Madrid project'},
+   t:'Do tourist flats push up rents in Madrid?',
+   sum:'100 neighbourhoods, 5 sources and a Power BI dashboard. The effect of tourist flats is significant but small (at most ~€31/month); location and income matter most.',
+   mets:[{n:'100',l:'neighbourhoods analysed'},{n:'R² 0.70',l:'price variation explained'},{n:'p = 0.033',l:'Airbnb effect: significant, but small'}],
+   tags:['ETL · 5 sources','Web scraping','GeoPandas','OLS regression','K-means','Power BI · DAX'],
+   links:[{t:'See case study (Spanish) →',u:'../proyectos/madrid/',primary:true},{t:'Code on GitHub ↗',u:'https://github.com/juancortesp/presion-turistica-alquiler-madrid',ext:true}]},
+  {cat:'Data analysis', badge:'Machine learning · App',
+   media:{img:'../assets/coches-portada.jpg', bg:'#0f8a74', alt:'Cover of the Bargain or rip-off? project: fair-price calculator for used cars'},
+   t:'Bargain or rip-off? A fair-price calculator for used cars',
+   sum:'71,220 AutoScout24 listings and a CatBoost model that estimates the fair price of a used car and tells you whether a listing is a bargain, fairly priced or expensive. Published as a web app (in Spanish).',
+   mets:[{n:'€2,118',l:'average model error on unseen cars (8.5%)'},{n:'−33%',l:'error vs comparing with cars of the same model and age',up:true},{n:'R² 0.92',l:'price variation explained'}],
+   tags:['Web scraping','EDA','Random Forest','CatBoost','Streamlit'],
+   links:[{t:'Try the calculator →',u:'https://chollo-o-timo-coches.streamlit.app',primary:true,ext:true},{t:'Code on GitHub ↗',u:'https://github.com/juancortesp/chollo-o-timo',ext:true}]},
+  {cat:'Performance marketing', badge:'Orenes Grupo · 2024 → 2025',
+   media:{word:'VERSUS', bg:'linear-gradient(135deg,#0b1f24,#0f766e)'},
+   t:'From funnel leaks to −37% cost per acquisition',
+   sum:'Sports betting and casino. Funnel and keyword diagnosis, a dedicated landing page and separate budgets per vertical.',
+   mets:[{n:'−37%',l:'CPA',up:true},{n:'−29%',l:'CPL',up:true},{n:'+14%',l:'first deposits',up:true},{n:'+9%',l:'sign-ups',up:true}],
+   tags:['Funnel analysis','A/B testing','Google Ads','KPIs'],
+   more:{d:['Unfiltered broad match: lots of irrelevant clicks in a high-CPC sector.','The website highlighted "Log in" and did not guide new users towards signing up.','Low impression share due to budget and ad quality.'],a:['Campaigns restructured with exact match and search-term cleanup.','Dedicated acquisition landing page: better Quality Score and lower CPA.','Budget split by vertical (betting and casino) to measure and optimise.']}},
+  {cat:'Performance marketing', badge:'Orenes Grupo · 2024 → 2025',
+   media:{word:'WINNDER', bg:'linear-gradient(135deg,#111827,#4d7c0f)'},
+   t:'From negative ROAS to break-even',
+   sum:'Video-game competition platform with an unprofitable CAC and lost brand searches ("Winnder" → "winner").',
+   mets:[{n:'+44%',l:'sign-ups',up:true},{n:'+23%',l:'first deposits',up:true},{n:'Break-even',l:'ROAS: from losses to break-even',up:true}],
+   tags:['Creative testing','Search analysis','ROAS · CAC','Performance Max'],
+   more:{d:['Google autocorrected "Winnder" to "winner", losing brand searches.','Campaigns with no funnel structure or creative testing.','New business model in Spain, with unprofitable CAC and growth.'],a:['Creative testing: UGC instead of static images, finding the angles that worked best.','TikTok activation (paid and organic).','Brand campaigns in Performance Max to recover misspelled searches.']}}
+];
+const PAGE = 4;               // cards visible before "See more"
+let pFilter = 'All', pShown = PAGE;
+const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function card(p){
+  const m = p.media || {};
+  const media = m.img
+    ? `<a class="media" href="${p.links?.[0]?.u||'#'}" style="background:${m.bg||'var(--bg2)'}"><img src="${m.img}" alt="${esc(m.alt||p.t)}" loading="lazy"></a>`
+    : `<div class="media" style="background:${m.bg||'var(--accent)'}"><span class="wordmark">${esc(m.word||'')}</span></div>`;
+  const more = p.more ? `<details class="more"><summary>See the analysis</summary><div class="steps">
+      <div class="step"><b>Diagnosis</b><ul>${p.more.d.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      <div class="step"><b>Actions</b><ul>${p.more.a.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></details>` : '';
+  return `<article class="pc ${p.feat?'feat':''}">${media}<div class="pb">
+    <div class="tagrow"><span class="badge ${p.cat==='Data analysis'?'ok':''}">${p.cat}</span>${p.badge?`<span class="badge">${p.badge}</span>`:''}</div>
+    <h3>${p.t}</h3><p class="sum">${p.sum}</p>
+    ${p.mets?`<div class="mets">${p.mets.map(x=>`<div class="met"><div class="n ${x.up?'up':''}">${x.n}</div><div class="l">${x.l}</div></div>`).join('')}</div>`:''}
+    ${more}
+    ${p.tags?`<div class="pills">${p.tags.map(x=>`<span class="pill">${x}</span>`).join('')}</div>`:''}
+    ${p.links?`<div class="links">${p.links.map(l=>`<a class="btn ${l.primary?'primary':''}" href="${l.u}" ${l.ext?'target="_blank" rel="noopener"':''}>${l.t}</a>`).join('')}</div>`:''}
+  </div></article>`;
+}
+function renderProjects(){
+  const cats = ['All', ...new Set(PROJECTS.map(p=>p.cat))];
+  const ft = document.getElementById('ftabs');
+  ft.innerHTML = cats.map(c=>`<button type="button" aria-pressed="${c===pFilter}" data-f="${c}">${c}<span class="c">${c==='All'?PROJECTS.length:PROJECTS.filter(p=>p.cat===c).length}</span></button>`).join('');
+  ft.style.display = cats.length > 2 ? '' : 'none';
+  ft.querySelectorAll('button').forEach(b=>b.onclick=()=>{pFilter=b.dataset.f;pShown=PAGE;renderProjects()});
+  const list = PROJECTS.filter(p=>pFilter==='All'||p.cat===pFilter);
+  document.getElementById('pgrid').innerHTML = list.slice(0,pShown).map(card).join('');
+  const btn = document.getElementById('pmore'); btn.hidden = list.length <= pShown;
+  document.getElementById('brands').style.display = (pFilter==='All'||pFilter==='Performance marketing') ? '' : 'none';
+}
+document.getElementById('pmore').addEventListener('click',()=>{pShown+=PAGE;renderProjects()});
+renderProjects();
+
+/* ============ UI ============ */
+document.getElementById('y').textContent=new Date().getFullYear();
+const nav=document.getElementById('nav'),hero=document.getElementById('top');
+new IntersectionObserver(([e])=>nav.classList.toggle('show',!e.isIntersecting),{threshold:.05}).observe(hero);
+const links=[...document.querySelectorAll('#navlist a')];
+const secObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('main section[id]').forEach(s=>secObs.observe(s));
+const menuBtn=document.getElementById('menuBtn'),navlist=document.getElementById('navlist');
+menuBtn.addEventListener('click',()=>{const o=navlist.classList.toggle('open');menuBtn.setAttribute('aria-expanded',o)});
+links.forEach(a=>a.addEventListener('click',()=>{navlist.classList.remove('open');menuBtn.setAttribute('aria-expanded',false)}));
+const rev=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');rev.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>rev.observe(el));
+document.getElementById('copy').addEventListener('click',e=>{navigator.clipboard.writeText('infojuancortesp@gmail.com').then(()=>{e.target.textContent='Copied!';setTimeout(()=>e.target.textContent='Copy email',1800)})});
+</script>
+</body>
+</html>
