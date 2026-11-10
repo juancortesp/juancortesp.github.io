@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Chollo o timo? Calculadora del precio justo de coches · Case study · Juan Cortés</title>
+<meta name="description" content="Case study de machine learning: 71.220 anuncios de AutoScout24 y un modelo CatBoost que estima el precio justo de un coche de segunda mano en España. Error medio de 2.118 € (8,5 %).">
+<meta property="og:title" content="¿Chollo o timo? Calculadora del precio justo de un coche usado · Case study">
+<meta property="og:description" content="Case study de machine learning: 71.220 anuncios de AutoScout24 y un modelo CatBoost que estima el precio justo de un coche de segunda mano en España. Error medio de 2.118 € (8,5 %).">
+<meta property="og:image" content="https://juancortesp.github.io/assets/coches-portada.jpg">
+<link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/coches/">
+<link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/coches/en/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--text:#0f172a;--muted:#475569;--soft:#64748b;--line:#e2e8f0;--line2:#cbd5e1;--bg:#fcfcfd;--bg2:#f7f6fb;--accent:#6d28d9;--accent-2:#5b21b6;--accent-bg:#f3eeff;--ok:#0f7a43;--ok-bg:#e7f6ee;--warn:#b45309;--warn-bg:#fef3c7;--bad:#b91c1c;--bad-bg:#fee2e2;--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:Inter,system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.narrow{max-width:760px}
+.mono{font-family:"JetBrains Mono",monospace}
+.bar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:14px;color:var(--muted);min-height:44px}
+.back:hover{color:var(--accent)}
+.back img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:center 22%}
+.toc{display:flex;gap:2px;list-style:none}
+.toc a{display:block;padding:7px 11px;border-radius:9px;font-size:13px;font-weight:500;color:var(--muted);text-decoration:none}
+.toc a:hover{background:var(--bg2);color:var(--text)}
+.toc a.active{background:var(--accent-bg);color:var(--accent)}
+.right{display:flex;align-items:center;gap:8px}
+.lang-sw{display:inline-flex;align-items:center;height:40px;padding:3px;border-radius:11px;background:#fff;border:1px solid var(--line)}
+.lang-sw a{display:grid;place-items:center;min-width:34px;height:32px;padding:0 8px;border-radius:8px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
+.lang-sw a[aria-current="true"]{background:var(--accent-bg);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;font:600 14px Inter,sans-serif;border:1px solid var(--line2);background:#fff;color:var(--text);text-decoration:none;cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--text)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-2)}
+.intro{padding:64px 0 40px;position:relative;overflow:hidden}
+.intro::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 60% at 10% 0%,#ede4ff,transparent 70%),radial-gradient(35% 50% at 95% 10%,#dcfce7,transparent 70%);pointer-events:none}
+.intro .wrap{position:relative}
+.crumbs{font-size:13px;color:var(--soft);margin-bottom:16px}
+.crumbs a{color:var(--soft)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--accent-bg);color:var(--accent-2)}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+h1{font-size:clamp(34px,5.4vw,58px);font-weight:900;letter-spacing:-2px;line-height:1.05;max-width:900px}
+.lede{font-size:19px;color:var(--muted);margin-top:16px;max-width:720px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:32px}
+.facts div{background:#fff;padding:16px 18px}
+.facts dt{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--soft);font-weight:600}
+.facts dd{font-size:15px;font-weight:600;margin-top:2px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:40px 0 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.kpi .n{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--accent);white-space:nowrap}
+.kpi .n.up{color:var(--ok)}
+.kpi .l{font-size:13px;color:var(--soft);line-height:1.4}
+section.s{padding:72px 0;border-top:1px solid var(--line)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px}
+.kicker::before{content:"";width:18px;height:2px;background:var(--accent);border-radius:2px}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin:10px 0 14px}
+.prose p{font-size:17px;color:var(--muted);margin-bottom:14px}
+.prose b{color:var(--text)}
+.question{font-size:22px;font-weight:700;line-height:1.4;letter-spacing:-.3px;border-left:4px solid var(--accent);padding:6px 0 6px 20px;margin:20px 0}
+/* demo */
+.demo{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:44px;align-items:center;margin-top:28px}
+.phone{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px rgba(15,23,42,.14);background:#fff;aspect-ratio:1080/1350}
+.phone video{width:100%;height:100%;object-fit:cover}
+.phone .lbl{position:absolute;top:12px;left:12px;font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;background:rgba(15,23,42,.78);color:#fff;padding:4px 9px;border-radius:999px}
+.walk{list-style:none;counter-reset:w;display:grid;gap:14px}
+.walk li{position:relative;padding-left:46px;font-size:16px;color:var(--muted)}
+.walk li::before{counter-increment:w;content:counter(w);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:10px;background:var(--accent-bg);color:var(--accent);font-weight:800;display:grid;place-items:center;font-size:14px}
+.walk b{color:var(--text)}
+.verdicts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.v{font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px}
+.v.g{background:var(--ok-bg);color:var(--ok)}.v.y{background:var(--warn-bg);color:var(--warn)}.v.r{background:var(--bad-bg);color:var(--bad)}
+.note{margin-top:18px;font-size:14px;color:var(--soft);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+/* proceso */
+.process{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:st;margin-top:24px}
+.st{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 16px}
+.st::before{counter-increment:st;content:"0" counter(st);font:500 12px "JetBrains Mono",monospace;color:var(--accent);display:block;margin-bottom:6px}
+.st h3{font-size:15px;margin-bottom:6px}
+.st p{font-size:13.5px;color:var(--muted);line-height:1.5}
+.st .tool{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--bg2);border:1px solid var(--line);color:var(--muted)}
+/* hallazgos */
+.find{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:center;padding:36px 0;border-bottom:1px solid var(--line)}
+.find:last-child{border-bottom:none}
+.find.rev{grid-template-columns:1.1fr .9fr}
+.find.rev .txt{order:2}
+.find .num{font:500 12px "JetBrains Mono",monospace;color:var(--accent)}
+.find h3{font-size:24px;letter-spacing:-.6px;line-height:1.2;margin:6px 0 12px}
+.find p{font-size:16px;color:var(--muted);margin-bottom:12px}
+.find ul{padding-left:18px;color:var(--muted);font-size:15.5px}
+.find li{margin-bottom:6px}
+.find li b,.find p b{color:var(--text)}
+.callout{background:var(--accent-bg);border:1px solid #ddd0ff;border-radius:16px;padding:18px 20px;margin-top:6px}
+.callout b{color:var(--accent-2)}
+.callout p{margin:0;color:var(--text);font-size:15.5px}
+.chart{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px;box-shadow:var(--shadow)}
+.chart h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.chart .sub{font-size:12.5px;color:var(--soft);margin-bottom:16px}
+.hb{display:grid;grid-template-columns:118px 1fr 52px;align-items:center;gap:10px;margin-bottom:9px;font-size:13.5px}
+.hb .k{color:var(--muted);text-align:right}
+.hb .t{height:14px;background:var(--bg2);border-radius:6px;overflow:hidden}
+.hb .t i{display:block;height:100%;background:#c4b5fd;border-radius:6px}
+.hb.top .t i{background:var(--accent)}
+.hb .val{font:500 12.5px "JetBrains Mono",monospace;color:var(--text)}
+.cmp{display:grid;gap:14px}
+.cmp .row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;font-size:13.5px}
+.cmp .row .k{color:var(--muted)}
+.cmp .row.best .k{color:var(--text);font-weight:700}
+.cmp .t{height:28px;background:var(--bg2);border-radius:8px;overflow:hidden}
+.cmp .t i{display:flex;align-items:center;justify-content:flex-end;padding-right:10px;height:100%;background:#cbd5e1;border-radius:8px;font:600 12.5px "JetBrains Mono",monospace;color:var(--text)}
+.cmp .row.mid .t i{background:#c4b5fd}
+.cmp .row.best .t i{background:var(--accent);color:#fff}
+.band{position:relative;height:56px;margin:28px 6px 8px;border-radius:10px;display:grid;grid-template-columns:30% 40% 30%;overflow:hidden;font-size:13px;font-weight:700}
+.band div{display:grid;place-items:center}
+.band .g{background:var(--ok-bg);color:var(--ok)}.band .y{background:var(--warn-bg);color:var(--warn)}.band .r{background:var(--bad-bg);color:var(--bad)}
+.ticks{position:relative;height:22px;margin:0 6px;font:500 12px "JetBrains Mono",monospace;color:var(--soft)}
+.ticks span{position:absolute;transform:translateX(-50%);top:0}
+.marker{position:absolute;top:-24px;transform:translateX(-50%);font-size:12px;font-weight:700;color:var(--text);white-space:nowrap}
+.marker::after{content:"";display:block;width:2px;height:62px;background:var(--text);margin:2px auto 0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pbox{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--bg2)}
+.pbox .lab{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);font-weight:600}
+.pbox .n{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-top:2px}
+.pbox .n.up{color:var(--bad)}.pbox .n.dn{color:var(--ok)}
+.pbox p{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
+.arrow{display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--soft);margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);font-weight:600}
+td.r,th.r{text-align:right}
+tr.best td{font-weight:700;color:var(--accent-2)}
+.concl{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+.cc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.cc .ic{width:38px;height:38px;border-radius:11px;background:var(--accent-bg);display:grid;place-items:center;font-size:18px;margin-bottom:10px}
+.cc h3{font-size:17px;margin-bottom:6px}
+.cc p{font-size:15px;color:var(--muted)}
+.learn{list-style:none;display:grid;gap:10px;margin-top:16px}
+.learn li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--muted)}
+.learn li b{color:var(--text)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{font-size:13px;font-weight:500;padding:6px 12px;border-radius:10px;background:var(--bg2);border:1px solid var(--line)}
+.next{background:linear-gradient(135deg,#1e1033,#3b1a73 60%,#6d28d9);color:#fff;border-radius:26px;padding:48px 32px;text-align:center;margin:72px 0 40px}
+.next h2{color:#fff}
+.next p{color:#ddd6fe;margin-bottom:22px}
+.next .cta{justify-content:center}
+.next .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.next .btn.primary{background:#fff;color:var(--accent-2);border-color:#fff}
+footer{padding:0 0 40px;color:var(--soft);font-size:14px}
+@media (max-width:960px){
+  .toc{display:none}
+  .facts,.kpis{grid-template-columns:1fr 1fr}
+  .process{grid-template-columns:1fr 1fr}
+  .find,.find.rev,.demo{grid-template-columns:1fr}.find.rev .txt{order:0}
+  .phone{max-width:400px;margin:0 auto;width:100%}
+}
+@media (max-width:600px){
+  .process,.concl,.pair{grid-template-columns:1fr}
+  section.s{padding:56px 0}
+  .hb{grid-template-columns:96px 1fr 46px}
+  .cmp .row{grid-template-columns:1fr}
+  .bar .btn{display:none}
+  .band{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="back" href="../../#proyectos"><img src="../../assets/juan.jpg" alt="">← Volver al portfolio</a>
+    <ul class="toc" id="toc">
+      <li><a href="#demo">Demo</a></li>
+      <li><a href="#pregunta">Pregunta</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#hallazgos">Hallazgos</a></li>
+      <li><a href="#conclusiones">Conclusiones</a></li>
+    </ul>
+    <div class="right">
+      <div class="lang-sw" role="group" aria-label="Idioma"><a href="./" lang="es" aria-current="true">ES</a><a href="en/" lang="en" hreflang="en">EN</a></div>
+      <a class="btn" href="https://github.com/juancortesp/chollo-o-timo" target="_blank" rel="noopener">Código ↗</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="intro">
+  <div class="wrap">
+    <p class="crumbs"><a href="../../">Inicio</a> / <a href="../../#proyectos">Proyectos</a> / Coches</p>
+    <div class="tags"><span class="badge ok">Análisis de datos</span><span class="badge">Machine learning · App</span></div>
+    <h1>¿Chollo o timo? Cuánto debería costar un coche de segunda mano</h1>
+    <p class="lede">Recogí 71.220 anuncios de AutoScout24 y entrené un modelo CatBoost que estima el precio justo de un coche usado en España. Lo publiqué como una calculadora web: metes los datos del anuncio y te dice si es un chollo, un precio normal o caro.</p>
+    <dl class="facts">
+      <div><dt>Rol</dt><dd>Proyecto individual</dd></div>
+      <div><dt>Fecha</dt><dd>oct 2026</dd></div>
+      <div><dt>Datos</dt><dd>71.220 anuncios · AutoScout24</dd></div>
+      <div><dt>Herramientas</dt><dd>Python · CatBoost · Streamlit</dd></div>
+    </dl>
+    <div class="cta">
+      <a class="btn primary" href="#demo">Ver la demo ↓</a>
+      <a class="btn" href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Abrir la calculadora ↗</a>
+      <a class="btn" href="https://github.com/juancortesp/chollo-o-timo" target="_blank" rel="noopener">Código y notebooks ↗</a>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="n">71.220</div><div class="l">anuncios tras la limpieza</div></div>
+      <div class="kpi"><div class="n">2.118 €</div><div class="l">error medio en anuncios que el modelo no había visto (8,5 %)</div></div>
+      <div class="kpi"><div class="n">R² 0,92</div><div class="l">de la variación del precio explicada</div></div>
+      <div class="kpi"><div class="n up">−33 %</div><div class="l">de error frente a comparar con coches del mismo modelo y edad</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="s" id="demo" style="margin-top:32px">
+  <div class="wrap">
+    <span class="kicker">Demo</span>
+    <h2>Así funciona la calculadora</h2>
+    <div class="demo">
+      <div class="phone">
+        <span class="lbl">Demo</span>
+        <video id="vid" src="demo.mp4" poster="demo-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="Vídeo de demostración de la calculadora ¿Chollo o timo?"></video>
+      </div>
+      <div>
+        <ol class="walk"><li><b>Introduces el coche:</b> marca, modelo, combustible, cambio, carrocería, provincia, año, kilómetros y potencia.</li><li><b>Pones el precio del anuncio.</b> En la demo, un SEAT León de gasolina de 2020, con 70.000 km y 130 CV, por 13.500 €.</li><li><b>El modelo estima el precio justo</b> y un rango normal. Aquí: <b>16.365 €</b>, con un rango de 14.374 € a 18.632 €.</li><li><b>Te da un veredicto:</b><div class="verdicts"><span class="v g">🟢 Chollo</span><span class="v y">🟡 Precio normal</span><span class="v r">🔴 Caro</span></div>Este anuncio pide un 18 % menos que su precio justo, así que es un chollo.</li><li><b>Te explica por qué</b> con valores SHAP: qué características suben o bajan el precio de ese coche concreto.</li></ol>
+        <div class="cta">
+          <a class="btn primary" href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Abrir la calculadora ↗</a>
+        </div>
+        <p class="note">💡 La app está alojada en Streamlit Community Cloud, que la duerme cuando lleva tiempo sin uso. Si tarda en abrir, espera unos segundos a que arranque: mientras, el vídeo enseña cómo funciona.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="pregunta">
+  <div class="wrap narrow prose">
+    <span class="kicker">La pregunta</span>
+    <h2>Comprar un coche usado sin saber si el precio es razonable</h2>
+    <p>Cuando miras anuncios de coches de segunda mano, es difícil saber si un precio es bueno. Cada coche es distinto en edad, kilómetros, motor y equipamiento, y comparar a ojo con otros anuncios lleva tiempo y engaña.</p><p class="question">¿Qué variables determinan el precio de un coche usado en España, y se puede estimar un precio justo lo bastante preciso como para detectar anuncios baratos o caros?</p>
+  </div>
+</section>
+
+<section class="s" id="proceso">
+  <div class="wrap">
+    <span class="kicker">Proceso</span>
+    <h2>Del scraping a una app que cualquiera puede usar</h2>
+    <div class="process"><div class="st"><h3>Recogida de datos</h3><p>Scraping propio de anuncios públicos de AutoScout24 España entre el 1 y el 14 de octubre de 2026.</p><span class="tool">Python · web scraping</span></div><div class="st"><h3>Limpieza</h3><p>Normalización de marcas y modelos, valores imposibles y eliminación de duplicados, incluido el mismo coche publicado en varias sedes de un concesionario.</p><span class="tool">pandas</span></div><div class="st"><h3>Ingeniería de variables</h3><p>Antigüedad, km por año, tipo de híbrido (MHEV, HEV, PHEV) a partir de la versión y provincia a partir de la ciudad.</p><span class="tool">pandas · regex</span></div><div class="st"><h3>EDA y contraste</h3><p>Distribuciones, outliers y contraste de hipótesis con comparaciones pareadas para evitar sesgos de composición.</p><span class="tool">SciPy · seaborn</span></div><div class="st"><h3>Modelo y app</h3><p>Baseline, Random Forest y CatBoost sobre el mismo split. El mejor se publica en Streamlit con explicación SHAP.</p><span class="tool">CatBoost · Streamlit</span></div></div>
+  </div>
+</section>
+
+<section class="s" id="hallazgos">
+  <div class="wrap">
+    <span class="kicker">Hallazgos</span>
+    <h2>Lo que dicen los datos</h2>
+
+    <div class="find">
+      <div class="txt"><span class="num">01</span><h3>CatBoost gana con claridad al método «a ojo»</h3><p>Comparé tres enfoques sobre el mismo split (80 % train, 20 % test y un 15 % de train para validación), con imputación y encoding aprendidos <b>solo en train</b> para evitar fugas de información.</p><ul><li>El <b>baseline</b> imita lo que haría un comprador: mirar la mediana de coches de la misma marca, modelo y edad.</li><li><b>CatBoost</b> maneja bien variables categóricas como marca y modelo, y reduce el error un 33 % respecto al baseline.</li><li>En test, sobre <b>14.244 anuncios que nunca había visto</b>, el error medio es de <b>2.118 € (8,5 %)</b>.</li></ul></div>
+      <div class="chart"><h4>Error medio absoluto (MAE) en validación</h4><p class="sub">Menos es mejor</p>
+        <div class="cmp">
+          <div class="row"><span class="k">Baseline (mediana)</span><span class="t"><i style="width:100%">3.327 €</i></span></div>
+          <div class="row mid"><span class="k">Random Forest</span><span class="t"><i style="width:77%">2.562 €</i></span></div>
+          <div class="row best"><span class="k">CatBoost</span><span class="t"><i style="width:67%">2.228 €</i></span></div>
+        </div>
+        <table style="margin-top:18px"><thead><tr><th>Modelo</th><th class="r">MAE</th><th class="r">MAPE</th><th class="r">R²</th></tr></thead><tbody>
+          <tr><td>Baseline (mediana)</td><td class="r">3.327 €</td><td class="r">13,1 %</td><td class="r">0,85</td></tr>
+          <tr><td>Random Forest</td><td class="r">2.562 €</td><td class="r">9,7 %</td><td class="r">0,89</td></tr>
+          <tr class="best"><td>CatBoost</td><td class="r">2.228 €</td><td class="r">8,7 %</td><td class="r">0,93</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <div class="find rev">
+      <div class="txt"><span class="num">02</span><h3>La potencia es lo que más pesa en el precio</h3><p>La potencia es la variable más importante del modelo, por delante de la antigüedad y los kilómetros: resume la gama del coche.</p><ul><li><b>Marca y modelo</b> juntos pesan casi un 28 %.</li><li><b>La depreciación no es lineal:</b> un coche pierde mucho valor en los primeros años y después la caída se suaviza.</li><li><b>El cambio automático</b> se asocia a precios más altos, en parte porque los automáticos suelen ser coches más nuevos y potentes.</li></ul></div>
+      <div class="chart"><h4>Importancia de cada variable en el modelo</h4><p class="sub">CatBoost · % del total</p>
+          <div class="hb top"><span class="k">Potencia</span><span class="t"><i style="width:100.0%"></i></span><span class="val">34,0 %</span></div>
+          <div class="hb"><span class="k">Marca</span><span class="t"><i style="width:51.8%"></i></span><span class="val">17,6 %</span></div>
+          <div class="hb"><span class="k">Antigüedad</span><span class="t"><i style="width:35.9%"></i></span><span class="val">12,2 %</span></div>
+          <div class="hb"><span class="k">Kilómetros</span><span class="t"><i style="width:31.5%"></i></span><span class="val">10,7 %</span></div>
+          <div class="hb"><span class="k">Modelo</span><span class="t"><i style="width:30.3%"></i></span><span class="val">10,3 %</span></div>
+          <div class="hb"><span class="k">Carrocería</span><span class="t"><i style="width:15.0%"></i></span><span class="val">5,1 %</span></div>
+          <div class="hb"><span class="k">Combustible</span><span class="t"><i style="width:12.4%"></i></span><span class="val">4,2 %</span></div>
+          <div class="hb"><span class="k">Cambio</span><span class="t"><i style="width:6.5%"></i></span><span class="val">2,2 %</span></div>
+          <div class="hb"><span class="k">Provincia</span><span class="t"><i style="width:4.1%"></i></span><span class="val">1,4 %</span></div>
+      </div>
+    </div>
+
+    <div class="find">
+      <div class="txt"><span class="num">03</span><h3>El diésel parece más caro, pero no lo es</h3><p>En bruto, los diésel tienen precios más altos que los gasolina. Pero es una <b>paradoja de Simpson</b>: los diésel suelen ser coches más grandes.</p><p>Comparando el <b>mismo modelo y la misma edad</b> en 162 pares, el diésel sale un <b>1,6 % más barato</b> (p = 0,024), y hasta un <b>5,3 %</b> a los 9-10 años.</p><div class="callout"><p><b>La lección:</b> antes de sacar conclusiones de una media, hay que comprobar si los grupos que comparas son realmente comparables.</p></div></div>
+      <div class="chart"><h4>Diésel frente a gasolina</h4><p class="sub">Diferencia de precio</p>
+        <div class="pair">
+          <div class="pbox"><div class="lab">Comparación en bruto</div><div class="n up">Más caro</div><p>Mezcla coches grandes (diésel) con coches pequeños (gasolina).</p></div>
+          <div class="pbox"><div class="lab">Mismo modelo y edad</div><div class="n dn">−1,6 %</div><p>162 pares comparables · p = 0,024</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="find rev">
+      <div class="txt"><span class="num">04</span><h3>Una regla basada en los errores reales del modelo</h3><p>Para decidir si un anuncio es un chollo o caro, no usé un umbral inventado. Miré cómo se reparten los errores del modelo en test:</p><ul><li>El <b>80 %</b> de los anuncios piden entre un <b>−12 %</b> y un <b>+14 %</b> respecto al precio justo.</li><li>Por debajo de ese rango, <b>chollo</b>; por encima, <b>caro</b>.</li><li>Si sale chollo, la app avisa: un precio muy bajo puede esconder un accidente, averías o cargas.</li></ul></div>
+      <div class="chart"><h4>Cómo decide el veredicto</h4><p class="sub">Precio del anuncio frente al precio justo estimado</p>
+        <div style="position:relative">
+          <div class="band"><div class="g">🟢 Chollo</div><div class="y">🟡 Normal</div><div class="r">🔴 Caro</div></div>
+        </div>
+        <div class="ticks"><span style="left:30%">−12 %</span><span style="left:50%">justo</span><span style="left:70%">+14 %</span></div>
+        <p class="sub" style="margin:14px 0 0">El rango sale de los percentiles 10 y 90 del error del modelo en test.</p>
+      </div>
+    </div>
+
+    <div class="find">
+      <div class="txt"><span class="num">05</span><h3>La provincia apenas cambia el precio</h3><p>Una vez conocido el coche, saber dónde se vende <b>no mejora la predicción</b>: la provincia pesa solo un 1,4 % en el modelo.</p><p>Para comprobarlo sin sesgos, comparé cada anuncio con la mediana nacional de su mismo modelo y edad. La mayoría de provincias quedan a <b>±1 %</b>; Canarias sale un <b>3 % más barata</b>, y los extremos de +3 % o +6 % se explican por pocos concesionarios.</p></div>
+      <div class="chart"><h4>Precio relativo por provincia</h4><p class="sub">Frente a la mediana nacional del mismo modelo y edad</p>
+        <div class="pair">
+          <div class="pbox"><div class="lab">Mayoría de provincias</div><div class="n">±1 %</div><p>Diferencias dentro del ruido.</p></div>
+          <div class="pbox"><div class="lab">Canarias</div><div class="n dn">−3 %</div><p>La única diferencia regional clara.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="conclusiones">
+  <div class="wrap">
+    <span class="kicker">Conclusiones</span>
+    <h2>Qué significa para quien compra un coche</h2>
+    <div class="concl"><div class="cc"><div class="ic">🎯</div><h3>Un precio justo con un 8,5 % de error</h3><p>Suficiente para separar anuncios claramente baratos o caros de los normales, que es lo que necesita un comprador.</p></div><div class="cc"><div class="ic">⚙️</div><h3>Mira la potencia, la edad y los km</h3><p>Son las variables que más mueven el precio. La provincia, casi nada.</p></div><div class="cc"><div class="ic">⛽</div><h3>No te fíes de las medias en bruto</h3><p>El diésel parece más caro, pero a igual modelo y edad sale algo más barato.</p></div><div class="cc"><div class="ic">🔍</div><h3>Un chollo hay que revisarlo</h3><p>Un precio muy por debajo puede ser una oportunidad… o esconder algo. La app lo avisa.</p></div></div>
+
+    <h3 style="font-size:20px;margin-top:44px">Limitaciones</h3>
+    <ul class="learn"><li><b>Son precios pedidos, no de venta.</b> El precio final suele ser algo más bajo tras negociar.</li><li><b>Es una foto de octubre de 2026</b> y de un solo portal, con el perfil de vendedor de esa web.</li><li><b>No hay tipo de vendedor</b> (concesionario o particular), así que no se pudo estudiar su efecto.</li><li><b>Son relaciones y predicciones,</b> no causalidad demostrada.</li></ul>
+
+    <h3 style="font-size:20px;margin-top:44px">Lo que aprendí</h3>
+    <ul class="learn"><li><b>Los duplicados pueden inflar un modelo.</b> El mismo coche en varias sedes podía acabar en train y en test a la vez; eliminarlo evita resultados demasiado optimistas.</li><li><b>Un buen baseline da contexto.</b> «8,5 % de error» no dice mucho solo; «un 33 % menos que comparar a ojo» sí.</li><li><b>Un modelo es más útil si se puede usar.</b> Publicarlo como app, con un veredicto claro y una explicación, lo hace entendible para cualquiera.</li></ul>
+
+    <h3 style="font-size:20px;margin-top:44px">Stack</h3>
+    <div class="pills"><span class="pill">Python</span><span class="pill">pandas</span><span class="pill">NumPy</span><span class="pill">Web scraping</span><span class="pill">scikit-learn</span><span class="pill">Random Forest</span><span class="pill">CatBoost</span><span class="pill">SHAP</span><span class="pill">seaborn</span><span class="pill">matplotlib</span><span class="pill">Streamlit</span><span class="pill">GitHub</span></div>
+
+    <div class="next">
+      <h2>¿Lo pruebas?</h2>
+      <p>Busca un anuncio real y comprueba si es un chollo, o escríbeme y te cuento el proyecto.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Abrir la calculadora ↗</a>
+        <a class="btn" href="mailto:infojuancortesp@gmail.com">Escríbeme</a>
+        <a class="btn" href="../../#proyectos">← Volver a proyectos</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© <span id="y"></span> Juan Cortés Paredes</div></footer>
+
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+const v=document.getElementById('vid');
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  new IntersectionObserver(([e])=>{if(e.isIntersecting){v.play().catch(()=>{})}else{v.pause()}},{threshold:.4}).observe(v);
+}
+const links=[...document.querySelectorAll('#toc a')];
+const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>ob.observe(s));
+</script>
+</body>
+</html>
