@@ -3,14 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Presión turística y alquiler en Madrid · Case study · Juan Cortés</title>
-<meta name="description" content="Case study de análisis de datos: ¿encarecen los pisos turísticos el alquiler en Madrid? 100 barrios, 5 fuentes, regresión y clustering, con dashboard en Power BI.">
-<meta property="og:title" content="¿Encarecen los pisos turísticos el alquiler en Madrid? · Case study">
-<meta property="og:description" content="100 barrios, 5 fuentes, regresión (R² 0,70), K-means y un dashboard de Power BI.">
+<title>¿Encarecen los pisos turísticos el alquiler en Madrid?</title>
+<meta name="description" content="Sí, pero poco: como mucho ~31 €/mes. Análisis de 100 barrios de Madrid con 5 fuentes públicas, regresión (R² 0,70) y un dashboard de Power BI.">
+<meta property="og:title" content="¿Encarecen los pisos turísticos el alquiler en Madrid?">
+<meta property="og:description" content="Sí, pero poco: como mucho ~31 €/mes. Análisis de 100 barrios de Madrid con 5 fuentes públicas, regresión (R² 0,70) y un dashboard de Power BI.">
 <meta property="og:image" content="https://juancortesp.github.io/proyectos/madrid/img/portada.jpg">
 <link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/madrid/">
 <link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/madrid/en/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style>
 <style>
@@ -155,6 +157,17 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
   section.s{padding:56px 0}
   table{font-size:13px}th,td{padding:8px 6px}
 }
+
+/* respuesta corta, autoría y fuentes */
+.byline{margin-top:18px;line-height:1.6;font-size:14px;color:var(--soft)}
+.byline img{display:inline-block;vertical-align:middle;margin:-3px 8px 0 0;width:28px;height:28px;border-radius:50%;object-fit:cover}
+.byline a{color:var(--text);font-weight:600;text-decoration:none}.byline a:hover{color:var(--accent)}
+.tldr{margin-top:26px;max-width:760px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
+.tldr strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.9px;color:var(--accent);margin-bottom:4px}
+.tldr p{margin:0;font-size:16px;color:var(--text);line-height:1.6}
+.sources{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.sources a{display:inline-block;font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--accent-2);text-decoration:none}
+.sources a:hover{border-color:var(--accent)}
 </style>
 <link rel="canonical" href="https://juancortesp.github.io/proyectos/madrid/">
 <meta property="og:url" content="https://juancortesp.github.io/proyectos/madrid/">
@@ -192,6 +205,8 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
     <div class="tags"><span class="badge ok">Análisis de datos</span><span class="badge">Proyecto final · NEOLAND</span></div>
     <h1>¿Encarecen los pisos turísticos el alquiler en Madrid?</h1>
     <p class="lede">Crucé 5 fuentes públicas para analizar 100 barrios y separar el efecto de los pisos turísticos del de la ubicación y la renta. El resultado: un dashboard de Power BI para que cualquiera pueda explorar los datos.</p>
+    <p class="byline"><img src="../../assets/juan-64.webp" alt="" width="28" height="28">Por <a href="../../" rel="author">Juan Cortés Paredes</a> · Data Analyst · Actualizado en noviembre de 2026</p>
+    <div class="tldr"><strong>Respuesta corta</strong><p>Sí, pero poco. Los barrios con más pisos turísticos tienen alquileres algo más caros incluso descontando renta y distancia al centro, pero el efecto es de como mucho <b>~31 €/mes</b> en un piso de 70 m² (un 2,2 % del alquiler medio). Lo que de verdad marca el precio es la <b>ubicación y la renta</b>; el impacto solo es notable en el distrito Centro.</p></div>
     <dl class="facts">
       <div><dt>Rol</dt><dd>Proyecto individual</dd></div>
       <div><dt>Fecha</dt><dd>jul – oct 2026</dd></div>
@@ -217,7 +232,7 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
 <section class="s" id="pregunta" style="margin-top:72px">
   <div class="wrap narrow prose">
     <span class="kicker">La pregunta</span>
-    <h2>Un debate con mucha opinión y pocos datos</h2>
+    <h2>¿Suben los alquileres por culpa de los pisos turísticos?</h2>
     <p>Se habla mucho de si los pisos turísticos tienen la culpa de que suban los alquileres. Pero los barrios con más Airbnb también suelen ser los más céntricos y los más demandados, así que comparar precios sin más no responde a la pregunta.</p>
     <p class="question">¿Los barrios con más pisos turísticos tienen alquileres más caros, una vez descontados la renta, la distancia al centro y el crecimiento de población?</p>
   </div>
@@ -240,7 +255,7 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
 <section class="s" id="hallazgos">
   <div class="wrap">
     <span class="kicker">Hallazgos</span>
-    <h2>Lo que dicen los datos</h2>
+    <h2>Resultados: alquiler, pisos turísticos y renta por barrio</h2>
 
     <div class="find">
       <div class="txt"><span class="num">01</span><h3>El alquiler aprieta en casi toda la ciudad</h3>
@@ -304,6 +319,9 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
       <li><b>Significativo no es lo mismo que importante.</b> Un efecto puede ser estadísticamente real y tener poco impacto en euros.</li>
       <li><b>El dashboard es para quien decide.</b> Cada página responde a una sola pregunta con un titular.</li>
     </ul>
+
+    <h3 style="font-size:20px;margin-top:44px">Fuentes de datos</h3>
+    <ul class="sources"><li><a href="https://www.idealista.com/" target="_blank" rel="noopener">Idealista ↗</a></li><li><a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb ↗</a></li><li><a href="https://www.ine.es/" target="_blank" rel="noopener">INE ↗</a></li><li><a href="https://datos.madrid.es/" target="_blank" rel="noopener">Datos abiertos del Ayuntamiento de Madrid ↗</a></li></ul>
 
     <h3 style="font-size:20px;margin-top:44px">Stack</h3>
     <div class="pills"><span class="pill">Python</span><span class="pill">pandas</span><span class="pill">NumPy</span><span class="pill">GeoPandas</span><span class="pill">statsmodels</span><span class="pill">scikit-learn</span><span class="pill">Web scraping</span><span class="pill">Jupyter</span><span class="pill">Power BI</span><span class="pill">DAX</span><span class="pill">Power Query</span><span class="pill">GitHub</span></div>

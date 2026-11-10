@@ -3,14 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bargain or rip-off? Fair-price calculator for used cars · Case study · Juan Cortés</title>
-<meta name="description" content="Machine learning case study: 71,220 AutoScout24 listings and a CatBoost model that estimates the fair price of a used car in Spain. Average error of €2,118 (8.5%).">
-<meta property="og:title" content="Bargain or rip-off? A fair-price calculator for used cars · Case study">
-<meta property="og:description" content="Machine learning case study: 71,220 AutoScout24 listings and a CatBoost model that estimates the fair price of a used car in Spain. Average error of €2,118 (8.5%).">
+<title>Used car fair price calculator for Spain</title>
+<meta name="description" content="Is that used car a bargain? Estimate its fair price in Spain with a model trained on 71,220 listings (8.5% average error). Free calculator and case study.">
+<meta property="og:title" content="Used car fair price calculator for Spain">
+<meta property="og:description" content="Is that used car a bargain? Estimate its fair price in Spain with a model trained on 71,220 listings (8.5% average error). Free calculator and case study.">
 <meta property="og:image" content="https://juancortesp.github.io/assets/coches-portada.jpg">
 <link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/coches/">
 <link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/coches/en/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236D28D9'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>JC</text></svg>">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style>
 <style>
@@ -171,6 +173,17 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
   .bar .btn{display:none}
   .band{font-size:11.5px}
 }
+
+/* respuesta corta, autoría y fuentes */
+.byline{margin-top:18px;line-height:1.6;font-size:14px;color:var(--soft)}
+.byline img{display:inline-block;vertical-align:middle;margin:-3px 8px 0 0;width:28px;height:28px;border-radius:50%;object-fit:cover}
+.byline a{color:var(--text);font-weight:600;text-decoration:none}.byline a:hover{color:var(--accent)}
+.tldr{margin-top:26px;max-width:760px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
+.tldr strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.9px;color:var(--accent);margin-bottom:4px}
+.tldr p{margin:0;font-size:16px;color:var(--text);line-height:1.6}
+.sources{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.sources a{display:inline-block;font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--accent-2);text-decoration:none}
+.sources a:hover{border-color:var(--accent)}
 </style>
 <link rel="canonical" href="https://juancortesp.github.io/proyectos/coches/en/">
 <meta property="og:url" content="https://juancortesp.github.io/proyectos/coches/en/">
@@ -210,6 +223,8 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
     <div class="tags"><span class="badge ok">Data analysis</span><span class="badge">Machine learning · App</span></div>
     <h1>Bargain or rip-off? What a used car should really cost</h1>
     <p class="lede">I collected 71,220 AutoScout24 listings and trained a CatBoost model that estimates the fair price of a used car in Spain. I published it as a web calculator: enter the listing details and it tells you whether it's a bargain, fairly priced or expensive.</p>
+    <p class="byline"><img src="../../../assets/juan-64.webp" alt="" width="28" height="28">By <a href="../../../en/" rel="author">Juan Cortés Paredes</a> · Data Analyst · Updated November 2026</p>
+    <div class="tldr"><strong>Short answer</strong><p>From a listing's details (make, model, year, mileage, power…), the model estimates its <b>fair price with an average error of €2,118 (8.5%)</b>, 33% lower than comparing with cars of the same model and age. If the listing asks more than 12% below fair price it's a <b>bargain</b>; more than 14% above, <b>expensive</b>. Power matters most for price, followed by make, age and mileage.</p></div>
     <dl class="facts">
       <div><dt>Role</dt><dd>Solo project</dd></div>
       <div><dt>Date</dt><dd>Oct 2026</dd></div>
@@ -269,7 +284,7 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
 <section class="s" id="hallazgos">
   <div class="wrap">
     <span class="kicker">Findings</span>
-    <h2>What the data says</h2>
+    <h2>Results: what drives the price of a used car</h2>
 
     <div class="find">
       <div class="txt"><span class="num">01</span><h3>CatBoost clearly beats the rule-of-thumb approach</h3><p>I compared three approaches on the same split (80% train, 20% test and 15% of train for validation), with imputation and encoding learned <b>on train only</b> to avoid data leakage.</p><ul><li>The <b>baseline</b> mimics what a buyer would do: look at the median price of cars of the same make, model and age.</li><li><b>CatBoost</b> handles categorical variables like make and model well, and cuts error by 33% vs the baseline.</li><li>On the test set, <b>14,244 listings it had never seen</b>, the average error is <b>€2,118 (8.5%)</b>.</li></ul></div>
@@ -346,6 +361,9 @@ footer{padding:0 0 40px;color:var(--soft);font-size:14px}
 
     <h3 style="font-size:20px;margin-top:44px">What I learned</h3>
     <ul class="learn"><li><b>Duplicates can inflate a model.</b> The same car at several branches could end up in both train and test; removing it prevents overly optimistic results.</li><li><b>A good baseline gives context.</b> "8.5% error" says little on its own; "33% less than eyeballing" says a lot.</li><li><b>A model is more useful when people can use it.</b> Publishing it as an app, with a clear verdict and an explanation, makes it understandable to anyone.</li></ul>
+
+    <h3 style="font-size:20px;margin-top:44px">Data source</h3>
+    <ul class="sources"><li><a href="https://www.autoscout24.es/" target="_blank" rel="noopener">AutoScout24 Spain ↗</a></li></ul>
 
     <h3 style="font-size:20px;margin-top:44px">Stack</h3>
     <div class="pills"><span class="pill">Python</span><span class="pill">pandas</span><span class="pill">NumPy</span><span class="pill">Web scraping</span><span class="pill">scikit-learn</span><span class="pill">Random Forest</span><span class="pill">CatBoost</span><span class="pill">SHAP</span><span class="pill">seaborn</span><span class="pill">matplotlib</span><span class="pill">Streamlit</span><span class="pill">GitHub</span></div>
