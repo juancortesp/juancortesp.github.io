@@ -1,0 +1,43 @@
+name: Nuevo post de LinkedIn
+description: Añade un post a la sección Posts de la web (ES y EN)
+title: "Nuevo post"
+labels: ["post"]
+body:
+  - type: input
+    id: enlace
+    attributes:
+      label: Enlace del post
+      description: Copia el enlace del post en LinkedIn (Compartir → Copiar enlace)
+      placeholder: https://www.linkedin.com/posts/...
+    validations:
+      required: true
+  - type: dropdown
+    id: etiqueta
+    attributes:
+      label: Etiqueta
+      options: [Proyecto, SQL, Python, Power BI, EDA, Excel, Estadística, Carrera, Otro]
+    validations:
+      required: true
+  - type: input
+    id: titulo
+    attributes:
+      label: Título
+      description: Corto, como un titular
+    validations:
+      required: true
+  - type: textarea
+    id: resumen
+    attributes:
+      label: Resumen
+      description: 1 o 2 frases con algún dato concreto
+    validations:
+      required: true
+  - type: input
+    id: titulo_en
+    attributes:
+      label: Título en inglés (opcional)
+      description: Si lo dejas vacío, la versión en inglés usa el título en español
+  - type: textarea
+    id: resumen_en
+    attributes:
+      label: Resumen en inglés (opcional)

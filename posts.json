@@ -1,0 +1,80 @@
+[
+  {
+    "url": "https://www.linkedin.com/feed/update/urn:li:activity:7525832852559601665/",
+    "fecha": "nov 2026",
+    "etiqueta": "Proyecto",
+    "titulo": "¿Chollo o timo? Una calculadora del precio justo de un coche",
+    "resumen": "99.381 anuncios de AutoScout24, 71.220 tras limpiar y un modelo que te dice si el precio de un coche de segunda mano es chollo, normal o caro, y por qué.",
+    "en": {
+      "fecha": "Nov 2026",
+      "etiqueta": "Project",
+      "titulo": "Bargain or rip-off? A fair price calculator for used cars",
+      "resumen": "99,381 AutoScout24 listings, 71,220 after cleaning, and a model that tells you whether a used car price is a bargain, fair or too high, and why."
+    }
+  },
+  {
+    "url": "https://es.linkedin.com/posts/juan-cortes-paredes_los-barrios-con-m%C3%A1s-pisos-tur%C3%ADsticos-tienen-activity-7518932341721927683-uBHv",
+    "fecha": "oct 2026",
+    "etiqueta": "Proyecto",
+    "titulo": "¿Los barrios con más pisos turísticos tienen alquileres más caros?",
+    "resumen": "100 barrios de Madrid, 4 fuentes cruzadas y una regresión que explica el 70 % de las diferencias de precio. La respuesta corta es sí, pero con matices.",
+    "en": {
+      "fecha": "Oct 2026",
+      "etiqueta": "Project",
+      "titulo": "Do neighbourhoods with more tourist flats have higher rents?",
+      "resumen": "100 Madrid neighbourhoods, 4 cross-referenced sources and a regression that explains 70% of price differences. Short answer: yes, with nuances."
+    }
+  },
+  {
+    "url": "https://es.linkedin.com/posts/juan-cortes-paredes_sql-funciones-de-ventana-activity-7524021069800710144-oY0t",
+    "fecha": "nov 2026",
+    "etiqueta": "SQL",
+    "titulo": "Funciones de ventana: el total sin perder el detalle",
+    "resumen": "GROUP BY colapsa filas; OVER() las mantiene. ROW_NUMBER, PARTITION BY y ORDER BY con un caso real: el pedido más alto de cada cliente.",
+    "en": {
+      "fecha": "Nov 2026",
+      "etiqueta": "SQL",
+      "titulo": "Window functions: the total without losing the detail",
+      "resumen": "GROUP BY collapses rows; OVER() keeps them. ROW_NUMBER, PARTITION BY and ORDER BY with a real case: each customer's largest order."
+    }
+  },
+  {
+    "url": "https://es.linkedin.com/posts/juan-cortes-paredes_limpiar-dataset-real-activity-7523367391041572864-ATzW",
+    "fecha": "nov 2026",
+    "etiqueta": "Python",
+    "titulo": "Limpiar un dataset real: 2.000 clientes y 33 columnas",
+    "resumen": "Fechas como texto, 131 nulos, edades imposibles y 4 métodos de outliers que dan 251, 40, 4 y 60 casos. Elegir el método también es analizar.",
+    "en": {
+      "fecha": "Nov 2026",
+      "etiqueta": "Python",
+      "titulo": "Cleaning a real dataset: 2,000 customers and 33 columns",
+      "resumen": "Dates stored as text, 131 nulls, impossible ages and 4 outlier methods returning 251, 40, 4 and 60 cases. Choosing the method is analysis too."
+    }
+  },
+  {
+    "url": "https://es.linkedin.com/posts/juan-cortes-paredes_qu%C3%A9-es-el-eda-y-para-qu%C3%A9-sirve-detectar-activity-7521481772929286144-KS8p",
+    "fecha": "oct 2026",
+    "etiqueta": "EDA",
+    "titulo": "¿Qué es el EDA y para qué sirve?",
+    "resumen": "Detectar problemas, entender lo que tienes y encontrar las preguntas buenas antes de modelar nada.",
+    "en": {
+      "fecha": "Oct 2026",
+      "etiqueta": "EDA",
+      "titulo": "What is EDA and what is it for?",
+      "resumen": "Spotting problems, understanding what you have and finding the right questions before modelling anything."
+    }
+  },
+  {
+    "url": "https://es.linkedin.com/posts/juan-cortes-paredes_se-habla-mucho-de-si-los-pisos-tur%C3%ADsticos-activity-7520757019595841536-p8T6",
+    "fecha": "oct 2026",
+    "etiqueta": "Proyecto",
+    "titulo": "Pisos turísticos y alquiler en Madrid: el resumen",
+    "resumen": "Los barrios con más pisos turísticos tienen alquileres más caros, incluso descontando renta y distancia al centro. Pero no son el único factor.",
+    "en": {
+      "fecha": "Oct 2026",
+      "etiqueta": "Project",
+      "titulo": "Tourist flats and rent in Madrid: the summary",
+      "resumen": "Neighbourhoods with more tourist flats have higher rents, even after controlling for income and distance to the centre. But they are not the only factor."
+    }
+  }
+]
