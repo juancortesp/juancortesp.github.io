@@ -19,7 +19,32 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}</style>
+<style>@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2")}@font-face{font-family:"JetBrains Mono";font-style:normal;font-display:swap;font-weight:500;src:url(/assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+/* cabecera: frase, stack y CTA */
+.stackline{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
+.stackline span{font:500 13px "JetBrains Mono",monospace;padding:5px 11px;border-radius:9px;background:#fff;border:1px solid var(--line);color:var(--text)}
+.hcta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+/* trayectoria */
+.path{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:28px;position:relative}
+.path::before{content:"";position:absolute;left:10%;right:10%;top:7px;height:2px;background:var(--line)}
+.path li{position:relative;text-align:center;padding:0 6px}
+.path li::before{content:"";display:block;width:16px;height:16px;margin:0 auto 10px;border-radius:50%;background:#fff;border:3px solid var(--accent);position:relative}
+.path li.now::before{background:var(--accent)}
+.path .y{font:500 12px "JetBrains Mono",monospace;color:var(--accent)}
+.path b{display:block;font-size:15px;margin-top:2px}
+.path span{display:block;font-size:13px;color:var(--soft);line-height:1.4}
+@media (max-width:720px){.path{grid-template-columns:1fr;gap:14px}.path::before{left:7px;right:auto;top:8px;bottom:8px;width:2px;height:auto}.path li{text-align:left;padding-left:30px}.path li::before{position:absolute;left:0;top:2px;margin:0}}
+/* habilidades como pipeline */
+.skills.pipe{grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:sk}
+.skills.pipe .sk{padding:18px}
+.skills.pipe .sk h3{font-size:16px;margin-bottom:4px;display:block}
+.skills.pipe .sk h3::before{counter-increment:sk;content:"0" counter(sk);display:block;font:500 12px "JetBrains Mono",monospace;color:var(--accent);margin-bottom:6px}
+.skills.pipe .sk p{font-size:13px;color:var(--soft);margin-bottom:12px;line-height:1.45}
+.skills.pipe .tools{gap:6px}.skills.pipe .tool{font-size:13px;padding:6px 10px}
+.pipenote{font-size:14px;color:var(--soft);margin-top:14px}
+@media (max-width:1100px){.skills.pipe{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){.skills.pipe{grid-template-columns:1fr}}
+</style>
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -386,7 +411,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
     </div>
     <p class="hi">Hi, I'm Juan 👋</p>
     <h1><span class="sr">Juan Cortés Paredes, </span>Data <span>Analyst</span></h1>
-    <p class="sub">Data Analyst with <b>4+ years of experience in digital marketing</b>, specialised in KPIs, reporting and strategic analysis. Proficient in <b>SQL, Python and Power BI</b> to turn data into actionable business decisions.</p>
+    <p class="sub">I turn data into <b>business decisions</b>. 4+ years analysing KPIs and performance in digital marketing.</p>
+    <div class="stackline" aria-label="Stack"><span>SQL</span><span>Python</span><span>Power BI</span><span>DAX</span><span>Excel</span></div>
+    <div class="hcta"><a class="btn primary" href="../assets/CV-Juan-Cortes-Paredes-Data-Analyst.pdf" download>Download CV</a><a class="btn" href="#proyectos">See projects</a></div>
 
     <div class="chat">
       <div class="log" id="log" aria-live="polite"></div>
@@ -429,6 +456,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
       <p>I'm a <b>Data Analyst</b> based in Valladolid, Spain. I come from digital and performance marketing, where I spent years <b>defining KPIs, building dashboards and analysing business performance</b> and where it could improve.</p>
       <p>I started in Business Intelligence at <b>Self Bank</b>, working with SQL and Power BI. I then spent several years evaluating investment performance across different markets, sectors and clients.</p>
       <p>In the end, both worlds share the same core: <b>turning a business problem into a measurable question</b>. I enjoy it when that question becomes a well-written query, a model you can explain and a chart anyone can understand.</p>
+      <ol class="path" aria-label="Career path"><li class=""><span class="y">2018</span><b>Self Bank</b><span>Business Intelligence</span></li><li class=""><span class="y">2021</span><b>VORO Marketing</b><span>Reporting and dashboards</span></li><li class=""><span class="y">2024</span><b>Orenes Grupo</b><span>Paid Media Specialist</span></li><li class=""><span class="y">2025</span><b>Relevantium</b><span>Campaign analytics</span></li><li class="now"><span class="y">2026</span><b>NEOLAND</b><span>Data Analyst</span></li></ol>
     </div>
   </div>
 </section>
@@ -541,17 +569,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 <!-- HABILIDADES -->
 <section class="s" id="habilidades">
   <div class="wrap">
-    <div class="head reveal"><span class="kicker">Technical skills</span><h2>Tools I work with</h2></div>
-    <div class="skills">
-      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>Data and programming</h3>
-        <div class="tools"><span class="tool">Advanced SQL (JOINs, CTEs)</span><span class="tool">Python</span><span class="tool">pandas</span><span class="tool">NumPy</span><span class="tool">Jupyter Notebooks</span><span class="tool">Advanced Excel</span><span class="tool">Git / GitHub</span><span class="tool">Data warehouse</span></div></div>
-      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7"/><rect x="12" y="6" width="3" height="11"/><rect x="17" y="13" width="3" height="4"/></svg></span>Visualisation and BI</h3>
-        <div class="tools"><span class="tool">Power BI</span><span class="tool">DAX</span><span class="tool">Power Query</span><span class="tool">Data modelling</span><span class="tool">Looker Studio</span><span class="tool">Tableau</span><span class="tool">Hotjar</span></div></div>
-      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>Digital analytics</h3>
-        <div class="tools"><span class="tool">Google Analytics 4</span><span class="tool">Google Tag Manager</span><span class="tool">A/B testing</span></div></div>
-      <div class="sk reveal"><h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>Analysis</h3>
-        <div class="tools"><span class="tool">Data cleaning</span><span class="tool">EDA</span><span class="tool">ETL</span><span class="tool">Web scraping</span><span class="tool">KPIs and metrics</span><span class="tool">Statistics</span><span class="tool">Machine learning</span></div></div>
-    </div>
+    <div class="head reveal"><span class="kicker">Technical skills</span><h2>From raw data to decision</h2></div>
+    <div class="skills pipe"><div class="sk reveal"><h3>Extract</h3><p>Get and combine the data.</p><div class="tools"><span class="tool">Advanced SQL (JOINs, CTEs, window functions)</span><span class="tool">ETL</span><span class="tool">Web scraping</span><span class="tool">Data warehouse</span><span class="tool">Advanced Excel</span></div></div><div class="sk reveal"><h3>Clean</h3><p>Make the data ready and reliable.</p><div class="tools"><span class="tool">Python</span><span class="tool">pandas</span><span class="tool">NumPy</span><span class="tool">Jupyter Notebooks</span><span class="tool">Data cleaning</span><span class="tool">Git / GitHub</span></div></div><div class="sk reveal"><h3>Analyse</h3><p>Find out what is happening and why.</p><div class="tools"><span class="tool">EDA</span><span class="tool">Statistics</span><span class="tool">A/B testing</span><span class="tool">Machine learning</span></div></div><div class="sk reveal"><h3>Visualise</h3><p>Tell it to whoever decides.</p><div class="tools"><span class="tool">Power BI</span><span class="tool">DAX</span><span class="tool">Power Query</span><span class="tool">Data modelling</span><span class="tool">Looker Studio</span><span class="tool">Tableau</span></div></div><div class="sk reveal"><h3>Measure the business</h3><p>Link the analysis to results.</p><div class="tools"><span class="tool">KPIs and metrics</span><span class="tool">Google Analytics 4</span><span class="tool">Google Tag Manager</span><span class="tool">Hotjar</span></div></div></div>
+    <p class="pipenote">Ordered like an analysis: first get the data, finally measure its impact on the business.</p>
   </div>
 </section>
 
@@ -611,6 +631,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
       <div class="cta">
         <a class="btn primary" href="#" data-mail>Email me</a>
         <button class="btn" id="copy" type="button">Copy email</button>
+        <a class="btn" href="../assets/CV-Juan-Cortes-Paredes-Data-Analyst.pdf" download>Download CV</a>
       </div>
       <div class="clinks">
         <a href="#" data-mail><span data-mail-text>infojuancortesp [at] gmail.com</span></a>
