@@ -579,14 +579,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   <a class="post reveal " href="https://es.linkedin.com/posts/juan-cortes-paredes_limpiar-dataset-real-activity-7523367391041572864-ATzW" target="_blank" rel="noopener">
     <div class="meta"><span class="tag">Python</span><span>nov 2026</span></div>
     <h3>Limpiar un dataset real: 2.000 clientes y 33 columnas</h3><p>Fechas como texto, 131 nulos, edades imposibles y 4 métodos de outliers que dan 251, 40, 4 y 60 casos. Elegir el método también es analizar.</p><span class="more">Leer en LinkedIn ↗</span>
-  </a>
-  <a class="post reveal " href="https://es.linkedin.com/posts/juan-cortes-paredes_qu%C3%A9-es-el-eda-y-para-qu%C3%A9-sirve-detectar-activity-7521481772929286144-KS8p" target="_blank" rel="noopener">
-    <div class="meta"><span class="tag">EDA</span><span>oct 2026</span></div>
-    <h3>¿Qué es el EDA y para qué sirve?</h3><p>Detectar problemas, entender lo que tienes y encontrar las preguntas buenas antes de modelar nada.</p><span class="more">Leer en LinkedIn ↗</span>
-  </a>
-  <a class="post reveal " href="https://es.linkedin.com/posts/juan-cortes-paredes_se-habla-mucho-de-si-los-pisos-tur%C3%ADsticos-activity-7520757019595841536-p8T6" target="_blank" rel="noopener">
-    <div class="meta"><span class="tag">Proyecto</span><span>oct 2026</span></div>
-    <h3>Pisos turísticos y alquiler en Madrid: el resumen</h3><p>Los barrios con más pisos turísticos tienen alquileres más caros, incluso descontando renta y distancia al centro. Pero no son el único factor.</p><span class="more">Leer en LinkedIn ↗</span>
   </a></div>
     <div class="allposts reveal"><a class="btn" href="https://www.linkedin.com/in/juan-cortes-paredes/recent-activity/all/" target="_blank" rel="noopener">Ver todos en LinkedIn ↗</a></div>
   </div>
@@ -644,9 +636,7 @@ const POSTS = [
   {tag:'Proyecto', date:'nov 2026', t:'¿Chollo o timo? Una calculadora del precio justo de un coche', d:'99.381 anuncios de AutoScout24, 71.220 tras limpiar y un modelo que te dice si el precio de un coche de segunda mano es chollo, normal o caro, y por qué.', url:'https://www.linkedin.com/feed/update/urn:li:activity:7525832852559601665/'},
   {tag:'Proyecto', date:'oct 2026', t:'¿Los barrios con más pisos turísticos tienen alquileres más caros?', d:'100 barrios de Madrid, 4 fuentes cruzadas y una regresión que explica el 70 % de las diferencias de precio. La respuesta corta es sí, pero con matices.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_los-barrios-con-m%C3%A1s-pisos-tur%C3%ADsticos-tienen-activity-7518932341721927683-uBHv'},
   {tag:'SQL', date:'nov 2026', t:'Funciones de ventana: el total sin perder el detalle', d:'GROUP BY colapsa filas; OVER() las mantiene. ROW_NUMBER, PARTITION BY y ORDER BY con un caso real: el pedido más alto de cada cliente.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_sql-funciones-de-ventana-activity-7524021069800710144-oY0t'},
-  {tag:'Python', date:'nov 2026', t:'Limpiar un dataset real: 2.000 clientes y 33 columnas', d:'Fechas como texto, 131 nulos, edades imposibles y 4 métodos de outliers que dan 251, 40, 4 y 60 casos. Elegir el método también es analizar.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_limpiar-dataset-real-activity-7523367391041572864-ATzW'},
-  {tag:'EDA', date:'oct 2026', t:'¿Qué es el EDA y para qué sirve?', d:'Detectar problemas, entender lo que tienes y encontrar las preguntas buenas antes de modelar nada.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_qu%C3%A9-es-el-eda-y-para-qu%C3%A9-sirve-detectar-activity-7521481772929286144-KS8p'},
-  {tag:'Proyecto', date:'oct 2026', t:'Pisos turísticos y alquiler en Madrid: el resumen', d:'Los barrios con más pisos turísticos tienen alquileres más caros, incluso descontando renta y distancia al centro. Pero no son el único factor.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_se-habla-mucho-de-si-los-pisos-tur%C3%ADsticos-activity-7520757019595841536-p8T6'}
+  {tag:'Python', date:'nov 2026', t:'Limpiar un dataset real: 2.000 clientes y 33 columnas', d:'Fechas como texto, 131 nulos, edades imposibles y 4 métodos de outliers que dan 251, 40, 4 y 60 casos. Elegir el método también es analizar.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_limpiar-dataset-real-activity-7523367391041572864-ATzW'}
 ];
 document.getElementById('postsGrid').innerHTML = POSTS.map(p=>`
   <a class="post reveal ${p.feat?'feat':''}" href="${p.url}" target="_blank" rel="noopener">

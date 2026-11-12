@@ -75,7 +75,8 @@
       "etiqueta": "EDA",
       "titulo": "What is EDA and what is it for?",
       "resumen": "Spotting problems, understanding what you have and finding the right questions before modelling anything."
-    }
+    },
+    "oculto": true
   },
   {
     "url": "https://es.linkedin.com/posts/juan-cortes-paredes_se-habla-mucho-de-si-los-pisos-tur%C3%ADsticos-activity-7520757019595841536-p8T6",
@@ -88,6 +89,7 @@
       "etiqueta": "Project",
       "titulo": "Tourist flats and rent in Madrid: the summary",
       "resumen": "Neighbourhoods with more tourist flats have higher rents, even after controlling for income and distance to the centre. But they are not the only factor."
-    }
+    },
+    "oculto": true
   }
 ]

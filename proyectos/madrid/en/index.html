@@ -137,6 +137,21 @@ td b{font-weight:700}
 .next .cta{justify-content:center}
 .next .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
 .next .btn.primary{background:#fff;color:var(--accent-2);border-color:#fff}
+/* otros proyectos */
+.others{margin:8px 0 56px}
+.others h2{font-size:24px;letter-spacing:-.5px;margin-bottom:18px}
+.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.oc{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--text);transition:.15s}
+.oc:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.oc .om{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.oc .om img{width:100%;height:100%;object-fit:cover}
+.oc .om span{color:#fff;font-weight:900;font-size:26px;letter-spacing:-1px}
+.oc .ob{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.oc .ot{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent)}
+.oc h3{font-size:16px;line-height:1.3;letter-spacing:-.2px}
+.oc p{font-size:14px;color:var(--muted)}
+.oc .go{margin-top:auto;padding-top:6px;font-size:14px;font-weight:600;color:var(--accent)}
+@media (max-width:860px){.ogrid{grid-template-columns:1fr}}
 footer{padding:0 0 40px;color:var(--soft);font-size:14px}
 
 /* lightbox */
@@ -334,6 +349,10 @@ dialog .dcap{color:#e9e3ff;text-align:center;margin-top:10px;font-size:14px}
         <a class="btn" href="https://github.com/juancortesp/presion-turistica-alquiler-madrid" target="_blank" rel="noopener">Code on GitHub ↗</a>
         <a class="btn" href="../../../en/#proyectos">← Back to projects</a>
       </div>
+    </div>
+    <div class="others">
+      <h2>Other projects</h2>
+      <div class="ogrid"><a class="oc" href="../../../proyectos/coches/en/"><div class="om" style="background:#0f8a74"><img src="../../../assets/coches-portada.webp" alt="" loading="lazy"></div><div class="ob"><span class="ot">Machine learning · App</span><h3>Bargain or rip-off? Fair price of a used car</h3><p>71,220 listings and a CatBoost model shipped as a web app.</p><span class="go">View case study →</span></div></a><a class="oc" href="../../../en/#proyectos"><div class="om" style="background:linear-gradient(135deg,#0b1f24,#0f766e)"><span>VERSUS</span></div><div class="ob"><span class="ot">Performance marketing</span><h3>VERSUS: −37% cost per acquisition</h3><p>Funnel, keywords and an acquisition landing page.</p><span class="go">View the case →</span></div></a><a class="oc" href="../../../en/#proyectos"><div class="om" style="background:linear-gradient(135deg,#111827,#4d7c0f)"><span>WINNDER</span></div><div class="ob"><span class="ot">Performance marketing</span><h3>WINNDER: from negative ROAS to break-even</h3><p>UGC creatives, TikTok and brand search.</p><span class="go">View the case →</span></div></a></div>
     </div>
   </div>
 </section>
