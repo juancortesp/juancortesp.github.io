@@ -7,6 +7,7 @@ PJ = ROOT / "posts.json"
 TAG_EN = {"Proyecto": "Project", "Otro": "Other"}
 MES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sept", "oct", "nov", "dic"]
 MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+MAX = 5  # posts visibles en la web; los marcados "oculto": true no se muestran
 PAGES = {"index.html": ("es", "Leer en LinkedIn ↗"), "en/index.html": ("en", "Read on LinkedIn ↗")}
 
 def js(s):
@@ -34,6 +35,7 @@ def from_issue(body):
     return p
 
 def build(posts):
+    posts = [p for p in posts if not p.get("oculto")][:MAX]
     for rel, (lang, more) in PAGES.items():
         f = ROOT / rel; s = f.read_text(encoding="utf-8")
         items = []

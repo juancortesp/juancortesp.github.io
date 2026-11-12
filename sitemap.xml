@@ -48,4 +48,36 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/coches/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/proyectos/coches/"/>
   </url>
+  <url>
+    <loc>https://juancortesp.github.io/proyectos/versus/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/versus/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/versus/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/proyectos/versus/"/>
+  </url>
+  <url>
+    <loc>https://juancortesp.github.io/proyectos/versus/en/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/versus/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/versus/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/proyectos/versus/"/>
+  </url>
+  <url>
+    <loc>https://juancortesp.github.io/proyectos/winnder/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/winnder/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/winnder/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/proyectos/winnder/"/>
+  </url>
+  <url>
+    <loc>https://juancortesp.github.io/proyectos/winnder/en/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://juancortesp.github.io/proyectos/winnder/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juancortesp.github.io/proyectos/winnder/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juancortesp.github.io/proyectos/winnder/"/>
+  </url>
 </urlset>
