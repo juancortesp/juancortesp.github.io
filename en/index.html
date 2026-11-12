@@ -560,7 +560,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   <div class="wrap">
     <div class="head reveal"><span class="kicker">Posts</span><h2>I write about data</h2><p>What I learn and practise, shared on LinkedIn (in Spanish).</p></div>
     <div class="posts" id="postsGrid">
-  <a class="post reveal feat" href="https://www.linkedin.com/feed/update/urn:li:activity:7525832852559601665/" target="_blank" rel="noopener">
+  <a class="post reveal feat" href="https://www.linkedin.com/feed/update/urn:li:activity:7526557275143139328/" target="_blank" rel="noopener">
+    <div class="meta"><span class="tag">Project</span><span>Nov 2026</span></div>
+    <h3>Is it cheaper to buy a car in another province?</h3><p>43 provinces and 71,000+ listings: for the same car, location barely changes the price. The real differences are in each listing, with some sellers asking 15-20% too much.</p><span class="more">Read on LinkedIn ↗</span>
+  </a>
+  <a class="post reveal " href="https://www.linkedin.com/feed/update/urn:li:activity:7525832852559601665/" target="_blank" rel="noopener">
     <div class="meta"><span class="tag">Project</span><span>Nov 2026</span></div>
     <h3>Bargain or rip-off? A fair price calculator for used cars</h3><p>99,381 AutoScout24 listings, 71,220 after cleaning, and a model that tells you whether a used car price is a bargain, fair or too high, and why.</p><span class="more">Read on LinkedIn ↗</span>
   </a>
@@ -636,7 +640,8 @@ document.querySelectorAll('[data-mail-text]').forEach(s=>s.textContent=EM);
 <script>
 /* ============ POSTS (to add one, copy a line) ============ */
 const POSTS = [
-  {feat:true, tag:'Project', date:'Nov 2026', t:'Bargain or rip-off? A fair price calculator for used cars', d:'99,381 AutoScout24 listings, 71,220 after cleaning, and a model that tells you whether a used car price is a bargain, fair or too high, and why.', url:'https://www.linkedin.com/feed/update/urn:li:activity:7525832852559601665/'},
+  {feat:true, tag:'Project', date:'Nov 2026', t:'Is it cheaper to buy a car in another province?', d:'43 provinces and 71,000+ listings: for the same car, location barely changes the price. The real differences are in each listing, with some sellers asking 15-20% too much.', url:'https://www.linkedin.com/feed/update/urn:li:activity:7526557275143139328/'},
+  {tag:'Project', date:'Nov 2026', t:'Bargain or rip-off? A fair price calculator for used cars', d:'99,381 AutoScout24 listings, 71,220 after cleaning, and a model that tells you whether a used car price is a bargain, fair or too high, and why.', url:'https://www.linkedin.com/feed/update/urn:li:activity:7525832852559601665/'},
   {tag:'Project', date:'Oct 2026', t:'Do neighbourhoods with more tourist flats have higher rents?', d:'100 Madrid neighbourhoods, 4 cross-referenced sources and a regression that explains 70% of price differences. Short answer: yes, with nuances.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_los-barrios-con-m%C3%A1s-pisos-tur%C3%ADsticos-tienen-activity-7518932341721927683-uBHv'},
   {tag:'SQL', date:'Nov 2026', t:'Window functions: the total without losing the detail', d:'GROUP BY collapses rows; OVER() keeps them. ROW_NUMBER, PARTITION BY and ORDER BY with a real case: each customer\'s largest order.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_sql-funciones-de-ventana-activity-7524021069800710144-oY0t'},
   {tag:'Python', date:'Nov 2026', t:'Cleaning a real dataset: 2,000 customers and 33 columns', d:'Dates stored as text, 131 nulls, impossible ages and 4 outlier methods returning 251, 40, 4 and 60 cases. Choosing the method is analysis too.', url:'https://es.linkedin.com/posts/juan-cortes-paredes_limpiar-dataset-real-activity-7523367391041572864-ATzW'},
