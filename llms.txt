@@ -11,6 +11,8 @@ This site is Juan's portfolio, in Spanish (default) and English.
 ## Case studies
 - [Do tourist flats push up rents in Madrid?](https://juancortesp.github.io/proyectos/madrid/en/): 100 neighbourhoods, 5 public sources, OLS regression (R² 0.70), K-means and a Power BI dashboard. Tourist flats have a significant but small effect (at most ≈€31/month); location and income matter most. Spanish version: https://juancortesp.github.io/proyectos/madrid/
 - [Bargain or rip-off? Fair-price calculator for used cars](https://juancortesp.github.io/proyectos/coches/en/): CatBoost model trained on 71,220 AutoScout24 listings; average error €2,118 (8.5%), 33% lower than comparing with cars of the same model and age. Live app: https://chollo-o-timo-coches.streamlit.app. Spanish version: https://juancortesp.github.io/proyectos/coches/
+- [VERSUS: −37% cost per acquisition on Google Ads](https://juancortesp.github.io/proyectos/versus/en/): sports betting and casino brand in Spain (Orenes Grupo). Search term, campaign structure and website funnel analysis; CPA −37%, CPL −29%, FTDs +14%, sign-ups +9% vs 2024. Spanish version: https://juancortesp.github.io/proyectos/versus/
+- [WINNDER: from negative ROAS to break-even with social ads](https://juancortesp.github.io/proyectos/winnder/en/): video game competition platform in Spain (Orenes Grupo). UGC creative testing on TikTok and Meta Ads, brand campaigns on Performance Max; sign-ups +44%, FTDs +23%, ROAS from losses to break-even. Spanish version: https://juancortesp.github.io/proyectos/winnder/
 
 ## Contact
 - [LinkedIn](https://www.linkedin.com/in/juan-cortes-paredes/)

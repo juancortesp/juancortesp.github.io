@@ -492,7 +492,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
     
     <div class="pills"><span class="pill">Web scraping</span><span class="pill">EDA</span><span class="pill">Random Forest</span><span class="pill">CatBoost</span><span class="pill">Streamlit</span></div>
     <div class="links"><a class="btn primary" href="../proyectos/coches/en/">See case study →</a><a class="btn " href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Try the calculator ↗</a><a class="btn " href="https://github.com/juancortesp/chollo-o-timo" target="_blank" rel="noopener">Code on GitHub ↗</a></div>
-  </div></article><article class="pc "><div class="media" style="background:linear-gradient(135deg,#0b1f24,#0f766e)"><span class="wordmark">VERSUS</span></div><div class="pb">
+  </div></article><article class="pc "><a class="media" href="../proyectos/versus/en/" style="background:linear-gradient(135deg,#0b1f24,#0f766e)"><span class="wordmark">VERSUS</span></a><div class="pb">
     <div class="tagrow"><span class="badge ">Performance marketing</span><span class="badge">Orenes Grupo · 2024 → 2025</span></div>
     <h3>From funnel leaks to −37% cost per acquisition</h3><p class="sum">Sports betting and casino. Funnel and keyword diagnosis, a dedicated landing page and separate budgets per vertical.</p>
     <div class="mets"><div class="met"><div class="n up">−37%</div><div class="l">CPA</div></div><div class="met"><div class="n up">−29%</div><div class="l">CPL</div></div><div class="met"><div class="n up">+14%</div><div class="l">first deposits</div></div><div class="met"><div class="n up">+9%</div><div class="l">sign-ups</div></div></div>
@@ -501,7 +501,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
       <div class="step"><b>Actions</b><ul><li>Campaigns restructured with exact match and search-term cleanup.</li><li>Dedicated acquisition landing page: better Quality Score and lower CPA.</li><li>Budget split by vertical (betting and casino) to measure and optimise.</li></ul></div></div></details>
     <div class="pills"><span class="pill">Funnel analysis</span><span class="pill">A/B testing</span><span class="pill">Google Ads</span><span class="pill">KPIs</span></div>
     
-  </div></article><article class="pc "><div class="media" style="background:linear-gradient(135deg,#111827,#4d7c0f)"><span class="wordmark">WINNDER</span></div><div class="pb">
+  </div></article><article class="pc "><a class="media" href="../proyectos/winnder/en/" style="background:linear-gradient(135deg,#111827,#4d7c0f)"><span class="wordmark">WINNDER</span></a><div class="pb">
     <div class="tagrow"><span class="badge ">Performance marketing</span><span class="badge">Orenes Grupo · 2024 → 2025</span></div>
     <h3>From negative ROAS to break-even</h3><p class="sum">Video-game competition platform with an unprofitable CAC and lost brand searches ("Winnder" → "winner").</p>
     <div class="mets"><div class="met"><div class="n up">+44%</div><div class="l">sign-ups</div></div><div class="met"><div class="n up">+23%</div><div class="l">first deposits</div></div><div class="met"><div class="n up">Break-even</div><div class="l">ROAS: from losses to break-even</div></div></div>
@@ -704,14 +704,16 @@ const PROJECTS = [
    sum:'Sports betting and casino. Funnel and keyword diagnosis, a dedicated landing page and separate budgets per vertical.',
    mets:[{n:'−37%',l:'CPA',up:true},{n:'−29%',l:'CPL',up:true},{n:'+14%',l:'first deposits',up:true},{n:'+9%',l:'sign-ups',up:true}],
    tags:['Funnel analysis','A/B testing','Google Ads','KPIs'],
-   more:{d:['Unfiltered broad match: lots of irrelevant clicks in a high-CPC sector.','The website highlighted "Log in" and did not guide new users towards signing up.','Low impression share due to budget and ad quality.'],a:['Campaigns restructured with exact match and search-term cleanup.','Dedicated acquisition landing page: better Quality Score and lower CPA.','Budget split by vertical (betting and casino) to measure and optimise.']}},
+   more:{d:['Unfiltered broad match: lots of irrelevant clicks in a high-CPC sector.','The website highlighted "Log in" and did not guide new users towards signing up.','Low impression share due to budget and ad quality.'],a:['Campaigns restructured with exact match and search-term cleanup.','Dedicated acquisition landing page: better Quality Score and lower CPA.','Budget split by vertical (betting and casino) to measure and optimise.']},
+   links:[{t:'View case study →',u:'../proyectos/versus/en/',primary:true}]},
   {cat:'Performance marketing', badge:'Orenes Grupo · 2024 → 2025',
    media:{word:'WINNDER', bg:'linear-gradient(135deg,#111827,#4d7c0f)'},
    t:'From negative ROAS to break-even',
    sum:'Video-game competition platform with an unprofitable CAC and lost brand searches ("Winnder" → "winner").',
    mets:[{n:'+44%',l:'sign-ups',up:true},{n:'+23%',l:'first deposits',up:true},{n:'Break-even',l:'ROAS: from losses to break-even',up:true}],
    tags:['Creative testing','Search analysis','ROAS · CAC','Performance Max'],
-   more:{d:['Google autocorrected "Winnder" to "winner", losing brand searches.','Campaigns with no funnel structure or creative testing.','New business model in Spain, with unprofitable CAC and growth.'],a:['Creative testing: UGC instead of static images, finding the angles that worked best.','TikTok activation (paid and organic).','Brand campaigns in Performance Max to recover misspelled searches.']}}
+   more:{d:['Google autocorrected "Winnder" to "winner", losing brand searches.','Campaigns with no funnel structure or creative testing.','New business model in Spain, with unprofitable CAC and growth.'],a:['Creative testing: UGC instead of static images, finding the angles that worked best.','TikTok activation (paid and organic).','Brand campaigns in Performance Max to recover misspelled searches.']},
+   links:[{t:'View case study →',u:'../proyectos/winnder/en/',primary:true}]}
 ];
 const PAGE = 4;               // cards visible before "See more"
 let pFilter = 'All', pShown = PAGE;
@@ -720,7 +722,7 @@ function card(p){
   const m = p.media || {};
   const media = m.img
     ? `<a class="media" href="${p.links?.[0]?.u||'#'}" style="background:${m.bg||'var(--bg2)'}"><img src="${m.img}" alt="${esc(m.alt||p.t)}" loading="lazy"></a>`
-    : `<div class="media" style="background:${m.bg||'var(--accent)'}"><span class="wordmark">${esc(m.word||'')}</span></div>`;
+    : (p.links?`<a class="media" href="${p.links[0].u}" style="background:${m.bg||'var(--accent)'}"><span class="wordmark">${esc(m.word||'')}</span></a>`:`<div class="media" style="background:${m.bg||'var(--accent)'}"><span class="wordmark">${esc(m.word||'')}</span></div>`);
   const more = p.more ? `<details class="more"><summary>See the analysis</summary><div class="steps">
       <div class="step"><b>Diagnosis</b><ul>${p.more.d.map(x=>`<li>${x}</li>`).join('')}</ul></div>
       <div class="step"><b>Actions</b><ul>${p.more.a.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></details>` : '';

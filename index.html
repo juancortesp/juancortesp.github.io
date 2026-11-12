@@ -492,7 +492,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
     
     <div class="pills"><span class="pill">Web scraping</span><span class="pill">EDA</span><span class="pill">Random Forest</span><span class="pill">CatBoost</span><span class="pill">Streamlit</span></div>
     <div class="links"><a class="btn primary" href="proyectos/coches/">Ver case study →</a><a class="btn " href="https://chollo-o-timo-coches.streamlit.app" target="_blank" rel="noopener">Probar la calculadora ↗</a><a class="btn " href="https://github.com/juancortesp/chollo-o-timo" target="_blank" rel="noopener">Código en GitHub ↗</a></div>
-  </div></article><article class="pc "><div class="media" style="background:linear-gradient(135deg,#0b1f24,#0f766e)"><span class="wordmark">VERSUS</span></div><div class="pb">
+  </div></article><article class="pc "><a class="media" href="proyectos/versus/" style="background:linear-gradient(135deg,#0b1f24,#0f766e)"><span class="wordmark">VERSUS</span></a><div class="pb">
     <div class="tagrow"><span class="badge ">Performance marketing</span><span class="badge">Orenes Grupo · 2024 → 2025</span></div>
     <h3>De fugas en el embudo a −37 % de coste por adquisición</h3><p class="sum">Apuestas deportivas y casino. Diagnóstico del embudo y de las palabras clave, landing dedicada y separación de la inversión por vertical.</p>
     <div class="mets"><div class="met"><div class="n up">−37 %</div><div class="l">CPA</div></div><div class="met"><div class="n up">−29 %</div><div class="l">CPL</div></div><div class="met"><div class="n up">+14 %</div><div class="l">primeros depósitos</div></div><div class="met"><div class="n up">+9 %</div><div class="l">registros</div></div></div>
@@ -501,7 +501,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
       <div class="step"><b>Acciones</b><ul><li>Campañas reestructuradas con concordancia exacta y depuración de términos.</li><li>Landing dedicada a captación: mejor Quality Score y menor CPA.</li><li>Inversión separada por vertical (apuestas y casino) para medir y optimizar.</li></ul></div></div></details>
     <div class="pills"><span class="pill">Análisis de embudo</span><span class="pill">A/B testing</span><span class="pill">Google Ads</span><span class="pill">KPIs</span></div>
     
-  </div></article><article class="pc "><div class="media" style="background:linear-gradient(135deg,#111827,#4d7c0f)"><span class="wordmark">WINNDER</span></div><div class="pb">
+  </div></article><article class="pc "><a class="media" href="proyectos/winnder/" style="background:linear-gradient(135deg,#111827,#4d7c0f)"><span class="wordmark">WINNDER</span></a><div class="pb">
     <div class="tagrow"><span class="badge ">Performance marketing</span><span class="badge">Orenes Grupo · 2024 → 2025</span></div>
     <h3>De ROAS negativo a break-even</h3><p class="sum">Plataforma de competiciones de videojuegos con CAC no rentable y búsquedas de marca perdidas («Winnder» → «winner»).</p>
     <div class="mets"><div class="met"><div class="n up">+44 %</div><div class="l">registros</div></div><div class="met"><div class="n up">+23 %</div><div class="l">primeros depósitos</div></div><div class="met"><div class="n up">Break-even</div><div class="l">ROAS: de pérdidas a equilibrio</div></div></div>
@@ -709,14 +709,16 @@ const PROJECTS = [
    sum:'Apuestas deportivas y casino. Diagnóstico del embudo y de las palabras clave, landing dedicada y separación de la inversión por vertical.',
    mets:[{n:'−37 %',l:'CPA',up:true},{n:'−29 %',l:'CPL',up:true},{n:'+14 %',l:'primeros depósitos',up:true},{n:'+9 %',l:'registros',up:true}],
    tags:['Análisis de embudo','A/B testing','Google Ads','KPIs'],
-   more:{d:['Concordancia amplia sin filtros: muchos clics irrelevantes en un sector con CPC alto.','La web destacaba «Iniciar sesión» y no guiaba al usuario nuevo hacia el registro.','Cuota de impresiones baja por presupuesto y por calidad del anuncio.'],a:['Campañas reestructuradas con concordancia exacta y depuración de términos.','Landing dedicada a captación: mejor Quality Score y menor CPA.','Inversión separada por vertical (apuestas y casino) para medir y optimizar.']}},
+   more:{d:['Concordancia amplia sin filtros: muchos clics irrelevantes en un sector con CPC alto.','La web destacaba «Iniciar sesión» y no guiaba al usuario nuevo hacia el registro.','Cuota de impresiones baja por presupuesto y por calidad del anuncio.'],a:['Campañas reestructuradas con concordancia exacta y depuración de términos.','Landing dedicada a captación: mejor Quality Score y menor CPA.','Inversión separada por vertical (apuestas y casino) para medir y optimizar.']},
+   links:[{t:'Ver case study →',u:'proyectos/versus/',primary:true}]},
   {cat:'Performance marketing', badge:'Orenes Grupo · 2024 → 2025',
    media:{word:'WINNDER', bg:'linear-gradient(135deg,#111827,#4d7c0f)'},
    t:'De ROAS negativo a break-even',
    sum:'Plataforma de competiciones de videojuegos con CAC no rentable y búsquedas de marca perdidas («Winnder» → «winner»).',
    mets:[{n:'+44 %',l:'registros',up:true},{n:'+23 %',l:'primeros depósitos',up:true},{n:'Break-even',l:'ROAS: de pérdidas a equilibrio',up:true}],
    tags:['Test de creatividades','Análisis de búsquedas','ROAS · CAC','Performance Max'],
-   more:{d:['Google corregía «Winnder» por «winner» y se perdían búsquedas de marca.','Campañas sin estructura de embudo ni test de creatividades.','Modelo de negocio nuevo en España, con CAC y crecimiento no rentables.'],a:['Test de creatividades: UGC en lugar de imagen estática, detectando los ángulos que mejor funcionaban.','Activación de TikTok (paid y orgánico).','Campañas de marca en Performance Max para recuperar las búsquedas mal corregidas.']}}
+   more:{d:['Google corregía «Winnder» por «winner» y se perdían búsquedas de marca.','Campañas sin estructura de embudo ni test de creatividades.','Modelo de negocio nuevo en España, con CAC y crecimiento no rentables.'],a:['Test de creatividades: UGC en lugar de imagen estática, detectando los ángulos que mejor funcionaban.','Activación de TikTok (paid y orgánico).','Campañas de marca en Performance Max para recuperar las búsquedas mal corregidas.']},
+   links:[{t:'Ver case study →',u:'proyectos/winnder/',primary:true}]}
 ];
 const PAGE = 4;               // tarjetas visibles antes de «Ver más»
 let pFilter = 'Todos', pShown = PAGE;
@@ -725,7 +727,7 @@ function card(p){
   const m = p.media || {};
   const media = m.img
     ? `<a class="media" href="${p.links?.[0]?.u||'#'}" style="background:${m.bg||'var(--bg2)'}"><img src="${m.img}" alt="${esc(m.alt||p.t)}" loading="lazy"></a>`
-    : `<div class="media" style="background:${m.bg||'var(--accent)'}"><span class="wordmark">${esc(m.word||'')}</span></div>`;
+    : (p.links?`<a class="media" href="${p.links[0].u}" style="background:${m.bg||'var(--accent)'}"><span class="wordmark">${esc(m.word||'')}</span></a>`:`<div class="media" style="background:${m.bg||'var(--accent)'}"><span class="wordmark">${esc(m.word||'')}</span></div>`);
   const more = p.more ? `<details class="more"><summary>Ver el análisis</summary><div class="steps">
       <div class="step"><b>Diagnóstico</b><ul>${p.more.d.map(x=>`<li>${x}</li>`).join('')}</ul></div>
       <div class="step"><b>Acciones</b><ul>${p.more.a.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></details>` : '';
