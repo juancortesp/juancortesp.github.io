@@ -426,7 +426,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
         <button class="send" aria-label="Enviar pregunta">→</button>
       </form>
       <div class="sugg" id="sugg">
-        <button type="button">¿Qué tipo de puesto buscas?</button>
         <button type="button">¿Con qué plataformas trabajas?</button>
         <button type="button">¿Qué te diferencia?</button>
         <button type="button">¿Trabajas en remoto?</button>
@@ -575,7 +574,6 @@ document.querySelectorAll('[data-mail-text]').forEach(s=>s.textContent=EM);
 <script>
 /* ============ CHAT + FAQ (mismo contenido) ============ */
 const KB=[
- {q:'¿Qué tipo de puesto buscas?',k:['puesto','rol','que buscas','buscas','tipo de trabajo','in-house','agencia'],a:'Busco un puesto de <b>performance marketing in-house</b>, donde pueda trabajar a fondo las campañas de una marca y medir su impacto en negocio. Mi experiencia con datos me hace encajar especialmente bien en roles con mucha analítica: <b>marketing analytics, growth o paid media</b>.'},
  {q:'¿Con qué plataformas trabajas?',k:['plataforma','google ads','meta','facebook','tiktok','pmax','performance max','herramienta','ga4','gtm','tag manager','linkedin','twitter','x ads','seo','geo','search console'],a:'Google Ads (incluido Performance Max), Meta Ads, TikTok Ads, LinkedIn Ads y X Ads para captar, además de SEO y GEO; GA4, Google Tag Manager, Consent Mode y Google Search Console para medir; y Looker Studio y Power BI para el reporting. <a href="#habilidades">Ver herramientas →</a>'},
  {q:'¿Qué te diferencia?',k:['diferencia','por que tu','contratarte','aportas','aportar','destacas','datos','sql','python'],a:'No me quedo en lo que enseña la plataforma. Además de gestionar campañas, analizo datos con <b>SQL, Python y Power BI</b>, así que puedo cruzar fuentes, detectar errores de medición y encontrar dónde se pierde el dinero del embudo. <a href="#casos">Ver casos →</a>'},
  {q:'¿Trabajas en remoto?',k:['remoto','teletrabajo','hibrido','madrid','presencial','oficina','donde vives','vives','valladolid'],a:'Sí. Vivo en Valladolid y busco <b>remoto o híbrido</b>. Si el puesto es híbrido en Madrid, puedo desplazarme sin problema: en tren de alta velocidad estoy allí en alrededor de una hora.'},
@@ -586,10 +584,10 @@ const KB=[
  {k:['estudi','formacion','master','esic','bootcamp','neoland'],a:'Máster en Marketing Digital en ESIC, Grado en Comercio en la Universidad de Valladolid y Bootcamp de Data Analytics en NEOLAND (2026).'},
  {k:['contacto','email','correo','hablar','entrevista','escribirte'],a:'¡Hablemos! Escríbeme a <a href="mailto:'+EM+'">'+EM+'</a> o por <a href="https://www.linkedin.com/in/juan-cortes-paredes" target="_blank" rel="noopener">LinkedIn</a>.'},
  {k:['cv','curriculum'],a:'Aquí lo tienes: <a href="/assets/CV-Juan-Cortes-Paredes-Performance-Marketing.pdf" target="_blank" rel="noopener">descargar mi CV (PDF)</a>.'},
- {k:['hola','buenas','hey','buenos'],a:'¡Hola! Pregúntame por mis campañas, las plataformas que uso o el puesto que busco.'}
+ {k:['hola','buenas','hey','buenos'],a:'¡Hola! Pregúntame por mis campañas, las plataformas que uso o mi experiencia.'}
 ];
 document.getElementById('faqList').innerHTML=KB.filter(e=>e.q).map(e=>`<details><summary>${e.q}</summary><div class="a">${e.a}</div></details>`).join('');
-const FALLBACK='Esa no la tengo preparada 😅 Prueba con el puesto que busco, las plataformas que uso o un caso. O <a href="#contacto">escríbeme</a> y te respondo yo.';
+const FALLBACK='Esa no la tengo preparada 😅 Prueba con las plataformas que uso, si trabajo en remoto o un caso. O <a href="#contacto">escríbeme</a> y te respondo yo.';
 const log=document.getElementById('log'),q=document.getElementById('q');
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function answer(t){const n=norm(t);const ex=KB.find(e=>e.q&&norm(e.q)===n);if(ex)return ex.a;let best=null,score=0;KB.forEach(e=>{const s=e.k.filter(k=>n.includes(norm(k))).length;if(s>score){score=s;best=e}});return best?best.a:FALLBACK}
